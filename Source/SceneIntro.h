@@ -24,6 +24,23 @@ enum lightTypes
 	big
 };
 
+class ModuleSceneIntro;
+
+//struct Light
+//{
+//	Light() : body(NULL), texture(NULL), on(false), fx(0)
+//	{}
+//
+//	Light(ModuleSceneIntro* physics, int x, int y, lightTypes type);
+//
+//	lightTypes type;
+//	PhysBody* body;
+//	SDL_Texture* texture;
+//	bool on;
+//	uint fx;
+//	int x, y;
+//};
+
 class SceneIntro : public Scene
 {
 public:
@@ -59,6 +76,8 @@ public:
 	uint fx_light_tiny;
 	uint fx_light_medium;
 	uint fx_light_big;
+
+	/*p2DynArray<Light> lights;*/
 
 	PhysBody* player_lose;
 	uint player_lose_fx;

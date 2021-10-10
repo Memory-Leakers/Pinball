@@ -24,6 +24,9 @@ bool ModulePhysics::Start()
 	// - You need init the world in the constructor
 	// - Remember to destroy the world after using it
 
+	gravity = { 0.0f, -10.0f };
+
+	world = new b2World(gravity);
 
 	// TODO 4: Create a a big static circle as "ground"
 	return true;
@@ -33,6 +36,7 @@ bool ModulePhysics::Start()
 UpdateStatus ModulePhysics::PreUpdate()
 {
 	// TODO 3: Update the simulation ("step" the world)
+	world->Step(1.0f / 60.0f, 6, 2);
 
 	return UPDATE_CONTINUE;
 }
@@ -81,6 +85,7 @@ bool ModulePhysics::CleanUp()
 	LOG("Destroying physics world");
 
 	// Delete the whole physics world!
+	delete world;
 
 	return true;
 }

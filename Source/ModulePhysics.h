@@ -17,5 +17,8 @@ public:
 
 private:
 
+	b2Vec2 gravity;
+	b2World* world;
+
 	bool debug;
 };
