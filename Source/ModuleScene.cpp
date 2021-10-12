@@ -1,12 +1,13 @@
 #include "ModuleScene.h"
 #include "SceneIntro.h"
+#include "SceneMain.h"
 #include <time.h>
 
 Scene* currentScene = nullptr;
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	currentScene = new SceneIntro(App);
+	currentScene = new SceneMain(App);
 }
 
 ModuleScene::~ModuleScene()

@@ -38,7 +38,10 @@
       <Filter>SourceFiles\Engine\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneIntro.cpp">
-      <Filter>SourceFiles\Engine\Modules</Filter>
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneMain.cpp">
+      <Filter>SourceFiles\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +100,10 @@
       <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneIntro.h">
-      <Filter>HeaderFiles\Engine\Modules</Filter>
+      <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMain.h">
+      <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,12 @@
     </Filter>
     <Filter Include="HeaderFiles\Engine\Tools">
       <UniqueIdentifier>{63790ed0-e705-4cea-a5ea-ae468cc0a9b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFiles\Game">
+      <UniqueIdentifier>{94f2720e-4344-4d0d-9bf7-b3654f77a5a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HeaderFiles\Game">
+      <UniqueIdentifier>{f51c28e1-7e4f-4f28-945e-213744fc27c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

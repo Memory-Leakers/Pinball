@@ -30,6 +30,7 @@
     <ClInclude Include="Source\p2Point.h" />
     <ClInclude Include="Source\Point.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneMain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
@@ -45,6 +46,7 @@
     <ClCompile Include="Source\ModuleTextures.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\SceneMain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
