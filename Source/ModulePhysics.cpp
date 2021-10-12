@@ -3,8 +3,6 @@
 #include "ModulePhysics.h"
 #include "math.h"
 
-// TODO 1: Include Box 2 header and library
-
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;	
@@ -22,6 +20,7 @@ bool ModulePhysics::Start()
 
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	// TODO 3: You need to make ModulePhysics class a contact listener
+	world->SetContactListener(this);
 
 	return true;
 }
@@ -63,6 +62,8 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	pbody->body = b;
 	pbody->width = pbody->height = radius;
 
+	pbody->body->SetUserData(pbody);
+
 	return pbody;
 }
 
@@ -86,6 +87,8 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	pbody->body = b;
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
+
+	pbody->body->SetUserData(pbody);
 
 	return pbody;
 }
@@ -120,7 +123,24 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 	pbody->body = b;
 	pbody->width = pbody->height = 0;
 
+	pbody->body->SetUserData(pbody);
+
 	return pbody;
+}
+
+void ModulePhysics::BeginContact(b2Contact* contact)
+{
+	PhysBody* a = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
+
+	PhysBody* b = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
+
+	if(a && a->listenerModule)	
+	a->listenerModule->OnCollision(a, b);
+
+	if (b && b->listenerModule)
+	b->listenerModule->OnCollision(b, a);
+	
+	LOG("collision!!");
 }
 
 UpdateStatus ModulePhysics::PostUpdate()
@@ -234,6 +254,18 @@ bool PhysBody::Contains(int x, int y) const
 	// TODO 1: Write the code to return true in case the point
 	// is inside ANY of the shapes contained by this body
 
+	b2Fixture* f = body->GetFixtureList();
+
+	b2Vec2 b = { PIXELS_TO_METER(x),PIXELS_TO_METER(y) };
+
+	for (int i = 0; f != nullptr; f = f->GetNext())
+	{
+		if (f->GetShape()->TestPoint(body->GetTransform(),b))
+		{
+			return true;
+		}
+	}
+
 	return false;
 }
 
@@ -241,9 +273,39 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 {
 	// TODO 2: Write code to test a ray cast between both points provided. If not hit return -1
 	// if hit, fill normal_x and normal_y and return the distance between x1,y1 and it's colliding point
-	int ret = -1;
 
-	return ret;
+	b2Fixture* f = body->GetFixtureList();
+
+	b2RayCastInput input;
+	input.p1 = b2Vec2(PIXELS_TO_METER(x1), PIXELS_TO_METER(y1));
+	input.p2 = b2Vec2(PIXELS_TO_METER(x2), PIXELS_TO_METER(y2));
+
+	// multiplo de distancia entre p1 y p2
+	// ej distancia = 2,  maxFraction = 2,  distancia de deteccion = 2*2 = 4
+	input.maxFraction = 1.0f;
+
+	b2RayCastOutput* output = nullptr;
+
+	for (int i = 0; f != nullptr; f = f->GetNext())
+	{
+		f->RayCast(output, input, 0);
+
+		if (output != nullptr)
+		{
+			normal_x = output->normal.x;
+			normal_y = output->normal.y;
+
+			float distance = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
+
+			distance *= output->fraction;
+
+			delete output;
+
+			return distance;
+		}
+	}
+
+	return -1;
 }
 
 // TODO 3

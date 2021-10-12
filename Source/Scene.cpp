@@ -29,7 +29,12 @@ bool Scene::PostUpdate()
 	return true;
 }
 
-bool Scene::CleanUp(bool finalCleanUp)
+void Scene::OnCollision(PhysBody* b1, PhysBody* b2)
+{
+	
+}
+
+bool Scene::CleanUp()
 {
 	return true;
 }

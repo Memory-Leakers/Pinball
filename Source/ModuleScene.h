@@ -3,11 +3,9 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "Scene.h"
 
 
 #define SCENES_NUM 9
-
 
 enum SCENE_NUM
 {
@@ -38,6 +36,8 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	UpdateStatus PostUpdate();
 
+	void OnCollision(PhysBody* b1, PhysBody* b2) override;
+
 
 	bool ChangeCurrentScene(uint index, int frames);
 
@@ -51,8 +51,6 @@ public:
 private:
 
 	int newScene;
-
-
 };
 
 #endif // __MODULESCENE_H__

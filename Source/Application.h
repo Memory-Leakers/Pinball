@@ -12,8 +12,6 @@
 #include "ModulePhysics.h"
 #include "ModuleScene.h"
 
-
-
 class Application
 {
 public:
@@ -24,6 +22,7 @@ public:
 	ModuleAudio* audio;
 	ModulePlayer* player;
 	ModulePhysics* physics;
+	ModuleScene* scene;
 
 private:
 

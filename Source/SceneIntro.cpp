@@ -1,5 +1,4 @@
 #include "Globals.h"
-#include "Application.h"
 #include "SceneIntro.h"
 
 iPoint position;

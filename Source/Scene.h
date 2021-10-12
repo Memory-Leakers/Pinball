@@ -26,12 +26,14 @@ public:
 
 	virtual bool PostUpdate();
 
+	virtual bool CleanUp();
+
+	virtual void OnCollision(PhysBody* b1, PhysBody* b2);
+
 	int getID()
 	{
 		return ID;
 	}
-
-	virtual bool CleanUp(bool finalCleanUp = true);
 
 	int lastID = 0;
 

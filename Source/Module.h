@@ -75,7 +75,9 @@ public:
 	}
 
 	virtual void OnCollision(PhysBody* body1, PhysBody* body2)
-	{ }
+	{
+	
+	}
 };
 
 #endif

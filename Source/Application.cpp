@@ -1,7 +1,5 @@
 #include "Application.h"
 
-ModuleScene* scene = nullptr;
-
 Application::Application()
 {
 	renderer = new ModuleRender(this);
