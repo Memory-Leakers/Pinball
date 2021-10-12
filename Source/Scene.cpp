@@ -29,11 +29,6 @@ bool Scene::PostUpdate()
 	return true;
 }
 
-void Scene::OnCollision(PhysBody* b1, PhysBody* b2)
-{
-	
-}
-
 bool Scene::CleanUp()
 {
 	return true;

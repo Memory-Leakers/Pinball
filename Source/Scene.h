@@ -28,8 +28,6 @@ public:
 
 	virtual bool CleanUp();
 
-	virtual void OnCollision(PhysBody* b1, PhysBody* b2);
-
 	int getID()
 	{
 		return ID;

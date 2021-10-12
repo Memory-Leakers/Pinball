@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
-#include "p2Point.h"
+#include "Point.h"
 
 class PhysBody;
 

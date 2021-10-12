@@ -64,12 +64,6 @@ UpdateStatus ModuleScene::PostUpdate()
 	return UpdateStatus::UPDATE_CONTINUE;
 }
 
-void ModuleScene::OnCollision(PhysBody* b1, PhysBody* b2)
-{
-	currentScene->OnCollision(b1, b2);
-}
-
-
 //CleanUp current scene, change current scene (index), Start current Scene
 bool ModuleScene::ChangeCurrentScene(uint index, int frames)
 {

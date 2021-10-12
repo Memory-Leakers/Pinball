@@ -43,6 +43,9 @@
     <ClCompile Include="Source\SceneMain.cpp">
       <Filter>SourceFiles\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameObject.cpp">
+      <Filter>SourceFiles\Engine\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -84,9 +87,6 @@
     <ClInclude Include="Source\p2DynArray.h">
       <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Source\p2Point.h">
-      <Filter>HeaderFiles\Engine\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Source\p2List.h">
       <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClInclude>
@@ -104,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneMain.h">
       <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject.h">
+      <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

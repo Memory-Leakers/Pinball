@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "math.h"
+#include "GameObject.h"
 
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -134,11 +135,11 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	PhysBody* b = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
 
-	if(a && a->listenerModule)	
-	a->listenerModule->OnCollision(a, b);
+	if (a && a->gameObject)
+	a->gameObject->OnCollision(b);
 
-	if (b && b->listenerModule)
-	b->listenerModule->OnCollision(b, a);
+	if (b && b->gameObject)
+	b->gameObject->OnCollision(a);
 	
 	LOG("collision!!");
 }

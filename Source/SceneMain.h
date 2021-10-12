@@ -15,7 +15,6 @@ public:
 	bool Update();
 	bool PostUpdate();
 	bool CleanUp() override;
-	void OnCollision(PhysBody* b1, PhysBody* b2) override;
 
 public:
 

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MemLeaks.h" />
     <ClInclude Include="Source\Module.h" />
@@ -27,13 +28,13 @@
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\p2DynArray.h" />
     <ClInclude Include="Source\p2List.h" />
-    <ClInclude Include="Source\p2Point.h" />
     <ClInclude Include="Source\Point.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />

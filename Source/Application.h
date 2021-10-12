@@ -25,7 +25,6 @@ public:
 	ModuleScene* scene;
 
 private:
-
 	p2List<Module*> list_modules;
 
 public:

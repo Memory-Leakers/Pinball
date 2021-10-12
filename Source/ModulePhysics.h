@@ -1,10 +1,10 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
 #include "Box2D/Box2D/Box2D.h"
-
 #include <math.h>
+
+class GameObject;
 
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y -7.0f
@@ -22,6 +22,11 @@ public:
 	PhysBody() : body(NULL)
 	{}
 
+	PhysBody(GameObject* g) : body(NULL)
+	{
+		gameObject = g;
+	}
+
 	void GetPosition(int& x, int& y) const;
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
@@ -30,7 +35,7 @@ public:
 public:
 	int width, height;
 	b2Body* body;
-
+	GameObject* gameObject;
 	// TODO 6: Add a pointer to a module that might want to listen to a collision from this body
 	Module* listenerModule = nullptr;
 };
