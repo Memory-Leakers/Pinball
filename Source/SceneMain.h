@@ -23,4 +23,9 @@ public:
 
 	PhysBody* ground = nullptr;
 
+	PhysBody* flipper = nullptr;
+	PhysBody* flipperBase = nullptr;
+
+	b2RevoluteJoint* joint = nullptr;
+
 };
