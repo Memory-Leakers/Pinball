@@ -59,7 +59,8 @@ public:
 	void BeginContact(b2Contact* contact) override;
 
 private:
-
-	b2World* world;
+	b2Body* mouseBody = nullptr;
+	b2MouseJoint* mouseJoint = nullptr;
+	b2World* world = nullptr;
 	bool debug;
 };

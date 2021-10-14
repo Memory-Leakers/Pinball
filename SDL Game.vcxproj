@@ -31,6 +31,7 @@
     <ClInclude Include="Source\Point.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMain.h" />
+    <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
