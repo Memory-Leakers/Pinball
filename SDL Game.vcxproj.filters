@@ -55,6 +55,9 @@
     <ClCompile Include="Source\SceneDebug2.cpp">
       <Filter>SourceFiles\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModuleUI.cpp">
+      <Filter>SourceFiles\Engine\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="Source\List.h">
       <Filter>HeaderFiles\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleUI.h">
+      <Filter>HeaderFiles\Engine\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@ Application::Application()
 	player = new ModulePlayer(this);
 	physics = new ModulePhysics(this);
 	scene = new ModuleScene(this);
+	ui = new ModuleUI(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -25,6 +26,7 @@ Application::Application()
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(ui);
 	
 	// Player
 	AddModule(player);

@@ -11,6 +11,7 @@
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "ModuleScene.h"
+#include "ModuleUI.h"
 
 class Application
 {
@@ -23,6 +24,7 @@ public:
 	ModulePlayer* player;
 	ModulePhysics* physics;
 	ModuleScene* scene;
+	ModuleUI* ui;
 
 private:
 	p2List<Module*> list_modules;

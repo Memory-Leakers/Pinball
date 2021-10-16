@@ -24,6 +24,7 @@
     <ClInclude Include="Source\ModulePlayer.h" />
     <ClInclude Include="Source\ModuleRender.h" />
     <ClInclude Include="Source\ModuleScene.h" />
+    <ClInclude Include="Source\ModuleUI.h" />
     <ClInclude Include="Source\SceneDebug1.h" />
     <ClInclude Include="Source\SceneDebug2.h" />
     <ClInclude Include="Source\SceneDebug3.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="Source\ModulePlayer.cpp" />
     <ClCompile Include="Source\ModuleRender.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
+    <ClCompile Include="Source\ModuleUI.cpp" />
     <ClCompile Include="Source\SceneDebug1.cpp" />
     <ClCompile Include="Source\SceneDebug2.cpp" />
     <ClCompile Include="Source\SceneDebug3.cpp" />
