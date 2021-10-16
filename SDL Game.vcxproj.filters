@@ -58,6 +58,9 @@
     <ClCompile Include="Source\ModuleUI.cpp">
       <Filter>SourceFiles\Engine\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Ball.cpp">
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleUI.h">
       <Filter>HeaderFiles\Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Ball.h">
+      <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

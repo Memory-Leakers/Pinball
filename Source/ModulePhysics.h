@@ -51,8 +51,8 @@ public:
 
 public:
 	int width, height;
-	b2Body* body;
-	GameObject* gameObject;
+	b2Body* body = nullptr;
+	GameObject* gameObject = nullptr;
 
 	//Module* listenerModule = nullptr;
 };
