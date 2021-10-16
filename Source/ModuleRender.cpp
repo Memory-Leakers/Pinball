@@ -47,8 +47,7 @@ UpdateStatus ModuleRender::PreUpdate()
 
 // Update: debug camera
 UpdateStatus ModuleRender::Update()
-{
-	
+{	
 	int speed = 3;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -69,7 +68,32 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
+	// Sorting layers
+	for (int i = 0; i < layers.size(); i++)
+	{
+		SortRenderObjects(layers[i]);
+	}
+
+	//Draw
+	for each (auto layer in layers)
+	{
+		for each (auto renderObject in layer)
+		{
+			if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, NULL, renderObject.flip) != 0)
+			{
+				LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			}
+		}
+	}
+	
 	SDL_RenderPresent(renderer);
+
+	// Clear layers
+	for each (auto layer in layers)
+	{
+		layers.clear();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -86,6 +110,83 @@ bool ModuleRender::CleanUp()
 
 	return true;
 }
+
+void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, int layer, float orderInlayer, bool isFlipH, float rotation, float scale, float speed)
+{
+	RenderObject renderObject;
+
+	speed = defaultSpeed;
+
+	//Fullscreen
+	if (App->FullScreenDesktop)
+	{
+		scale /= 3;
+	}
+
+	renderObject.texture = texture;
+	renderObject.rotation = rotation;
+	renderObject.section = section;
+	renderObject.orderInLayer = orderInlayer;
+
+	if (layer == 2 || layer == 3) speed = 0;	//If texture in UI layer, it moves alongside the camera. Therefor, speed = 0;
+
+	renderObject.renderRect.x = (int)(-camera.x * speed) + pos.x * scale;
+	renderObject.renderRect.y = (int)(-camera.y * speed) + pos.y * scale;
+
+	if (section != nullptr)
+	{
+		renderObject.renderRect.w = section->w;
+		renderObject.renderRect.h = section->h;
+	}
+	else
+	{
+		// Collect the texture size into rect.w and rect.h variables
+		SDL_QueryTexture(texture, nullptr, nullptr, &renderObject.renderRect.w, &renderObject.renderRect.h);
+	}
+
+	renderObject.renderRect.w *= scale;
+	renderObject.renderRect.h *= scale;
+
+	if (isFlipH)
+	{
+		renderObject.flip = SDL_FLIP_HORIZONTAL;
+	}
+	else
+	{
+		renderObject.flip = SDL_FLIP_VERTICAL;
+	}
+
+	layers[layer].push_back(renderObject);
+}
+
+void ModuleRender::SortRenderObjects(vector<RenderObject>& obj)
+{
+	//sort(obj.begin(), obj.end(), CompareRenderObj);
+
+	int less = 0;
+	int objSize = obj.size();
+
+	for (int i = 0; i < objSize; ++i)
+	{
+		less = i;
+		for (int j = i; j < objSize; ++j)
+		{
+			if (obj[j].orderInLayer < obj[less].orderInLayer)
+			{
+				swap(obj[j], obj[less]);
+			}
+		}
+	}
+}
+
+void ModuleRender::CameraMove(iPoint pos)
+{
+	camera.x = pos.x + (SCREEN_WIDTH / 2);	//	Camera position = target position
+
+	camera.y = pos.y;
+}
+
+#pragma region OBSOLETE
 
 // Blit to screen
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle,SDL_RendererFlip flip, int pivot_x, int pivot_y )
@@ -206,9 +307,4 @@ bool ModuleRender::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 
 	return ret;
 }
 
-void ModuleRender::CameraMove(iPoint pos)
-{
-	camera.x = pos.x + (SCREEN_WIDTH / 2);	//	Camera position = target position
-
-	camera.y = pos.y;
-}
+#pragma endregion
