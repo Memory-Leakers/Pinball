@@ -40,7 +40,7 @@ bool ModuleRender::Init()
 // PreUpdate: clear buffer
 UpdateStatus ModuleRender::PreUpdate()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0);
 	SDL_RenderClear(renderer);
 	return UPDATE_CONTINUE;
 }
