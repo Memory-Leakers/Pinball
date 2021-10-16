@@ -9,13 +9,15 @@ class GameObject
 {
 public:
 
-	GameObject();
+	GameObject(std::string name);
 
 	~GameObject();
 
+	std::string name;
+
 	std::string tag;
 
-	PhysBody* pBody;
+	PhysBody* pBody = nullptr;
 
 	virtual void OnCollision(PhysBody* col);
 

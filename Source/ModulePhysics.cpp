@@ -23,7 +23,6 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	mouseBody = world->CreateBody(&bd);
 
-	// TODO 3: You need to make ModulePhysics class a contact listener
 	world->SetContactListener(this);
 
 	return true;
@@ -40,8 +39,6 @@ UpdateStatus ModulePhysics::PreUpdate()
 	{
 	}
 	*/
-
-
 
 	return UPDATE_CONTINUE;
 }
@@ -152,7 +149,7 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 UpdateStatus ModulePhysics::PostUpdate()
 {
 
-	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		debug = !debug;
 
 	if (!debug)

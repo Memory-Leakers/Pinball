@@ -4,8 +4,9 @@
 #include "Module.h"
 #include "Globals.h"
 
-
 #define SCENES_NUM 9
+
+class Scene;
 
 enum SCENE_NUM
 {
@@ -43,11 +44,15 @@ public:
 
 public:
 
-	int lastSceneID;
+	int index = 0;
+
+	Scene* currentScene = nullptr;
+
+	Scene* scenes[SCENES_NUM] = { nullptr };
 
 private:
 
-	int newScene;
+	//int newScene;
 };
 
 #endif // __MODULESCENE_H__

@@ -64,10 +64,33 @@ bool SceneMain::PostUpdate()
 
 bool SceneMain::CleanUp()
 {
-	delete player;
-	delete ground;
-	delete flipper;
-	delete flipperBase;
-	_app->physics->world->DestroyJoint(joint);
+	if (player != nullptr)
+	{
+		player->CleanUp();
+		delete player;
+		player = nullptr;
+	}
+
+	if (ground != nullptr)
+	{
+		ground->CleanUp();
+		delete ground;
+		ground = nullptr;
+	}
+
+	if (flipper != nullptr)
+	{
+		flipper->CleanUp();
+		delete flipper;
+		flipper = nullptr;
+	}
+
+	if (flipperBase != nullptr)
+	{
+		flipperBase->CleanUp();
+		delete flipperBase;
+		flipperBase = nullptr;
+	}
+
 	return false;
 }

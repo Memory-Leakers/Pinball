@@ -1,5 +1,19 @@
 #include "GameObject.h"
 
+GameObject::GameObject(std::string name)
+{
+	this->name = name;
+}
+
+GameObject::~GameObject()
+{
+	if(pBody!=nullptr)
+	{
+		delete pBody;
+		pBody = nullptr;
+	}
+}
+
 void GameObject::OnCollision(PhysBody* col)
 {
 }

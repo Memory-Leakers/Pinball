@@ -46,6 +46,15 @@
     <ClCompile Include="Source\GameObject.cpp">
       <Filter>SourceFiles\Engine\BaseClasses</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneDebug1.cpp">
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneDebug3.cpp">
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneDebug2.cpp">
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -110,6 +119,18 @@
     </ClInclude>
     <ClInclude Include="Source\GameObject.h">
       <Filter>HeaderFiles\Engine\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneDebug1.h">
+      <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneDebug2.h">
+      <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneDebug3.h">
+      <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List.h">
+      <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

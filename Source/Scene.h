@@ -3,6 +3,10 @@
 
 #include "Application.h"
 
+#include "GameObject.h"
+
+#include "List.h"
+
 class Scene
 {
 protected:
@@ -11,6 +15,7 @@ protected:
 
 	Application* _app;
 
+	List<GameObject*> gameObjects;
 public:
 	// Constructor
 	Scene(Application* app);
@@ -34,7 +39,6 @@ public:
 	}
 
 	int lastID = 0;
-
 };
 
 

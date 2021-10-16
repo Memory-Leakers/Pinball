@@ -11,6 +11,16 @@ void log(const char file[], int line, const char* format, ...);
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
+// Deletes a buffer
+#define RELEASE( x ) \
+    {                        \
+    if( x != NULL )        \
+        {                      \
+      delete x;            \
+      x = NULL;              \
+        }                      \
+    }
+
 typedef unsigned int uint;
 
 enum UpdateStatus
@@ -21,8 +31,8 @@ enum UpdateStatus
 };
 
 // Configuration -----------
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 758
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 900
 #define SCREEN_SIZE 1
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE false

@@ -31,6 +31,8 @@ bool Scene::PostUpdate()
 
 bool Scene::CleanUp()
 {
+	gameObjects.clearPtr();
+
 	return true;
 }
 

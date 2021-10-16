@@ -27,6 +27,23 @@ public:
 		gameObject = g;
 	}
 
+	~PhysBody()
+	{
+		// TODO Luego se quita porque la herarquia de eliminar es gameobjetc->physbody
+		if (gameObject != nullptr)
+		{
+			delete gameObject;
+			gameObject = nullptr;
+		}
+	}
+
+	void CleanUp() 
+	{
+		if (body != nullptr)
+		{
+			body->GetWorld()->DestroyBody(body);
+		}
+	}
 	void GetPosition(int& x, int& y) const;
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
@@ -36,8 +53,8 @@ public:
 	int width, height;
 	b2Body* body;
 	GameObject* gameObject;
-	// TODO 6: Add a pointer to a module that might want to listen to a collision from this body
-	Module* listenerModule = nullptr;
+
+	//Module* listenerModule = nullptr;
 };
 
 class ModulePhysics : public Module, public b2ContactListener
