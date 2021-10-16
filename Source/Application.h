@@ -38,6 +38,8 @@ public:
 	UpdateStatus Update();
 	bool CleanUp();
 
+	bool FullScreenDesktop = true;
+
 private:
 
 	void AddModule(Module* mod);
