@@ -30,11 +30,11 @@ public:
 	~PhysBody()
 	{
 		// TODO Luego se quita porque la herarquia de eliminar es gameobjetc->physbody
-		if (gameObject != nullptr)
-		{
-			delete gameObject;
-			gameObject = nullptr;
-		}
+		//if (gameObject != nullptr)
+		//{
+		//	delete gameObject;
+		//	gameObject = nullptr;
+		//}
 	}
 
 	void CleanUp() 
@@ -71,7 +71,7 @@ public:
 	UpdateStatus PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius);
+	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);

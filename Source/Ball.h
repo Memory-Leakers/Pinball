@@ -6,6 +6,8 @@ class Ball :  public GameObject
 public:
 	Ball() {};
 
-	Ball(std::string name,SDL_Texture* t);
+	Ball(std::string name, SDL_Texture* texture) :GameObject(name, texture) {};
+
+	void OnCollision(PhysBody* col) override;
 };
 

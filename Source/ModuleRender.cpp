@@ -189,7 +189,7 @@ void ModuleRender::CameraMove(iPoint pos)
 #pragma region OBSOLETE
 
 // Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle,SDL_RendererFlip flip, int pivot_x, int pivot_y )
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, float scale, SDL_Rect* section, float speed, double angle, SDL_RendererFlip flip, int pivot_x, int pivot_y)
 {
 	bool ret = true;
 	SDL_Rect rect;
@@ -208,6 +208,9 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 
 	rect.w *= SCREEN_SIZE;
 	rect.h *= SCREEN_SIZE;
+
+	rect.w *= scale;
+	rect.h *= scale;
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;

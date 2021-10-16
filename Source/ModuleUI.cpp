@@ -37,7 +37,7 @@ UpdateStatus ModuleUI::PostUpdate()
 			{
 				int tempPos = uiArray[i]->x;
 				tempPos += (24 * j);
-				App->renderer->Blit(texture, tempPos, uiArray[i]->y, &numSection[uiArray[i]->digitVec.at(j)]);
+				App->renderer->Blit(texture, tempPos, uiArray[i]->y,1.0f, &numSection[uiArray[i]->digitVec.at(j)]);
 			}
 		}
 	}

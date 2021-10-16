@@ -14,6 +14,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Ball.h" />
+    <ClInclude Include="Source\Flipper.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\List.h" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Ball.cpp" />
+    <ClCompile Include="Source\Flipper.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -104,7 +106,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Source\SDL_mixer\libx86;$(SolutionDir)Source\SDL_image\libx86;$(SolutionDir)Source\SDL\libx86;$(SolutionDir)Source\Box2D\libx86\Debug</AdditionalLibraryDirectories>
     </Link>

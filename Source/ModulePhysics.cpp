@@ -43,7 +43,7 @@ UpdateStatus ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius,GameObject* gameObject)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -59,12 +59,13 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 
 	b->CreateFixture(&fixture);
 
-	// TODO 4: add a pointer to PhysBody as UserData to the body
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	pbody->width = pbody->height = radius;
 
 	pbody->body->SetUserData(pbody);
+
+	pbody->gameObject = gameObject;
 
 	return pbody;
 }
@@ -147,7 +148,6 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 UpdateStatus ModulePhysics::PostUpdate()
 {
-
 	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		debug = !debug;
 
@@ -224,7 +224,8 @@ UpdateStatus ModulePhysics::PostUpdate()
 			break;
 			}
 		}
-		// TODO 1: If mouse button 1 is pressed ...
+
+		// If mouse button 1 is pressed ...
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
 			PhysBody pBody;
@@ -233,10 +234,6 @@ UpdateStatus ModulePhysics::PostUpdate()
 			// test if the current body contains mouse position
 			if (pBody.Contains(App->input->GetMouseX(), App->input->GetMouseY()))
 			{
-				// If a body was selected we will attach a mouse joint to it
-				// so we can pull it around
-				// TODO 2: If a body was selected, create a mouse joint
-				// using mouse_joint class property
 				b2MouseJointDef def;
 				def.bodyA = mouseBody;
 				def.bodyB = pBody.body;
@@ -250,9 +247,6 @@ UpdateStatus ModulePhysics::PostUpdate()
 
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && mouseJoint != nullptr)
 		{
-			// TODO 3: If the player keeps pressing the mouse button, update
-			// target position and draw a red line between both anchor points
-
 			b2Vec2 nextPos = { (float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
 
 			nextPos.x = PIXELS_TO_METER(nextPos.x);
@@ -267,7 +261,6 @@ UpdateStatus ModulePhysics::PostUpdate()
 
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && mouseJoint != nullptr)
 		{
-			// TODO 4: If the player releases the mouse button, destroy the joint
 			world->DestroyJoint(mouseJoint);
 			mouseJoint = nullptr;
 		}
@@ -300,9 +293,6 @@ float PhysBody::GetRotation() const
 
 bool PhysBody::Contains(int x, int y) const
 {
-	// TODO 1: Write the code to return true in case the point
-	// is inside ANY of the shapes contained by this body
-
 	b2Fixture* f = body->GetFixtureList();
 
 	b2Vec2 b = { PIXELS_TO_METER(x),PIXELS_TO_METER(y) };
@@ -320,9 +310,6 @@ bool PhysBody::Contains(int x, int y) const
 
 int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const
 {
-	// TODO 2: Write code to test a ray cast between both points provided. If not hit return -1
-	// if hit, fill normal_x and normal_y and return the distance between x1,y1 and it's colliding point
-
 	b2Fixture* f = body->GetFixtureList();
 
 	b2RayCastInput input;
@@ -356,7 +343,3 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 
 	return -1;
 }
-
-// TODO 3
-
-// TODO 7: Call the listeners that are not NULL

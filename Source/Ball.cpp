@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(std::string name, SDL_Texture* t) :GameObject(name)
+void Ball::OnCollision(PhysBody* col) 
 {
-	this->texture = t;
+	printf("Col Ball");
 }

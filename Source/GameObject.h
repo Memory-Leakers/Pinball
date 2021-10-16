@@ -12,7 +12,7 @@ public:
 
 	GameObject();
 
-	GameObject(std::string name);
+	GameObject(std::string name, SDL_Texture* texture);
 
 	GameObject(GameObject& obj);
 

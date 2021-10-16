@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 class Ball;
+class Flipper;
 
 class SceneDebug1 : public Scene
 {
@@ -17,6 +18,8 @@ public:
     bool CleanUp() override;
 
     Ball* player;
+
+    Flipper* flipper;
     //GameObject ball;
 };
 
