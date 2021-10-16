@@ -83,6 +83,21 @@ UpdateStatus ModuleInput::PreUpdate()
 	if (keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
 		return UPDATE_STOP;
 
+	// Handle X button on window
+
+	SDL_Event event;
+	while (SDL_PollEvent(&event) != 0)
+	{
+		switch (event.type)
+		{
+		case(SDL_QUIT):// X(Close) Button event handler
+		{
+			return UpdateStatus::UPDATE_STOP;
+			break;
+		}
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
