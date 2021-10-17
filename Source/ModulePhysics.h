@@ -51,6 +51,7 @@ public:
 
 public:
 	int width, height;
+	bool chainLoop = false;
 	b2Body* body = nullptr;
 	GameObject* gameObject = nullptr;
 

@@ -98,6 +98,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 
 PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop)
 {
+	PhysBody* pbody = new PhysBody();
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXELS_TO_METER(x), PIXELS_TO_METER(y));
@@ -112,10 +113,11 @@ PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, boo
 		p[i].x = PIXELS_TO_METER(points[i * 2 + 0]);
 		p[i].y = PIXELS_TO_METER(points[i * 2 + 1]);
 	}
-
+	
 	if (loop)
 	{
 		shape.CreateLoop(p, size / 2);
+		pbody->chainLoop = true;
 	}
 	else
 	{
@@ -129,7 +131,6 @@ PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, boo
 
 	delete p;
 
-	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	pbody->width = pbody->height = 0;
 
@@ -223,9 +224,14 @@ UpdateStatus ModulePhysics::PostUpdate()
 						App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), 100, 255, 100);
 					prev = v;
 				}
-
-				v = b->GetWorldPoint(shape->m_vertices[0]);
-				App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), 100, 255, 100);
+				PhysBody* bb = (PhysBody*) f->GetBody()->GetUserData();
+				if(bb->chainLoop) 
+				{ 
+					v = b->GetWorldPoint(shape->m_vertices[0]);
+					App->renderer->DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), 100, 255, 100);
+				}
+				
+				
 			}
 			break;
 
