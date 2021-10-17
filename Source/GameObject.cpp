@@ -52,3 +52,12 @@ iPoint GameObject::GetDrawPos()
 
 	return iPoint(pos.x,pos.y);
 }
+
+float GameObject::GetDegreeAngle()
+{
+	float agle = 0;
+
+	agle = (pBody->body->GetAngle() * 180) / b2_pi;
+
+	return agle;
+}

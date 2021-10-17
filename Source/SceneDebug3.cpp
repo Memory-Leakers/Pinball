@@ -1,6 +1,5 @@
 #include "SceneDebug3.h"
 
-
 PhysBody* bg1;
 PhysBody* bg2;
 PhysBody* bg3;
@@ -20,11 +19,9 @@ SceneDebug3::SceneDebug3(Application* app) : Scene(app)
 
 bool SceneDebug3::Start()
 {
-
 	ball = _app->physics->CreateCircle(300, 300, 12);
 	ball->body->SetType(b2BodyType::b2_dynamicBody);
 	ball->body->SetBullet(true);
-
 
 	int BG[110] = {
 		550, 822,

@@ -24,6 +24,8 @@ public:
 
 	iPoint GetDrawPos();
 
+	float GetDegreeAngle();
+
 public:
 
 	std::string name;

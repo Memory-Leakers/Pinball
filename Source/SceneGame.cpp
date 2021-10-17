@@ -5,20 +5,16 @@
 #include "ModulePhysics.h"
 #include "Boing.h"
 
-
-
 bool SceneGame::Start()
 {
-	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball.png");
-	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow.png");
+	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball128.png");
+	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow128.png");
 	SDL_Texture* boing_texture = nullptr;
-	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/Flipper.png");
+	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/FlipperR128.png");
 
 	//Ball
 	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
-
 	player->pBody = _app->physics->CreateCircle(200,200, 16, player);
-
 	player->pBody->body->SetBullet(true);
 
 	//Boing
@@ -29,7 +25,7 @@ bool SceneGame::Start()
 	//Flipper
 	flipper = new Flipper(flipper_texture, "Flipper");
 
-	flipper->pBody = _app->physics->CreateCircle(200, 0, 16, flipper);
+	flipper->pBody = _app->physics->CreateRectangle(400, 500, 96, 18);
 
 	//Map
 
@@ -48,7 +44,6 @@ bool SceneGame::Start()
 
 bool SceneGame::PreUpdate()
 {
-
 	return true;
 }
 
@@ -62,16 +57,14 @@ bool SceneGame::PostUpdate()
 {
 	iPoint p = player->GetDrawPos();
 
-	float angle = player->pBody->body->GetAngle();
-
-	_app->renderer->Blit(player->texture, p.x, p.y, 0.25f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
+	_app->renderer->Blit(player->texture, p.x, p.y, 0.25f, NULL, 1.0f, player->GetDegreeAngle(), SDL_FLIP_VERTICAL);
 
 	_app->renderer->Blit(player->shadow, p.x, p.y, 0.25f);
 
 
 	iPoint p2 = flipper->GetDrawPos();
 
-	_app->renderer->Blit(flipper->texture, p2.x, p2.y, 0.3f);
+	_app->renderer->Blit(flipper->texture, p2.x, p2.y, 0.75f, NULL, 1.0f, flipper->GetDegreeAngle() , SDL_FLIP_VERTICAL);
 
 	return true;
 }

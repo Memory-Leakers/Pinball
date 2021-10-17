@@ -7,7 +7,7 @@
 class GameObject;
 
 #define GRAVITY_X 0.0f
-#define GRAVITY_Y -7.0f
+#define GRAVITY_Y -10.0f
 
 #define PIXELS_PER_METER 50.0f
 #define METERS_PER_PIXELS 0.02f

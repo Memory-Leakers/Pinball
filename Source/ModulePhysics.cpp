@@ -25,11 +25,9 @@ bool ModulePhysics::Start()
 
 	world->SetContactListener(this);
 
-
 	return true;
 }
-
-// 
+ 
 UpdateStatus ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
@@ -175,11 +173,8 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	if (b && b->gameObject)
 	b->gameObject->OnCollision(a);*/
-
-
 	
 	//LOG("collision!!");
-	
 }
 
 UpdateStatus ModulePhysics::PostUpdate()

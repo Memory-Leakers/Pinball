@@ -16,7 +16,7 @@ bool SceneDebug1::Start()
 	//Ball
 	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
 
-	player->pBody = _app->physics->CreateCircle(200, 200, 11, player);
+	player->pBody = _app->physics->CreateCircle(200, 200, 16, player);
 
 	player->pBody->body->SetBullet(true);
 

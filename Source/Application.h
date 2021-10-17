@@ -15,7 +15,7 @@
 
 #include "Timer.h"
 
-#define FPS 120
+#define FPS 90
 
 class Application
 {
