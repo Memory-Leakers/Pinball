@@ -67,6 +67,9 @@
     <ClCompile Include="Boing.cpp">
       <Filter>SourceFiles\Game</Filter>
     </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -154,6 +157,9 @@
       <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
     <ClInclude Include="Boing.h">
+      <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
       <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
   </ItemGroup>

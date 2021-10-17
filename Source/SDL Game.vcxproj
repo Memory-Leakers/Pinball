@@ -31,6 +31,7 @@
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
+    <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="SceneDebug1.cpp" />
     <ClCompile Include="SceneDebug2.cpp" />
     <ClCompile Include="SceneDebug3.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />

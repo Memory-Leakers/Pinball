@@ -1,8 +1,10 @@
 #include "Boing.h"
-#include "GameObject.h"
 
-Boing::Boing(Point<int> pos)
+
+Boing::Boing(SDL_Texture* tex,std::string tag)
 {
+	this->tag = tag;
+	this->texture = tex;
 }
 
 Boing::~Boing()
@@ -11,14 +13,17 @@ Boing::~Boing()
 
 void Boing::OnCollision(PhysBody* col)
 {
-	if (col->gameObject->CompareTag("Player")) 
+	if (col->gameObject->CompareTag("Ball")) 
 	{
-		/*b2Vec2 velocity;
+		b2Vec2 velocity;
 
 		velocity = col->body->GetLinearVelocity();
 
+		
+
 		b2Vec2 normal;
-		*/
+		
+		
 
 		//Vectorvelocidad.reflected
 	}

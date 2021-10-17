@@ -25,6 +25,7 @@ bool ModulePhysics::Start()
 
 	world->SetContactListener(this);
 
+
 	return true;
 }
 
@@ -148,6 +149,19 @@ b2Vec2 ModulePhysics::Perp(b2Vec2 vec1)
 	return perpend;
 };
 
+b2Vec2 ModulePhysics::Normalise(b2Vec2 vecToNormalise) 
+{
+	float modulo;
+	b2Vec2 vecNormalized;
+
+	modulo = sqrt(pow(vecToNormalise.x, 2) + pow(vecToNormalise.y, 2));
+
+	vecNormalized.x = vecToNormalise.x / modulo;
+	vecNormalized.y = vecToNormalise.y / modulo;
+
+	return vecNormalized;
+}
+
 void ModulePhysics::BeginContact(b2Contact* contact)
 {
 	/*
@@ -155,14 +169,17 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	PhysBody* b = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
 
-	if (a && a->gameObject)
+
+	/*if (a && a->gameObject)
 	a->gameObject->OnCollision(b);
 
 	if (b && b->gameObject)
-	b->gameObject->OnCollision(a);
+	b->gameObject->OnCollision(a);*/
+
+
 	
 	//LOG("collision!!");
-	*/
+	
 }
 
 UpdateStatus ModulePhysics::PostUpdate()

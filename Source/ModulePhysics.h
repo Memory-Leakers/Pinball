@@ -63,6 +63,7 @@ class ModulePhysics : public Module, public b2ContactListener
 public:
 
 	b2World* world = nullptr;
+	
 
 	ModulePhysics(Application* app, bool start_enabled = true);
 	~ModulePhysics();
@@ -77,6 +78,7 @@ public:
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
 	b2Vec2 Perp(b2Vec2 vec1);
+	b2Vec2 Normalise(b2Vec2 vecToNormalise);
 
 
 	void BeginContact(b2Contact* contact) override;
