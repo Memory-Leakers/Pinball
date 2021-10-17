@@ -280,5 +280,24 @@ bool SceneGame::CleanUp()
 {
 	Scene::CleanUp();
 
+	delete bg1;
+	bg1 = nullptr;
+	delete bg2;
+	bg2 = nullptr;
+	delete bg3;
+	bg3 = nullptr;
+	delete ball;
+	ball = nullptr;
+	delete flipper1;
+	flipper1 = nullptr;
+	delete flipper2;
+	flipper2 = nullptr;
+	delete smDivider1M;
+	smDivider1M = nullptr;
+	delete smDivider2M;
+	smDivider2M = nullptr;
+	delete pm;
+	pm = nullptr;
+
 	return true;
 }
