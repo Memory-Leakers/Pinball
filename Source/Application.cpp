@@ -78,10 +78,9 @@ UpdateStatus Application::Update()
 	UpdateStatus ret = UPDATE_CONTINUE;
 	globalTime.Update();
 	p2List_item<Module*>* item = list_modules.getFirst();
-	//if (globalTime.getDeltaTime() >= 1.0f / FPS)
-	//{
-		
 
+	if (globalTime.getDeltaTime() >= 1.0f / FPS)
+	{
 		while (item != NULL && ret == UPDATE_CONTINUE)
 		{
 			if (item->data->IsEnabled())
@@ -106,9 +105,10 @@ UpdateStatus Application::Update()
 				ret = item->data->PostUpdate();
 			item = item->next;
 		}
-	//}
 
-	//globalTime.Reset();
+		globalTime.Reset();
+	}
+
 	return ret;
 }
 

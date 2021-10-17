@@ -9,11 +9,12 @@ PhysBody* ground;
 bool SceneDebug1::Start()
 {
 	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball.png");
+	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow.png");
 
 	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/Flipper.png");
 
 	//Ball
-	player = new Ball(player_texture, "Ball", "Player");
+	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
 	
 	player->pBody = _app->physics->CreateCircle(200, 0, 16, player);
 
@@ -43,8 +44,9 @@ bool SceneDebug1::PostUpdate()
 
 	float angle = player->pBody->body->GetAngle();
 
-	_app->renderer->Blit(player->texture, p.x, p.y, 1.0f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
+	_app->renderer->Blit(player->texture, p.x, p.y, 0.25f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
 
+	_app->renderer->Blit(player->shadow, p.x, p.y, 0.25f);
 
 
 	iPoint p2 = flipper->GetDrawPos();
