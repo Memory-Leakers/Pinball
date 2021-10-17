@@ -15,7 +15,7 @@ bool SceneDebug1::Start()
 	//Ball
 	player = new Ball("Ball", player_texture);
 	
-	player->pBody = _app->physics->CreateCircle(200, 0, 16, player);
+	player->pBody = _app->physics->CreateCircle(200, 200, 11, player);
 
 	player->pBody->body->SetBullet(true);
 
@@ -29,11 +29,12 @@ bool SceneDebug1::Start()
 
 	gameObjects.add(flipper);
 
-
+	/*
 	ground = _app->physics->CreateRectangle(250, 500, 700, 30);
 
 	ground->body->SetType(b2BodyType::b2_staticBody);
 	
+	*/
 	return true;
 }
 
@@ -43,7 +44,7 @@ bool SceneDebug1::PostUpdate()
 
 	float angle = player->pBody->body->GetAngle();
 
-	_app->renderer->Blit(player->texture, p.x, p.y, 1.0f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
+	_app->renderer->Blit(player->texture, p.x, p.y, 0.7f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
 
 
 

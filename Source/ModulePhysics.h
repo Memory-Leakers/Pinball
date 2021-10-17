@@ -74,7 +74,7 @@ public:
 	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
-	PhysBody* CreateChain(int x, int y, int* points, int size);
+	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
 
 	void BeginContact(b2Contact* contact) override;
 

@@ -96,7 +96,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
+PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -113,8 +113,15 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 		p[i].y = PIXELS_TO_METER(points[i * 2 + 1]);
 	}
 
-	shape.CreateLoop(p, size / 2);
-
+	if (loop)
+	{
+		shape.CreateLoop(p, size / 2);
+	}
+	else
+	{
+		shape.CreateChain(p, size / 2);
+	}
+		
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 
@@ -133,6 +140,7 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 
 void ModulePhysics::BeginContact(b2Contact* contact)
 {
+	/*
 	PhysBody* a = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
 
 	PhysBody* b = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
@@ -143,7 +151,8 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if (b && b->gameObject)
 	b->gameObject->OnCollision(a);
 	
-	LOG("collision!!");
+	//LOG("collision!!");
+	*/
 }
 
 UpdateStatus ModulePhysics::PostUpdate()
