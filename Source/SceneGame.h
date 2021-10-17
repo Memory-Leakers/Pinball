@@ -30,5 +30,16 @@ public:
     Boing* boing;
 
     Flipper* flipper;
-    
+    //Map
+    PhysBody* bg1;
+    PhysBody* bg2;
+    PhysBody* bg3;
+    PhysBody* ball;
+    PhysBody* flipper1;
+    PhysBody* flipper2;
+
+    PhysBody* smDivider1M;
+    PhysBody* smDivider2M;
+
+    PhysBody* pm;
 };

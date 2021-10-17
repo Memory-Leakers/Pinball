@@ -9,6 +9,7 @@ Boing::Boing(SDL_Texture* tex,std::string tag)
 
 Boing::~Boing()
 {
+	
 }
 
 void Boing::OnCollision(PhysBody* col)

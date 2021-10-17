@@ -209,8 +209,8 @@ bool SceneDebug3::Start()
 	bg1 = _app->physics->CreateChainObj(0, 0, BG, 110, true);
 	bg1->body->SetType(b2BodyType::b2_staticBody);
 
-	bg2 = _app->physics->CreateChainObj(0, 0, BG2, 68, false);
-	bg2->body->SetType(b2BodyType::b2_staticBody);
+	/*bg2 = _app->physics->CreateChainObj(0, 0, BG2, 68, false);
+	bg2->body->SetType(b2BodyType::b2_staticBody);*/
 
 	bg3 = _app->physics->CreateChainObj(-10, 0, BG3, 42, true);
 	bg3->body->SetType(b2BodyType::b2_staticBody);
