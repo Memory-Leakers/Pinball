@@ -75,6 +75,7 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
+	b2Vec2 Perp(b2Vec2 vec1);
 
 	void BeginContact(b2Contact* contact) override;
 

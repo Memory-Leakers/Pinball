@@ -6,6 +6,12 @@ GameObject::GameObject()
 }
 
 GameObject::GameObject(std::string name, SDL_Texture* texture)
+
+GameObject::GameObject() 
+{
+}
+
+GameObject::GameObject(std::string name)
 {
 	this->name = name;
 

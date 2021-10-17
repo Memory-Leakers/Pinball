@@ -13,6 +13,10 @@
 #include "ModuleScene.h"
 #include "ModuleUI.h"
 
+#include "Timer.h"
+
+#define FPS 60
+
 class Application
 {
 public:
@@ -25,6 +29,8 @@ public:
 	ModulePhysics* physics;
 	ModuleScene* scene;
 	ModuleUI* ui;
+
+	Timer globalTime;
 
 private:
 

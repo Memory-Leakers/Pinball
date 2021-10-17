@@ -16,6 +16,8 @@ public:
 
 	GameObject(GameObject& obj);
 
+	GameObject(std::string name);
+
 	~GameObject();
 
 	virtual void OnCollision(PhysBody* col);
