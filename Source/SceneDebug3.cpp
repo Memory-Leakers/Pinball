@@ -259,6 +259,17 @@ bool SceneDebug3::CleanUp()
 	delete ball;
 	ball = nullptr;
 
+	delete flipper1;
+	flipper1 = nullptr;
+	delete flipper2;
+	flipper2 = nullptr;
+
+	delete smDivider1M;
+	smDivider1M = nullptr;
+	delete smDivider2M;
+	smDivider2M = nullptr;
+	delete pm;
+	pm = nullptr;
 
 	return true;
 }
