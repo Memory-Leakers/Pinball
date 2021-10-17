@@ -9,18 +9,19 @@ PhysBody* ground;
 bool SceneDebug1::Start()
 {
 	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball.png");
+	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow.png");
 
 	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/Flipper.png");
 
 	//Ball
-	player = new Ball("Ball", player_texture);
-	
+	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
+
 	player->pBody = _app->physics->CreateCircle(200, 200, 11, player);
 
 	player->pBody->body->SetBullet(true);
 
 	//Flipper
-	flipper = new Flipper("Flipper", flipper_texture);
+	flipper = new Flipper(flipper_texture, "Flipper");
 
 	flipper->pBody = _app->physics->CreateCircle(200, 0, 16, flipper);
 
@@ -33,7 +34,7 @@ bool SceneDebug1::Start()
 	ground = _app->physics->CreateRectangle(250, 500, 700, 30);
 
 	ground->body->SetType(b2BodyType::b2_staticBody);
-	
+
 	*/
 	return true;
 }
@@ -44,8 +45,9 @@ bool SceneDebug1::PostUpdate()
 
 	float angle = player->pBody->body->GetAngle();
 
-	_app->renderer->Blit(player->texture, p.x, p.y, 0.7f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
+	_app->renderer->Blit(player->texture, p.x, p.y, 0.25f, NULL, 1.0f, angle * 50, SDL_FLIP_VERTICAL);
 
+	_app->renderer->Blit(player->shadow, p.x, p.y, 0.25f);
 
 
 	iPoint p2 = flipper->GetDrawPos();

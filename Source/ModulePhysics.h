@@ -37,7 +37,7 @@ public:
 		//}
 	}
 
-	void CleanUp() 
+	void CleanUp()
 	{
 		if (body != nullptr)
 		{
@@ -75,12 +75,14 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
+	b2Vec2 Perp(b2Vec2 vec1);
+
 
 	void BeginContact(b2Contact* contact) override;
 
 private:
 	b2Body* mouseBody = nullptr;
 	b2MouseJoint* mouseJoint = nullptr;
-	
+
 	bool debug;
 };

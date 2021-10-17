@@ -138,6 +138,15 @@ PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, boo
 	return pbody;
 }
 
+b2Vec2 ModulePhysics::Perp(b2Vec2 vec1)
+{
+	b2Vec2 perpend;
+	perpend.x = -vec1.y;
+	perpend.y = vec1.x;
+
+	return perpend;
+};
+
 void ModulePhysics::BeginContact(b2Contact* contact)
 {
 	/*
