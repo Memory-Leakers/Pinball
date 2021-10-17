@@ -5,13 +5,7 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(std::string name, SDL_Texture* texture)
-
-GameObject::GameObject() 
-{
-}
-
-GameObject::GameObject(std::string name)
+GameObject::GameObject(SDL_Texture* texture, std::string name, std::string tag)
 {
 	this->name = name;
 

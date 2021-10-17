@@ -11,7 +11,7 @@ Boing::~Boing()
 
 void Boing::OnCollision(PhysBody* col)
 {
-	if (col->gameObject->CampareTag("Player")) 
+	if (col->gameObject->CompareTag("Player")) 
 	{
 		/*b2Vec2 velocity;
 

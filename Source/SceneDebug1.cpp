@@ -13,14 +13,14 @@ bool SceneDebug1::Start()
 	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/Flipper.png");
 
 	//Ball
-	player = new Ball("Ball", player_texture);
+	player = new Ball(player_texture, "Ball", "Player");
 	
 	player->pBody = _app->physics->CreateCircle(200, 0, 16, player);
 
 	player->pBody->body->SetBullet(true);
 
 	//Flipper
-	flipper = new Flipper("Flipper", flipper_texture);
+	flipper = new Flipper(flipper_texture, "Flipper");
 
 	flipper->pBody = _app->physics->CreateCircle(200, 0, 16, flipper);
 

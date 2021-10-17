@@ -12,11 +12,9 @@ public:
 
 	GameObject();
 
-	GameObject(std::string name, SDL_Texture* texture);
+	GameObject(SDL_Texture* texture,std::string name = "Default", std::string tag = "None");
 
 	GameObject(GameObject& obj);
-
-	GameObject(std::string name);
 
 	~GameObject();
 
