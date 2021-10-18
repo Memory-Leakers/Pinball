@@ -29,21 +29,12 @@ public:
 
 	~PhysBody()
 	{
-		// TODO Luego se quita porque la herarquia de eliminar es gameobjetc->physbody
-		//if (gameObject != nullptr)
-		//{
-		//	delete gameObject;
-		//	gameObject = nullptr;
-		//}
-	}
-
-	void CleanUp()
-	{
 		if (body != nullptr)
 		{
 			body->GetWorld()->DestroyBody(body);
 		}
 	}
+
 	void GetPosition(int& x, int& y) const;
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
@@ -52,6 +43,7 @@ public:
 public:
 	int width, height;
 	bool chainLoop = false;
+	std::string testName;
 	b2Body* body = nullptr;
 	GameObject* gameObject = nullptr;
 

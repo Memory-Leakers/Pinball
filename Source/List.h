@@ -143,8 +143,6 @@ public:
 		while (p_data != NULL)
 		{
 			p_next = p_data->next;
-			delete p_data->data;
-			p_data->data = nullptr;
 			RELEASE(p_data->data);
 			RELEASE(p_data);
 			p_data = p_next;

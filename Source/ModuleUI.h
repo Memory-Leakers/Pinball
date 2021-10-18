@@ -36,6 +36,7 @@ public:
 
 	UpdateStatus PostUpdate();	//	Print current UIs on screen
 
+	// TODO CleanUp Scene
 	bool CleanUp();
 
 	uint CreateUI(int num, int x, int y);	// Creates a new UI item on the position given

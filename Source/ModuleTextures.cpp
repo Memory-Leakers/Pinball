@@ -51,6 +51,23 @@ bool ModuleTextures::CleanUp()
 	return true;
 }
 
+bool ModuleTextures::CleanUpTextures()
+{
+	LOG("Freeing textures and Image library");
+
+	p2List_item<SDL_Texture*>* item = textures.getFirst();
+
+	while (item != NULL)
+	{
+		SDL_DestroyTexture(item->data);
+		item = item->next;
+	}
+
+	textures.clear();
+
+	return true;
+}
+
 // Load new texture from file path
 SDL_Texture* const ModuleTextures::Load(const char* path)
 {

@@ -8,9 +8,15 @@
 bool SceneGame::Start()
 {
 	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball128.png");
+	sceneTextures.add(player_texture);
+
 	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow128.png");
-	SDL_Texture* boing_texture = nullptr;
+	sceneTextures.add(player_Shadowtexture);
+
 	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/FlipperR128.png");
+	sceneTextures.add(flipper_texture);
+
+	SDL_Texture* boing_texture = nullptr;
 
 	//Ball
 	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
@@ -234,8 +240,8 @@ bool SceneGame::Start()
 
 	pm = _app->physics->CreateChainObj(0, 0, PM, 70, false);
 	pm->body->SetType(b2BodyType::b2_staticBody);
-	//UI
 
+	//UI
 	uis[0] = _app->ui->CreateUI(0, 300, 25);
 	uis[1] = _app->ui->CreateUI(2340, 300, 75);
 	uis[2] = _app->ui->CreateUI(98320, 300, 125);
@@ -267,7 +273,6 @@ bool SceneGame::PostUpdate()
 	_app->renderer->Blit(player->texture, p.x, p.y, 0.25f, NULL, 1.0f, player->GetDegreeAngle(), SDL_FLIP_VERTICAL);
 
 	_app->renderer->Blit(player->shadow, p.x, p.y, 0.25f);
-
 
 	iPoint p2 = flipper->GetDrawPos();
 

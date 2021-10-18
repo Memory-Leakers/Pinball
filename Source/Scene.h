@@ -16,6 +16,9 @@ protected:
 	Application* _app;
 
 	List<GameObject*> gameObjects;
+
+	List<SDL_Texture*> sceneTextures;
+
 public:
 	// Constructor
 	Scene(Application* app);

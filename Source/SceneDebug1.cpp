@@ -8,10 +8,14 @@ PhysBody* ground;
 
 bool SceneDebug1::Start()
 {
-	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball.png");
-	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow.png");
+	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball128.png");
+	sceneTextures.add(player_texture);
 
-	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/Flipper.png");
+	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow128.png");
+	sceneTextures.add(player_Shadowtexture);
+
+	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/FlipperR128.png");
+	sceneTextures.add(flipper_texture);
 
 	//Ball
 	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
@@ -34,7 +38,6 @@ bool SceneDebug1::Start()
 	ground = _app->physics->CreateRectangle(250, 500, 700, 30);
 
 	ground->body->SetType(b2BodyType::b2_staticBody);
-
 	*/
 	return true;
 }

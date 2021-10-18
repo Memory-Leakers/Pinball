@@ -161,18 +161,20 @@ b2Vec2 ModulePhysics::Normalise(b2Vec2 vecToNormalise)
 }
 
 void ModulePhysics::BeginContact(b2Contact* contact)
-{
-	/*
+{	
 	PhysBody* a = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
 
 	PhysBody* b = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
 
-
-	/*if (a && a->gameObject)
-	a->gameObject->OnCollision(b);
+	if (a && a->gameObject)
+	{
+		a->gameObject->OnCollision(b);
+	}	
 
 	if (b && b->gameObject)
-	b->gameObject->OnCollision(a);*/
+	{
+		b->gameObject->OnCollision(a);
+	}	
 	
 	//LOG("collision!!");
 }
@@ -264,19 +266,18 @@ UpdateStatus ModulePhysics::PostUpdate()
 		// If mouse button 1 is pressed ...
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			PhysBody pBody;
-			pBody.body = b;
+			PhysBody* pBody = (PhysBody*)b->GetUserData();
 
 			// test if the current body contains mouse position
-			if (pBody.Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+			if (pBody && pBody->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
 			{
 				b2MouseJointDef def;
 				def.bodyA = mouseBody;
-				def.bodyB = pBody.body;
+				def.bodyB = pBody->body;
 				def.target = b2Vec2(PIXELS_TO_METER(App->input->GetMouseX()), PIXELS_TO_METER(App->input->GetMouseY()));
 				def.dampingRatio = 0.5f;
 				def.frequencyHz = 2.0f;
-				def.maxForce = 100.0f * pBody.body->GetMass();
+				def.maxForce = 100.0f * pBody->body->GetMass();
 				mouseJoint = (b2MouseJoint*)world->CreateJoint(&def);
 			}
 		}

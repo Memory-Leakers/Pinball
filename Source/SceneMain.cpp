@@ -66,28 +66,24 @@ bool SceneMain::CleanUp()
 {
 	if (player != nullptr)
 	{
-		player->CleanUp();
 		delete player;
 		player = nullptr;
 	}
 
 	if (ground != nullptr)
 	{
-		ground->CleanUp();
 		delete ground;
 		ground = nullptr;
 	}
 
 	if (flipper != nullptr)
 	{
-		flipper->CleanUp();
 		delete flipper;
 		flipper = nullptr;
 	}
 
 	if (flipperBase != nullptr)
 	{
-		flipperBase->CleanUp();
 		delete flipperBase;
 		flipperBase = nullptr;
 	}
