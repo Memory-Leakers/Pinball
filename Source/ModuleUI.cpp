@@ -103,6 +103,12 @@ uint ModuleUI::CreateUI(int num, int x, int y)
     }
 }
 
+void ModuleUI::DestroyUI(uint index)
+{
+	delete uiArray[index];
+	uiArray[index] = nullptr;
+}
+
 bool ModuleUI::CleanUp()
 {
 	for (int i = 0; i < MAX_UI_ITEMS; i++)

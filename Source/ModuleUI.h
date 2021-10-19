@@ -41,6 +41,8 @@ public:
 
 	uint CreateUI(int num, int x, int y);	// Creates a new UI item on the position given
 
+	void DestroyUI(uint index);			// Deletes an existing UI based on its index
+
 	SDL_Texture* texture;
 
 	itemUI* uiArray[MAX_UI_ITEMS] = { nullptr };
