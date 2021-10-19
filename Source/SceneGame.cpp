@@ -304,5 +304,8 @@ bool SceneGame::CleanUp()
 	delete pm;
 	pm = nullptr;
 
+	//Clean Up UI
+	_app->ui->CleanUp();
+
 	return true;
 }

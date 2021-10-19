@@ -268,5 +268,8 @@ bool SceneDebug3::CleanUp()
 	delete pm;
 	pm = nullptr;
 
+	//Clean up UIs
+	_app->ui->CleanUp();
+
 	return true;
 }
