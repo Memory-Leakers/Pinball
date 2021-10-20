@@ -242,7 +242,7 @@ bool SceneGame::Start()
 	pm->body->SetType(b2BodyType::b2_staticBody);
 
 	//UI
-	uis[0] = _app->ui->CreateUI(0, 300, 25, 2.5f);
+	uis[0] = _app->ui->CreateUI(0, 300, 25);
 	uis[1] = _app->ui->CreateUI(2340, 300, 75);
 	uis[2] = _app->ui->CreateUI(98320, 300, 125);
 

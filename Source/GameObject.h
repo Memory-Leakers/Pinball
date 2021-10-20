@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Point.h"
+#include "Application.h"
 struct SDL_Texture;
 class PhysBody;
 
@@ -12,7 +13,7 @@ public:
 
 	GameObject();
 
-	GameObject(SDL_Texture* texture,std::string name = "Default", std::string tag = "None");
+	GameObject(SDL_Texture* texture,std::string name = "Default", std::string tag = "None", Application* _app = nullptr);
 
 	GameObject(GameObject& obj);
 

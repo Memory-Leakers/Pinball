@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Boss.h"
 class SceneDebug2 :
     public Scene
 {
@@ -12,6 +13,8 @@ public:
 	bool CleanUp() override;
 
 	uint uis[3];
+
+	HealthBar* test = new HealthBar(_app);
 
 	int currentScore = 0;
 
