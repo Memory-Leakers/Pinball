@@ -147,17 +147,32 @@ b2Vec2 ModulePhysics::Perp(b2Vec2 vec1)
 	return perpend;
 };
 
-b2Vec2 ModulePhysics::Normalise(b2Vec2 vecToNormalise) 
+//b2Vec2 ModulePhysics::Normalise(b2Vec2 vecToNormalise) 
+//{
+//	float modulo;
+//	b2Vec2 vecNormalized;
+//
+//	modulo = sqrt(pow(vecToNormalise.x, 2) + pow(vecToNormalise.y, 2));
+//
+//	vecNormalized.x = vecToNormalise.x / modulo;
+//	vecNormalized.y = vecToNormalise.y / modulo;
+//
+//	return vecNormalized;
+//}
+
+void DotProductAngle(b2Vec2 v1, b2Vec2 v2, float& angle) 
 {
-	float modulo;
-	b2Vec2 vecNormalized;
+	int dot;
+	dot = v1.x * v2.x + v1.y * v2.y;
 
-	modulo = sqrt(pow(vecToNormalise.x, 2) + pow(vecToNormalise.y, 2));
+	float modulev1 = sqrt(pow(v1.x, 2) + pow(v1.y, 2));
+	float modulev2 = sqrt(pow(v2.x, 2) + pow(v2.y, 2));
 
-	vecNormalized.x = vecToNormalise.x / modulo;
-	vecNormalized.y = vecToNormalise.y / modulo;
+	float theta = dot / (modulev1 * modulev2);
 
-	return vecNormalized;
+
+	angle = acos(theta);
+
 }
 
 void ModulePhysics::BeginContact(b2Contact* contact)
@@ -344,6 +359,7 @@ bool PhysBody::Contains(int x, int y) const
 
 	return false;
 }
+
 
 int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const
 {

@@ -70,7 +70,8 @@ public:
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
 	b2Vec2 Perp(b2Vec2 vec1);
-	b2Vec2 Normalise(b2Vec2 vecToNormalise);
+	/*b2Vec2 Normalise(b2Vec2 vecToNormalise);*/
+	void DotProductAngle(b2Vec2 v1, b2Vec2 v2, float& angle);
 
 
 	void BeginContact(b2Contact* contact) override;

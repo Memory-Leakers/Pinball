@@ -12,13 +12,18 @@ private:
 	Point<int> pos;
 	SDL_Texture* texture = nullptr;
 
+
 public:
 
 	Boing(SDL_Texture* tex, std::string name, std::string tag);
 
 	~Boing();
 
+	void Update();
+
 	void OnCollision(PhysBody* col) override;
+
+	
 
 };
 #endif // !_BOING_H_
