@@ -33,6 +33,18 @@ void GameObject::OnCollision(PhysBody* col)
 {
 }
 
+void GameObject::PreUpdate()
+{
+}
+
+void GameObject::Update()
+{
+}
+
+void GameObject::PostUpdate()
+{
+}
+
 bool GameObject::CompareTag(std::string tag)
 {
 	if(this->tag == tag)

@@ -21,6 +21,12 @@ public:
 
 	virtual void OnCollision(PhysBody* col);
 
+	virtual void PreUpdate();
+
+	virtual void Update();
+
+	virtual void PostUpdate();
+
 	bool CompareTag(std::string tag);
 
 	iPoint GetDrawPos();

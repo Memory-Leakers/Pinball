@@ -10,6 +10,8 @@ public:
 
 	void OnCollision(PhysBody* col) override;
 
+	void PreUpdate() override;
+
 	SDL_Texture* shadow;
 };
 

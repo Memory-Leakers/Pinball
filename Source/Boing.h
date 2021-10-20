@@ -11,11 +11,10 @@ class Boing : public GameObject
 private:
 	Point<int> pos;
 	SDL_Texture* texture = nullptr;
-	
 
 public:
 
-	Boing(SDL_Texture* tex, std::string tag);
+	Boing(SDL_Texture* tex, std::string name, std::string tag);
 
 	~Boing();
 

@@ -7,10 +7,10 @@
 
 bool SceneGame::Start()
 {
-	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball128.png");
+	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball120.png");
 	sceneTextures.add(player_texture);
 
-	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow128.png");
+	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow120.png");
 	sceneTextures.add(player_Shadowtexture);
 
 	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/FlipperR128.png");
@@ -20,13 +20,15 @@ bool SceneGame::Start()
 
 	//Ball
 	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
-	player->pBody = _app->physics->CreateCircle(200,200, 16, player);
+	player->pBody = _app->physics->CreateCircle(200,200, 12, player);
 	player->pBody->body->SetBullet(true);
+	player->pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
 
 	//Boing
-	boing = new Boing(boing_texture,"Boing");
+	boing = new Boing(boing_texture, "Boing", "Boing");
 	boing->pBody = _app->physics->CreateCircle(85, 340, 18, boing);
-	boing->pBody->body->SetType(b2BodyType::b2_staticBody);
+	boing->pBody->body->SetType(b2BodyType::b2_kinematicBody);
+	boing->pBody->body->GetFixtureList()[0].SetRestitution(1.25f);
 
 	//Flipper
 	flipper = new Flipper(flipper_texture, "Flipper");
@@ -257,6 +259,8 @@ bool SceneGame::Start()
 
 bool SceneGame::PreUpdate()
 {
+	player->PreUpdate();
+
 	return true;
 }
 
@@ -270,9 +274,9 @@ bool SceneGame::PostUpdate()
 {
 	iPoint p = player->GetDrawPos();
 
-	_app->renderer->Blit(player->texture, p.x, p.y, 0.25f, NULL, 1.0f, player->GetDegreeAngle(), SDL_FLIP_VERTICAL);
+	_app->renderer->Blit(player->texture, p.x, p.y, 0.2f, NULL, 1.0f, player->GetDegreeAngle(), SDL_FLIP_VERTICAL);
 
-	_app->renderer->Blit(player->shadow, p.x, p.y, 0.25f);
+	_app->renderer->Blit(player->shadow, p.x, p.y, 0.2f);
 
 	iPoint p2 = flipper->GetDrawPos();
 
