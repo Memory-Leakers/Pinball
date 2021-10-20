@@ -14,8 +14,6 @@ public:
 
 	uint uis[3];
 
-	HealthBar* test = new HealthBar(_app);
-
 	int currentScore = 0;
 
 };

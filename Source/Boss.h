@@ -5,14 +5,29 @@
 
 class HealthBar
 {
-	//barra de vida SDL_Rect que disminuye de tamaño x cuando baja la vida
-	// la canitdad de rojo aumenta mediante disminuye la cantidad de x
-	// Ejemplo: x = 100 (full vida) red = 0; x = 50 red = 125; etc...
+private:
+	int healthPercentage; // currentHealth  / (totalHealth / 100) Example -> 90.000 / (100.000 / 100) = 90%
+
+	float RGBrank; // -1 + (healthPercentage * 0,02)	// This makes the rank go from 1 to -1 // Example -> -1 + (80 * 0.02) = 0.6
 public:
 
-	HealthBar(Application* app)
+	HealthBar(Application* app, int x, int y, int width, int height, int health)
 	{
+		// Get variables
 		_app = app;
+		healthRect.x = x;
+		healthRect.y = y;
+
+		totalHealthW = width;
+
+		healthRect.w = totalHealthW;
+		healthRect.h = height;
+
+		totalHealth = health;
+
+		//Set variables
+		currentHealth = totalHealth;
+
 	};
 
 	Application* _app;
@@ -20,29 +35,31 @@ public:
 	int totalHealth;	//Health in points (ex: 100000)
 	int currentHealth;	//Current boss health
 
-	int healthPercentage; // currentHealth  / (totalHealth / 100) Example -> 90.000 / (100.000 / 100) = 90%
 
-	int totalHealthX;	//The total X of teh health rect
-
-	int RGBrank; // -1 + (healthPercentage * 0,02)	// This makes the rank go from 1 to -1 // Example -> -1 + (80 * 0.02) = 0.6
+	int totalHealthW;	//The total X of teh health rect
 
 	SDL_Rect healthRect;
 
 	void PostUpdate()
 	{
-		healthPercentage = currentHealth / (totalHealth / 100);
+		healthPercentage = currentHealth / (totalHealth / 100);	//Current health Percentage
 
-		RGBrank = -1 + (healthPercentage * 0.02);
+		RGBrank = (float)(-1 + (healthPercentage * 0.02));	// Current RGB rank, from 1 to -1
 
-		healthRect.x = (healthPercentage / 100) * totalHealthX;
+		float currentPercentage = (float)(healthPercentage / 100.0f);	//Percentage passed to float Example -> 90 = 0.9
 
+		healthRect.w = currentPercentage * totalHealthW;	//	The rect width is equal to it's own total width times the current percentage
+
+		//Change color logic
 		if (RGBrank >= 0)
 		{
-			_app->renderer->DrawQuad(healthRect, (int)(255 - (RGBrank * 255)), 255, 0);
+			int red = (int)(255 - (RGBrank * 255));
+			_app->renderer->DrawQuad(healthRect,red, 255, 0);
 		}
 		else 
 		{
-			_app->renderer->DrawQuad(healthRect, 255,(int)(255 - abs(RGBrank * 255)), 0);
+			int green = (int)(255 - abs(RGBrank * 255));
+			_app->renderer->DrawQuad(healthRect, 255,green, 0);
 		}
 
 	} 
@@ -56,10 +73,10 @@ public:
 	int health;
 	int currentPhase;	// 0 = phase 0; 1 = phase 1;
 
-	//	barra de vida (mini clase)
+	HealthBar* healthBar = nullptr;
 
+	Boss(int health, SDL_Texture* texture, std::string name, std::string tag, Application* _app);
 
-
-	Boss(SDL_Texture* texture, std::string name, std::string tag, Application* _app);
+	void CleanUp();
 };
 
