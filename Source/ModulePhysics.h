@@ -19,6 +19,7 @@ class GameObject;
 class PhysBody
 {
 public:
+
 	PhysBody() : body(NULL)
 	{}
 
@@ -43,7 +44,6 @@ public:
 public:
 	int width, height;
 	bool chainLoop = false;
-	std::string testName;
 	b2Body* body = nullptr;
 	GameObject* gameObject = nullptr;
 

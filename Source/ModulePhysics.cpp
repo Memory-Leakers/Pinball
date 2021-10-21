@@ -30,14 +30,7 @@ bool ModulePhysics::Start()
  
 UpdateStatus ModulePhysics::PreUpdate()
 {
-	world->Step(1.0f / 60.0f, 6, 2);
-
-	// TODO: HomeWork
-	/*
-	for(b2Contact* c = world->GetContactList(); c; c = c->GetNext())
-	{
-	}
-	*/
+	world->Step(1.0f, 6, 2);
 
 	return UPDATE_CONTINUE;
 }

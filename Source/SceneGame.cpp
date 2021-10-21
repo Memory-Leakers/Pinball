@@ -17,7 +17,7 @@ bool SceneGame::Start()
 	// Flipper
 	flipper = new Flipper("Flipper", "Flipper", _app);
 
-	sensor = new Sensor({ 200,120,25,25 }, "Sensor", "Sensor", _app);
+	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 
 	// Add gameObjects to the main array
 	gameObjects.add(player);
@@ -40,7 +40,10 @@ bool SceneGame::PreUpdate()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		gameObjects[i]->PreUpdate();
+		if (gameObjects[i] != nullptr)
+		{
+			gameObjects[i]->PreUpdate();
+		}
 	}
 
 	return true;
@@ -50,12 +53,23 @@ bool SceneGame::Update()
 {
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
-		gameObjects.add(new Ball("b2", "Player", _app));
+		Ball* temp = new Ball(*player, b2Vec2(150, 150));
+		gameObjects.del(gameObjects.At(gameObjects.find(player)));
+		player = temp;
+		gameObjects.add(player);
 	}
+	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	{
+		bg1->body->GetFixtureList()->SetSensor(!bg1->body->GetFixtureList()->IsSensor());
+	}
+
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		gameObjects[i]->Update();
+		if (gameObjects[i] != nullptr)
+		{
+			gameObjects[i]->Update();
+		}
 	}
 	return true;
 }
@@ -64,7 +78,10 @@ bool SceneGame::PostUpdate()
 {
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
-		gameObjects[i]->PostUpdate();
+		if (gameObjects[i] != nullptr)
+		{
+			gameObjects[i]->PostUpdate();
+		}
 	}
 
 	return true;

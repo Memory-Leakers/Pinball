@@ -110,6 +110,7 @@ public:
 			}
 		}
 
+		RELEASE(item->data);
 		RELEASE(item);
 		--size;
 		return(true);

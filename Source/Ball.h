@@ -5,6 +5,8 @@ class Ball :  public GameObject
 {
 public:
 
+	Ball(Ball &ball, b2Vec2 pos);
+
 	Ball(std::string name, std::string tag,Application* _app);
 
 	void OnCollision(PhysBody* col) override;
@@ -15,12 +17,10 @@ public:
 
 	void PostUpdate() override;
 
-	SDL_Texture* shadow;
-
-	b2Vec2 velocity;
+	/*b2Vec2 velocity;
 
 	b2Vec2 velocityInvertido;
 
-	b2Vec2 normal;
+	b2Vec2 normal;*/
 };
 
