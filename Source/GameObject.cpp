@@ -6,12 +6,11 @@ GameObject::GameObject()
 }
 
 //TODO: Poner Applicationi* en constructor
-GameObject::GameObject(SDL_Texture* texture, std::string name, std::string tag , Application* _app)
+GameObject::GameObject(std::string name, std::string tag , Application* _app)
 {
 	this->name = name;
 	this->_app = _app;
 	this->tag = tag;
-	this->texture = texture;
 }
 
 GameObject::GameObject(GameObject& obj)
@@ -34,6 +33,11 @@ void GameObject::OnCollision(PhysBody* col)
 {
 }
 
+void GameObject::Start()
+{
+	//Cargar texturas
+}
+
 void GameObject::PreUpdate()
 {
 }
@@ -44,6 +48,22 @@ void GameObject::Update()
 
 void GameObject::PostUpdate()
 {
+	// DIbujar texturas
+	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
+	{
+		if (renderObjects[i].texture != nullptr)
+		{
+			renderObjects[i].renderRect.x = GetDrawPos().x;
+			renderObjects[i].renderRect.y = GetDrawPos().y;
+
+			if (renderObjects[i].rotationEnabled)
+			{
+				renderObjects[i].rotation = GetDegreeAngle();
+			}
+
+			_app->renderer->AddTextureRenderQueue(renderObjects[i]);
+		}
+	}
 }
 
 bool GameObject::CompareTag(std::string tag)

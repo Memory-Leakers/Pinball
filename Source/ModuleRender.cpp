@@ -149,6 +149,30 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	layers[layer].push_back(renderObject);
 }
 
+void ModuleRender::AddTextureRenderQueue(RenderObject object)
+{
+	object.speed = defaultSpeed;
+
+	object.renderRect.x = (int)(-camera.x * object.speed) + object.renderRect.x * SCREEN_SIZE;
+	object.renderRect.y = (int)(-camera.y * object.speed) + object.renderRect.y * SCREEN_SIZE;
+
+	if (object.section != nullptr)
+	{
+		object.renderRect.w = object.section->w;
+		object.renderRect.h = object.section->h;
+	}
+	else
+	{
+		// Collect the texture size into rect.w and rect.h variables
+		SDL_QueryTexture(object.texture, nullptr, nullptr, &object.renderRect.w, &object.renderRect.h);
+	}
+
+	object.renderRect.w *= object.scale;
+	object.renderRect.h *= object.scale;
+
+	layers[object.layer].push_back(object);
+}
+
 void ModuleRender::SortRenderObjects(vector<RenderObject>& obj)
 {
 	//sort(obj.begin(), obj.end(), CompareRenderObj);

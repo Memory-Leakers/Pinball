@@ -7,34 +7,75 @@
 
 bool SceneGame::Start()
 {
-	SDL_Texture* player_texture = _app->textures->Load("Assets/Images/Game/Ball120.png");
-	sceneTextures.add(player_texture);
+	// Ball
+	player = new Ball("Ball", "Player",_app);
+	
+	// Boing
+	boing = new Boing("Boing", "Boing", _app);
 
-	SDL_Texture* player_Shadowtexture = _app->textures->Load("Assets/Images/Game/BallShadow120.png");
-	sceneTextures.add(player_Shadowtexture);
+	// Flipper
+	flipper = new Flipper("Flipper", "Flipper", _app);
 
-	SDL_Texture* flipper_texture = _app->textures->Load("Assets/Images/Game/FlipperR128.png");
-	sceneTextures.add(flipper_texture);
+	// Add gameObjects to the main array
+	gameObjects.add(player);
+	gameObjects.add(flipper);
+	gameObjects.add(boing);
 
-	SDL_Texture* boing_texture = nullptr;
+	// Create Map
+	CreateMap();
 
-	//Ball
-	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player",_app);
-	player->pBody = _app->physics->CreateCircle(200,200, 12, player);
-	player->pBody->body->SetBullet(true);
-	player->pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+	// UI
+	uis[0] = _app->ui->CreateUI(0, 300, 25);
+	uis[1] = _app->ui->CreateUI(2340, 300, 75);
+	uis[2] = _app->ui->CreateUI(98320, 300, 125);
 
-	//Boing
-	boing = new Boing(boing_texture, "Boing", "Boing");
-	boing->pBody = _app->physics->CreateCircle(85, 340, 18, boing);
-	boing->pBody->body->SetType(b2BodyType::b2_kinematicBody);
-	//boing->pBody->body->GetFixtureList()[0].SetRestitution(1.25f);
+	return true;
+}
 
-	//Flipper
-	flipper = new Flipper(flipper_texture, "Flipper");
+bool SceneGame::PreUpdate()
+{
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		gameObjects[i]->PreUpdate();
+	}
 
-	flipper->pBody = _app->physics->CreateRectangle(400, 500, 96, 18);
+	return true;
+}
 
+bool SceneGame::Update() 
+{
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		gameObjects[i]->Update();
+	}
+	return true;
+}
+
+bool SceneGame::PostUpdate()
+{
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		gameObjects[i]->PostUpdate();
+	}
+
+	return true;
+}
+
+bool SceneGame::CleanUp() 
+{
+	Scene::CleanUp();
+
+	// Delete Map
+	DeleteMap();
+
+	// Clean Up UI
+	_app->ui->CleanUp();
+
+	return true;
+}
+
+void SceneGame::CreateMap()
+{
 	//Map
 	int BG[110] = {
 		550, 822,
@@ -242,60 +283,10 @@ bool SceneGame::Start()
 
 	pm = _app->physics->CreateChainObj(0, 0, PM, 70, false);
 	pm->body->SetType(b2BodyType::b2_staticBody);
-
-	//UI
-	uis[0] = _app->ui->CreateUI(0, 300, 25);
-	uis[1] = _app->ui->CreateUI(2340, 300, 75);
-	uis[2] = _app->ui->CreateUI(98320, 300, 125);
-
-	gameObjects.add(player);
-
-	gameObjects.add(flipper);
-
-	gameObjects.add(boing);
-
-	return true;
 }
 
-bool SceneGame::PreUpdate()
+void SceneGame::DeleteMap()
 {
-	player->PreUpdate();
-
-	return true;
-}
-
-bool SceneGame::Update() 
-{
-
-	return true;
-}
-
-bool SceneGame::PostUpdate()
-{
-	iPoint p = player->GetDrawPos();
-
-	//_app->renderer->Blit(player->texture, p.x, p.y, 0.2f, NULL, 1.0f, player->GetDegreeAngle(), SDL_FLIP_VERTICAL);
-
-	_app->renderer->AddTextureRenderQueue(player->texture, player->GetDrawPos(), NULL, 0.2f, 1, 1.0f, player->GetDegreeAngle());
-
-	//_app->renderer->Blit(player->shadow, p.x, p.y, 0.2f);
-
-	_app->renderer->AddTextureRenderQueue(player->shadow, player->GetDrawPos(), NULL, 0.2f, 1, 1.1f, 0.0f);
-
-	iPoint p2 = flipper->GetDrawPos();
-
-	//_app->renderer->Blit(flipper->texture, p2.x, p2.y, 0.75f, NULL, 1.0f, flipper->GetDegreeAngle() , SDL_FLIP_VERTICAL);
-
-	_app->renderer->AddTextureRenderQueue(flipper->texture, flipper->GetDrawPos(), NULL, 0.75f ,1, 1.0f, flipper->GetDegreeAngle());
-
-	player->PostUpdate();
-	return true;
-}
-
-bool SceneGame::CleanUp() 
-{
-	Scene::CleanUp();
-
 	delete bg1;
 	bg1 = nullptr;
 	delete bg2;
@@ -314,9 +305,4 @@ bool SceneGame::CleanUp()
 	smDivider2M = nullptr;
 	delete pm;
 	pm = nullptr;
-
-	//Clean Up UI
-	_app->ui->CleanUp();
-
-	return true;
 }

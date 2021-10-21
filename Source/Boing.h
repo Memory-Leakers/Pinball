@@ -15,7 +15,7 @@ private:
 
 public:
 
-	Boing(SDL_Texture* tex, std::string name, std::string tag);
+	Boing(std::string name, std::string tag, Application* _app);
 
 	~Boing();
 

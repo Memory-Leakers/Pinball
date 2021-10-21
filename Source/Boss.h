@@ -75,7 +75,7 @@ public:
 
 	HealthBar* healthBar = nullptr;
 
-	Boss(int health, SDL_Texture* texture, std::string name, std::string tag, Application* _app);
+	Boss(int health, std::string name, std::string tag, Application* _app);
 
 	void CleanUp();
 };

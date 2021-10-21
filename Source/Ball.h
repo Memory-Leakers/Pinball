@@ -4,11 +4,12 @@
 class Ball :  public GameObject
 {
 public:
-	Ball() {};
 
-	Ball(SDL_Texture* texture, SDL_Texture* shadowTexture, std::string name, std::string tag,Application* _app);
+	Ball(std::string name, std::string tag,Application* _app);
 
 	void OnCollision(PhysBody* col) override;
+
+	void Start() override;
 
 	void PreUpdate() override;
 

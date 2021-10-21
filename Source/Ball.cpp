@@ -1,15 +1,47 @@
 #include "Ball.h"
 
-Ball::Ball(SDL_Texture* texture, SDL_Texture* shadowTexture, std::string name, std::string tag,Application* _app)
-    :GameObject(texture,name,tag,_app)
+Ball::Ball(std::string name, std::string tag,Application* _app)
+    :GameObject(name,tag,_app)
 {
-	this->shadow = shadowTexture;
+    //Crate Ball RenderObject
+    renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Ball120.png") ;
+    renderObjects[1].texture = _app->textures->Load("Assets/Images/Game/BallShadow120.png");
+
+    renderObjects[0].scale = 0.2f;
+    renderObjects[0].layer = 1;
+    renderObjects[0].orderInLayer = 1.0f;
+
+    renderObjects[1].scale = 0.2f;
+    renderObjects[1].layer = 1;
+    renderObjects[1].orderInLayer = 1.1f;
+    renderObjects[1].rotationEnabled = false;
+
+    //Create PhysBody
+    pBody = _app->physics->CreateCircle(200, 200, 12, this);
+    pBody->body->SetBullet(true);
+    pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
 }
 
+void Ball::Start()
+{
+    
+}
 
 void Ball::PreUpdate()
 {
 	//pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+}
+
+void Ball::PostUpdate()
+{
+    int x, y;
+    velocity = pBody->body->GetLinearVelocity();
+    velocity.Normalize();
+    // printf("%f,%f\n", velocity.x, velocity.y);
+    pBody->GetCenterPosition(x, y);
+    _app->renderer->DrawLine(x, y, METERS_TO_PIXELS(velocity.x) + x, METERS_TO_PIXELS(velocity.y) + y, 255, 0, 0);
+
+    GameObject::PostUpdate();
 }
 
 void Ball::OnCollision(PhysBody* col)
@@ -44,13 +76,4 @@ void Ball::OnCollision(PhysBody* col)
 	printf("Col Ball");
 }
 
-void Ball::PostUpdate()
-{
-    int x, y;
-    velocity = pBody->body->GetLinearVelocity();
-    velocity.Normalize();
-    printf("%f,%f\n", velocity.x, velocity.y);
-    pBody->GetCenterPosition(x, y);
-    _app->renderer->DrawLine(x, y,METERS_TO_PIXELS(velocity.x)+x, METERS_TO_PIXELS(velocity.y)+ y , 255, 0, 0);
-}
 

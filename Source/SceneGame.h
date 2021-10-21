@@ -21,6 +21,11 @@ public:
     bool PostUpdate() override;
 
     bool CleanUp() override;
+
+    void CreateMap();
+
+    void DeleteMap();
+
 public:
 
     uint uis[3];
