@@ -6,10 +6,11 @@ GameObject::GameObject()
 }
 
 //TODO: Poner Applicationi* en constructor
-GameObject::GameObject(SDL_Texture* texture, std::string name, std::string tag, Application* _app)
+GameObject::GameObject(SDL_Texture* texture, std::string name, std::string tag , Application* _app)
 {
 	this->name = name;
-
+	this->_app = _app;
+	this->tag = tag;
 	this->texture = texture;
 }
 

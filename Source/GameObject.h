@@ -42,6 +42,8 @@ public:
 	SDL_Texture* texture;
 
 	PhysBody* pBody = nullptr;
+
+	Application* _app = nullptr;
 };
 
 #endif // !GAMEOBJECT_H

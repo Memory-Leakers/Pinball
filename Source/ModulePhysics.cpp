@@ -160,7 +160,7 @@ b2Vec2 ModulePhysics::Perp(b2Vec2 vec1)
 //	return vecNormalized;
 //}
 
-void DotProductAngle(b2Vec2 v1, b2Vec2 v2, float& angle) 
+void ModulePhysics::DotProductAngle(b2Vec2 v1, b2Vec2 v2, float& angle) 
 {
 	int dot;
 	dot = v1.x * v2.x + v1.y * v2.y;
@@ -336,6 +336,13 @@ void PhysBody::GetPosition(int& x, int& y) const
 	b2Vec2 pos = body->GetPosition();
 	x = METERS_TO_PIXELS(pos.x) - (width);
 	y = METERS_TO_PIXELS(pos.y) - (height);
+}
+
+void PhysBody::GetCenterPosition(int& x, int& y) const
+{
+	b2Vec2 pos = body->GetPosition();
+	x = METERS_TO_PIXELS(pos.x);
+	y = METERS_TO_PIXELS(pos.y);
 }
 
 float PhysBody::GetRotation() const

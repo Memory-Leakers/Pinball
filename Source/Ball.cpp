@@ -1,11 +1,9 @@
 #include "Ball.h"
 
-Ball::Ball(SDL_Texture* texture, SDL_Texture* shadowTexture, std::string name, std::string tag)
+Ball::Ball(SDL_Texture* texture, SDL_Texture* shadowTexture, std::string name, std::string tag,Application* _app)
+    :GameObject(texture,name,tag,_app)
 {
-	this->texture = texture;
 	this->shadow = shadowTexture;
-	this->name = name;
-	this->tag = tag;
 }
 
 
@@ -21,30 +19,38 @@ void Ball::OnCollision(PhysBody* col)
 		//pBody->body->GetFixtureList()[0].SetRestitution(1);
 	}
     //Try boing
-    /*int x, y;
+    int x, y;
     float angle;
-    b2Vec2 velocity;
-    b2Vec2 velocityInvertido;
-    b2Vec2 normal;
-    velocity = pBody->body->GetLinearVelocity();
+    
+    
     pBody->GetPosition(x, y);
 
     if (pBody->RayCast(x, y, velocity.x, velocity.y, normal.x, normal.y) == -1)
     {
         return;
     }
-
-    _app->physics->DotProductAngle(normal, -velocity, angle);
+    velocityInvertido = -velocity;
+    _app->physics->DotProductAngle(normal, velocityInvertido, angle);
 
     b2Vec2 vectorReflected;
-    velocityInvertido = -velocity;
+    
 
-    vectorReflected.x = (velocityInvertido.x * cos(angle)) - (velocityInvertido.y * sin(angle));
-    vectorReflected.y = (velocityInvertido.x * sin(angle)) + (velocityInvertido.y * cos(angle));
+    vectorReflected.x = (velocityInvertido.x * cos(angle*2)) - (velocityInvertido.y * sin(angle*2));
+    vectorReflected.y = (velocityInvertido.x * sin(angle*2)) + (velocityInvertido.y * cos(angle*2));
 
     bool wake = true;
-    pBody->body->ApplyForceToCenter(vectorReflected, wake);*/
+    pBody->body->ApplyForceToCenter(vectorReflected, wake);
 
 	printf("Col Ball");
+}
+
+void Ball::PostUpdate()
+{
+    int x, y;
+    velocity = pBody->body->GetLinearVelocity();
+    velocity.Normalize();
+    printf("%f,%f\n", velocity.x, velocity.y);
+    pBody->GetCenterPosition(x, y);
+    _app->renderer->DrawLine(x, y,METERS_TO_PIXELS(velocity.x)+x, METERS_TO_PIXELS(velocity.y)+ y , 255, 0, 0);
 }
 

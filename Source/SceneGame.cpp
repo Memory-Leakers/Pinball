@@ -19,7 +19,7 @@ bool SceneGame::Start()
 	SDL_Texture* boing_texture = nullptr;
 
 	//Ball
-	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
+	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player",_app);
 	player->pBody = _app->physics->CreateCircle(200,200, 12, player);
 	player->pBody->body->SetBullet(true);
 	player->pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
@@ -28,7 +28,7 @@ bool SceneGame::Start()
 	boing = new Boing(boing_texture, "Boing", "Boing");
 	boing->pBody = _app->physics->CreateCircle(85, 340, 18, boing);
 	boing->pBody->body->SetType(b2BodyType::b2_kinematicBody);
-	boing->pBody->body->GetFixtureList()[0].SetRestitution(1.25f);
+	//boing->pBody->body->GetFixtureList()[0].SetRestitution(1.25f);
 
 	//Flipper
 	flipper = new Flipper(flipper_texture, "Flipper");
@@ -282,6 +282,7 @@ bool SceneGame::PostUpdate()
 
 	_app->renderer->Blit(flipper->texture, p2.x, p2.y, 0.75f, NULL, 1.0f, flipper->GetDegreeAngle() , SDL_FLIP_VERTICAL);
 
+	player->PostUpdate();
 	return true;
 }
 

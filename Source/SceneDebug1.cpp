@@ -18,7 +18,7 @@ bool SceneDebug1::Start()
 	sceneTextures.add(flipper_texture);
 
 	//Ball
-	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player");
+	player = new Ball(player_texture, player_Shadowtexture, "Ball", "Player",_app);
 
 	player->pBody = _app->physics->CreateCircle(200, 200, 16, player);
 
