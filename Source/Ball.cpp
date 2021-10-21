@@ -53,8 +53,7 @@ void Ball::OnCollision(PhysBody* col)
     //Try boing
     int x, y;
     float angle;
-    
-    
+     
     pBody->GetPosition(x, y);
 
     if (pBody->RayCast(x, y, velocity.x, velocity.y, normal.x, normal.y) == -1)

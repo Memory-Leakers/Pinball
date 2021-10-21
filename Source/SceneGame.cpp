@@ -44,6 +44,11 @@ bool SceneGame::PreUpdate()
 
 bool SceneGame::Update() 
 {
+	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+	{
+		gameObjects.add(new Ball("b2", "Player", _app));
+	}
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		gameObjects[i]->Update();
