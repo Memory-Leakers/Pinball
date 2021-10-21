@@ -47,4 +47,5 @@ private:
 	float defaultSpeed = 1;
 
 	vector<vector<RenderObject>> layers;
+
 };

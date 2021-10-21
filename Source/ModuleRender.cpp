@@ -8,6 +8,8 @@ ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, s
 	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
+
+	layers.resize(3);
 }
 
 // Destructor
@@ -88,11 +90,15 @@ UpdateStatus ModuleRender::PostUpdate()
 	
 	SDL_RenderPresent(renderer);
 
-	// Clear layers
-	for each (auto layer in layers)
+	for (int i = 0; i < 3; i++)
 	{
-		layers.clear();
+		layers[i].clear();
 	}
+	// Clear layers
+	//for each (auto layer in layers)
+	//{
+	//	layers.clear();
+	//}
 
 	return UPDATE_CONTINUE;
 }
