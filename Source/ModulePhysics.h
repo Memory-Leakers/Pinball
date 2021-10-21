@@ -74,8 +74,9 @@ public:
 	void DotProductAngle(b2Vec2 v1,b2Vec2 v2, float& angle);
 	
 
-
 	void BeginContact(b2Contact* contact) override;
+
+	void ShapesRender();
 
 private:
 	b2Body* mouseBody = nullptr;

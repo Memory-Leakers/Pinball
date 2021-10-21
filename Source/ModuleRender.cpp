@@ -87,6 +87,8 @@ UpdateStatus ModuleRender::PostUpdate()
 			}
 		}
 	}
+
+	App->physics->ShapesRender();
 	
 	SDL_RenderPresent(renderer);
 
@@ -94,11 +96,6 @@ UpdateStatus ModuleRender::PostUpdate()
 	{
 		layers[i].clear();
 	}
-	// Clear layers
-	//for each (auto layer in layers)
-	//{
-	//	layers.clear();
-	//}
 
 	return UPDATE_CONTINUE;
 }
@@ -117,17 +114,11 @@ bool ModuleRender::CleanUp()
 	return true;
 }
 
-void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, int layer, float orderInlayer, bool isFlipH, float rotation, float scale, float speed)
+void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, float scale, int layer, float orderInlayer, float rotation, SDL_RendererFlip flip, float speed)
 {
 	RenderObject renderObject;
 
 	speed = defaultSpeed;
-
-	//Fullscreen
-	if (App->FullScreenDesktop)
-	{
-		scale /= 3;
-	}
 
 	renderObject.texture = texture;
 	renderObject.rotation = rotation;
@@ -136,8 +127,8 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 
 	if (layer == 2 || layer == 3) speed = 0;	//If texture in UI layer, it moves alongside the camera. Therefor, speed = 0;
 
-	renderObject.renderRect.x = (int)(-camera.x * speed) + pos.x * scale;
-	renderObject.renderRect.y = (int)(-camera.y * speed) + pos.y * scale;
+	renderObject.renderRect.x = (int)(-camera.x * speed) + pos.x * SCREEN_SIZE;
+	renderObject.renderRect.y = (int)(-camera.y * speed) + pos.y * SCREEN_SIZE;
 
 	if (section != nullptr)
 	{
@@ -153,14 +144,7 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	renderObject.renderRect.w *= scale;
 	renderObject.renderRect.h *= scale;
 
-	if (isFlipH)
-	{
-		renderObject.flip = SDL_FLIP_HORIZONTAL;
-	}
-	else
-	{
-		renderObject.flip = SDL_FLIP_VERTICAL;
-	}
+	renderObject.flip = flip;
 
 	layers[layer].push_back(renderObject);
 }

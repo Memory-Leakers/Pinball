@@ -22,9 +22,6 @@ public:
 	void Update();
 
 	void OnCollision(PhysBody* col) override;
-
-	
-
 };
 #endif // !_BOING_H_
 

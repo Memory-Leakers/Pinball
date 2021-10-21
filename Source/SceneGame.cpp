@@ -276,17 +276,17 @@ bool SceneGame::PostUpdate()
 
 	//_app->renderer->Blit(player->texture, p.x, p.y, 0.2f, NULL, 1.0f, player->GetDegreeAngle(), SDL_FLIP_VERTICAL);
 
-	_app->renderer->AddTextureRenderQueue(player->texture, player->GetDrawPos(), NULL, 1, 1.0f, true, player->GetDegreeAngle(), 0.2f);
+	_app->renderer->AddTextureRenderQueue(player->texture, player->GetDrawPos(), NULL, 0.2f, 1, 1.0f, player->GetDegreeAngle());
 
 	//_app->renderer->Blit(player->shadow, p.x, p.y, 0.2f);
 
-	_app->renderer->AddTextureRenderQueue(player->shadow, player->GetDrawPos(), NULL, 1, 1.1f, false, 0.0f, 0.2f);
+	_app->renderer->AddTextureRenderQueue(player->shadow, player->GetDrawPos(), NULL, 0.2f, 1, 1.1f, 0.0f);
 
 	iPoint p2 = flipper->GetDrawPos();
 
 	//_app->renderer->Blit(flipper->texture, p2.x, p2.y, 0.75f, NULL, 1.0f, flipper->GetDegreeAngle() , SDL_FLIP_VERTICAL);
 
-	_app->renderer->AddTextureRenderQueue(flipper->texture, flipper->GetDrawPos(), NULL, 1, 1.0f, true, flipper->GetDegreeAngle(), 0.75f);
+	_app->renderer->AddTextureRenderQueue(flipper->texture, flipper->GetDrawPos(), NULL, 0.75f ,1, 1.0f, flipper->GetDegreeAngle());
 
 	player->PostUpdate();
 	return true;

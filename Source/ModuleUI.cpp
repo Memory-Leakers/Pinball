@@ -35,9 +35,10 @@ UpdateStatus ModuleUI::PostUpdate()
 		{
 			for (int j = 0; j < uiArray[i]->totalDigits; j++)
 			{
-				int tempPos = uiArray[i]->x;
-				tempPos += (int)(26 * uiArray[i]->digitScale * j); // Spacing between digits
-				App->renderer->Blit(texture, tempPos, uiArray[i]->y,uiArray[i]->digitScale, &numSection[uiArray[i]->digitVec.at(j)]);
+				iPoint tempPos = iPoint(uiArray[i]->x, uiArray[i]->y);
+				tempPos.x += (int)(26 * uiArray[i]->digitScale * j); // Spacing between digits
+				//App->renderer->Blit(texture, tempPos, uiArray[i]->y,uiArray[i]->digitScale, &numSection[uiArray[i]->digitVec.at(j)]);
+				App->renderer->AddTextureRenderQueue(texture, tempPos, &numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale);
 			}
 		}
 	}

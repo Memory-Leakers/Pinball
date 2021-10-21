@@ -28,7 +28,7 @@ public:
 	UpdateStatus PostUpdate();
 	bool CleanUp();
 
-	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, int layer = 0, float orderInlayer = 0.0f, bool isFlipH = false, float rotation = 0, float scale = SCREEN_SIZE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
+	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
 	void SortRenderObjects(vector<RenderObject>& obj);
 
 	#pragma region OBSOLETE
