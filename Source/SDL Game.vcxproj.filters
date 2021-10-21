@@ -73,6 +73,9 @@
     <ClCompile Include="Boss.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -166,6 +169,9 @@
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Flipper.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>

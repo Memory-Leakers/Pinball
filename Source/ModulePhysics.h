@@ -67,7 +67,7 @@ public:
 
 	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
+	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
 	b2Vec2 Perp(b2Vec2 vec1);
 	/*b2Vec2 Normalise(b2Vec2 vecToNormalise);*/

@@ -95,6 +95,32 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
+PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height)
+{
+	b2BodyDef body;
+	body.type = b2_kinematicBody;
+	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
+
+	b2Body* b = world->CreateBody(&body);
+	b2PolygonShape box;
+	box.SetAsBox(PIXELS_TO_METER(width) * 0.5f, PIXELS_TO_METER(height) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.isSensor = true;
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	pbody->width = width * 0.5f;
+	pbody->height = height * 0.5f;
+
+	pbody->body->SetUserData(pbody);
+
+	return pbody;
+}
+
 PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop)
 {
 	PhysBody* pbody = new PhysBody();

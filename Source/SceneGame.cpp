@@ -4,22 +4,26 @@
 #include "ModuleTextures.h"
 #include "ModulePhysics.h"
 #include "Boing.h"
+#include "Sensor.h"
 
 bool SceneGame::Start()
 {
 	// Ball
-	player = new Ball("Ball", "Player",_app);
-	
+	player = new Ball("Ball", "Player", _app);
+
 	// Boing
 	boing = new Boing("Boing", "Boing", _app);
 
 	// Flipper
 	flipper = new Flipper("Flipper", "Flipper", _app);
 
+	sensor = new Sensor({ 200,120,25,25 }, "Sensor", "Sensor", _app);
+
 	// Add gameObjects to the main array
 	gameObjects.add(player);
 	gameObjects.add(flipper);
 	gameObjects.add(boing);
+	gameObjects.add(sensor);
 
 	// Create Map
 	CreateMap();
