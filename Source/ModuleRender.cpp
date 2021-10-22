@@ -88,6 +88,16 @@ UpdateStatus ModuleRender::PostUpdate()
 		}
 	}
 
+	// Draw Rects
+
+	for (int i = 0; i < rects.size(); i++)
+	{
+		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(renderer, rects[i].color.r, rects[i].color.g, rects[i].color.b, rects[i].color.a);
+
+		SDL_RenderFillRect(renderer, &rects[i].rect);
+	}
+
 	App->physics->ShapesRender();
 	
 	SDL_RenderPresent(renderer);
@@ -96,6 +106,8 @@ UpdateStatus ModuleRender::PostUpdate()
 	{
 		layers[i].clear();
 	}
+
+	rects.clear();
 
 	return UPDATE_CONTINUE;
 }
@@ -171,6 +183,16 @@ void ModuleRender::AddTextureRenderQueue(RenderObject object)
 	object.renderRect.h *= object.scale;
 
 	layers[object.layer].push_back(object);
+}
+
+void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera)
+{
+	RenderRect renderR;
+
+	renderR.rect = rect;
+	renderR.color = { r,g,b,a };
+	
+	rects.push_back(renderR);
 }
 
 void ModuleRender::SortRenderObjects(vector<RenderObject>& obj)

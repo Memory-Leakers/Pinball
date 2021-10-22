@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
-class Sensor :
-    public GameObject
+class Sensor : public GameObject
 {
 public:
     Sensor(SDL_Rect rect, int layer, std::string name, std::string tag, Application* _app);

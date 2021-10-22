@@ -54,12 +54,12 @@ public:
 		if (RGBrank >= 0)
 		{
 			int red = (int)(255 - (RGBrank * 255));
-			_app->renderer->DrawQuad(healthRect,red, 255, 0);
+			_app->renderer->AddRectRenderQueue(healthRect,red, 255, 0);
 		}
 		else 
 		{
 			int green = (int)(255 - abs(RGBrank * 255));
-			_app->renderer->DrawQuad(healthRect, 255,green, 0);
+			_app->renderer->AddRectRenderQueue(healthRect, 255,green, 0);
 		}
 
 	} 
@@ -76,7 +76,13 @@ public:
 	HealthBar* healthBar = nullptr;
 
 	Boss(int health, std::string name, std::string tag, Application* _app);
+	
+	~Boss();
 
-	void CleanUp();
+	void Update() override;
+
+	void PostUpdate() override;
+
+	void CleanUp() override;
 };
 

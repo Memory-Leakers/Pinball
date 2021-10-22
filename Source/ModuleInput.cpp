@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include <iostream>
 
 #include "SDL\include\SDL.h"
 
@@ -97,6 +98,9 @@ UpdateStatus ModuleInput::PreUpdate()
 		}
 		}
 	}
+
+	if (keyboard[SDL_SCANCODE_F8] == KEY_DOWN)
+		std::cout << mouse_x << " | " << mouse_y << std::endl;
 
 	return UPDATE_CONTINUE;
 }
