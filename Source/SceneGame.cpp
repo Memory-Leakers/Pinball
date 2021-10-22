@@ -9,8 +9,12 @@
 SDL_Texture* bg;
 
 
+
 bool SceneGame::Start()
 {
+	// Create Map
+	CreateMap();
+
 	bg = _app->textures->Load("Assets/Images/Game/BG_Prov2.png");
 
 	// Ball
@@ -20,7 +24,7 @@ bool SceneGame::Start()
 	boing = new Boing("Boing", "Boing", _app);
 
 	// Flipper
-	flipper = new Flipper("Flipper", "Flipper", _app);
+	flipper = new Flipper("Flipper", "Flipper", _app,flipper1);
 
 	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 
@@ -30,8 +34,8 @@ bool SceneGame::Start()
 	gameObjects.add(boing);
 	gameObjects.add(sensor);
 
-	// Create Map
-	CreateMap();
+	
+	
 
 	// UI
 	uis[0] = _app->ui->CreateUI(0, 300, 25);
@@ -76,6 +80,8 @@ bool SceneGame::Update()
 			gameObjects[i]->Update();
 		}
 	}
+
+	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 	return true;
 }
 
@@ -310,6 +316,7 @@ void SceneGame::CreateMap()
 
 	flipper1 = _app->physics->CreateChainObj(0, 0, FP1, 12, true);
 	flipper1->body->SetType(b2BodyType::b2_staticBody);
+
 
 	flipper2 = _app->physics->CreateChainObj(0, 0, FP2, 12, true);
 	flipper2->body->SetType(b2BodyType::b2_staticBody);
