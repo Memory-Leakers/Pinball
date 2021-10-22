@@ -6,8 +6,13 @@
 #include "Boing.h"
 #include "Sensor.h"
 
+SDL_Texture* bg;
+
+
 bool SceneGame::Start()
 {
+	bg = _app->textures->Load("Assets/Images/Game/BG_Prov2.png");
+
 	// Ball
 	player = new Ball("Ball", "Player", _app);
 
@@ -76,6 +81,8 @@ bool SceneGame::Update()
 
 bool SceneGame::PostUpdate()
 {
+	_app->renderer->AddTextureRenderQueue(bg, { 0,0 });
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i] != nullptr)

@@ -30,7 +30,7 @@ bool ModulePhysics::Start()
  
 UpdateStatus ModulePhysics::PreUpdate()
 {
-	world->Step(1.0f, 6, 2);
+	world->Step(1.0f / 60, 6, 2);
 
 	return UPDATE_CONTINUE;
 }

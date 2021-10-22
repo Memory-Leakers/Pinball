@@ -96,8 +96,6 @@ void Ball::OnCollision(PhysBody* col)
 
     bool wake = true;
     pBody->body->ApplyForceToCenter(vectorReflected, wake);*/
-
-	printf("Col Ball");
 }
 
 

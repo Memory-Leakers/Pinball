@@ -19,7 +19,11 @@ public:
 
 	~Boing();
 
-	void Update();
+	void PreUpdate() override;
+
+	void Update() override;
+
+	void PostUpdate() override;
 
 	void OnCollision(PhysBody* col) override;
 };
