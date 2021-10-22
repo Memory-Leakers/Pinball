@@ -91,6 +91,12 @@ bool GameObject::CompareTag(std::string tag)
 
 iPoint GameObject::GetDrawPos()
 {
+	if (this->pBody == nullptr)
+	{
+		LOG("GameObject has no PhysBody!"); 
+		return iPoint(0, 0);
+	}
+
 	b2Vec2 pos;
 	pos = pBody->body->GetPosition();
 

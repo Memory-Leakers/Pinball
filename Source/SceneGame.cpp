@@ -6,6 +6,7 @@
 #include "Boing.h"
 #include "Sensor.h"
 #include "Boss.h"
+#include "Spring.h"
 
 SDL_Texture* bg;
 
@@ -27,12 +28,18 @@ bool SceneGame::Start()
 
 	boss = new Boss(100000, "Boss", "Boss", _app);
 
+	spring = new Spring(iPoint(513, 827), "Spring", "Spring", _app);
+
+	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
+
 	// Add gameObjects to the main array
 	gameObjects.add(player);
 	gameObjects.add(flipper);
 	gameObjects.add(boing);
 	gameObjects.add(sensor);
 	gameObjects.add(boss);
+	gameObjects.add(spring);
+	gameObjects.add(sBallSpring);
 
 	// Create Map
 	CreateMap();

@@ -5,6 +5,7 @@ class Flipper;
 class Boing;
 class Sensor;
 class Boss;
+class Spring;
 
 class SceneGame : public Scene
 {
@@ -41,6 +42,10 @@ public:
     Sensor* sensor;
 
     Boss* boss;
+
+    Spring* spring;
+
+    Sensor* sBallSpring;
 
     //Map
     PhysBody* bg1;

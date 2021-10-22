@@ -42,7 +42,7 @@ Ball::Ball(std::string name, std::string tag,Application* _app)
     renderObjects[1].rotationEnabled = false;
 
     //Create PhysBody
-    pBody = _app->physics->CreateCircle(520, 800, 12, this);
+    pBody = _app->physics->CreateCircle(520, 780, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
 }
@@ -59,6 +59,9 @@ void Ball::PreUpdate()
 
 void Ball::Update()
 {
+    if (!initialSpring || pBody->body->GetLinearVelocity().y != 0) return;
+
+
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
         impulseForce+= impulseForce >= 1200 ? 0 : 20;
@@ -66,7 +69,8 @@ void Ball::Update()
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
         pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
-        impulseForce = 0;
+        impulseForce = 200;
+        initialSpring = false;
     }
 }
 
@@ -84,6 +88,14 @@ void Ball::PostUpdate()
 
 void Ball::OnCollision(PhysBody* col)
 {
+    if (col->gameObject == nullptr) return;
+
+    if (col->gameObject->name == "SensorBS")
+    {
+        initialSpring = true;
+    }
+
+
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{
 		//pBody->body->GetFixtureList()[0].SetRestitution(1);

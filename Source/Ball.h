@@ -4,7 +4,9 @@
 class Ball :  public GameObject
 {
 private:
-	int impulseForce = 0;
+	int impulseForce = 200;
+
+	bool initialSpring = false;
 
 public:
 
