@@ -4,12 +4,23 @@
 class Ball :  public GameObject
 {
 public:
-	Ball() {};
 
-	Ball(SDL_Texture* texture, SDL_Texture* shadowTexture, std::string name = "Default", std::string tag = "None");
+	Ball(Ball &ball, b2Vec2 pos);
+
+	Ball(std::string name, std::string tag,Application* _app);
 
 	void OnCollision(PhysBody* col) override;
 
-	SDL_Texture* shadow;
+	void Start() override;
+
+	void PreUpdate() override;
+
+	void PostUpdate() override;
+
+	/*b2Vec2 velocity;
+
+	b2Vec2 velocityInvertido;
+
+	b2Vec2 normal;*/
 };
 

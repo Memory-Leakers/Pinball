@@ -12,10 +12,10 @@ bool ModuleUI::Start()
 
 	for (int i = 0; i < 10; i++)
 	{
-		numSection[i].x = 23 * i;
-		numSection[i].y = 0;
-		numSection[i].w = 23;
-		numSection[i].h = 37;
+		numSection[i].x = 26 * i;
+		numSection[i].y = 10;
+		numSection[i].w = 26;
+		numSection[i].h = 42;
 	}
 
     return true;
@@ -35,9 +35,10 @@ UpdateStatus ModuleUI::PostUpdate()
 		{
 			for (int j = 0; j < uiArray[i]->totalDigits; j++)
 			{
-				int tempPos = uiArray[i]->x;
-				tempPos += (24 * j);
-				App->renderer->Blit(texture, tempPos, uiArray[i]->y,1.0f, &numSection[uiArray[i]->digitVec.at(j)]);
+				iPoint tempPos = iPoint(uiArray[i]->x, uiArray[i]->y);
+				tempPos.x += (int)(26 * uiArray[i]->digitScale * j); // Spacing between digits
+				//App->renderer->Blit(texture, tempPos, uiArray[i]->y,uiArray[i]->digitScale, &numSection[uiArray[i]->digitVec.at(j)]);
+				App->renderer->AddTextureRenderQueue(texture, tempPos, &numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale);
 			}
 		}
 	}
@@ -57,12 +58,13 @@ UpdateStatus ModuleUI::PostUpdate()
 /// <param name="x"></param>
 /// <param name="y"></param>
 /// <returns></returns>
-uint ModuleUI::CreateUI(int num, int x, int y)
+uint ModuleUI::CreateUI(int num, int x, int y, float scale)
 {
 	//  Get position of the UI
 	itemUI* item = new itemUI();
 	item->x = x;
 	item->y = y;
+	item->digitScale = scale;
 
 	//Make the number into an array of digits
 	//	Declare Variables
@@ -101,6 +103,12 @@ uint ModuleUI::CreateUI(int num, int x, int y)
 			return (uint)i;
 		}
     }
+}
+
+void ModuleUI::DestroyUI(uint index)
+{
+	delete uiArray[index];
+	uiArray[index] = nullptr;
 }
 
 bool ModuleUI::CleanUp()

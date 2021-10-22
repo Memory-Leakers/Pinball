@@ -1,25 +1,59 @@
 #include "Boing.h"
-#include "GameObject.h"
+#include <math.h>
 
-Boing::Boing(Point<int> pos)
+
+Boing::Boing(std::string name,std::string tag, Application* _app) : GameObject(name, tag, _app)
 {
+    //Crate Boing RenderObject
+    renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Boing.png");
+    //renderObjects[1].texture = _app->textures->Load("Assets/Images/Game/BallShadow120.png");
+
+    renderObjects[0].scale = 0.3f;
+    renderObjects[0].layer = 1;
+    renderObjects[0].orderInLayer = 1.1f;
+    renderObjects[0].rotationEnabled = false;
+	renderObjects[0].section = new SDL_Rect{ 0, 0, 120, 120 };
+
+	// Create PhysBody
+	pBody = _app->physics->CreateCircle(160, 340, 18, this);
+	pBody->body->SetType(b2BodyType::b2_kinematicBody);
+	pBody->body->GetFixtureList()->SetRestitution(1.25f);
 }
 
 Boing::~Boing()
 {
+	
+}
+
+void Boing::PreUpdate()
+{
+}
+
+void Boing::Update() 
+{
+	
+}
+
+void Boing::PostUpdate()
+{
+	GameObject::PostUpdate();
 }
 
 void Boing::OnCollision(PhysBody* col)
 {
-	if (col->gameObject->CompareTag("Player")) 
+	if (col->gameObject && col->gameObject->CompareTag("Player"))
 	{
-		/*b2Vec2 velocity;
+		if (renderObjects[0].section != nullptr)
+		{
+			if(renderObjects[0].section->x == 120)
+			{
+				renderObjects[0].section->x = 0;
+			}
+			else
+			{
+				renderObjects[0].section->x = 120;
+			}
+		}
 
-		velocity = col->body->GetLinearVelocity();
-
-		b2Vec2 normal;
-		*/
-
-		//Vectorvelocidad.reflected
 	}
 }

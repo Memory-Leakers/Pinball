@@ -3,8 +3,11 @@
 
 #include <string>
 #include "Point.h"
+#include "Application.h"
 struct SDL_Texture;
 class PhysBody;
+
+#define MAX_GAMEOBJECT_TEXTURES 4
 
 class GameObject 
 {
@@ -12,7 +15,7 @@ public:
 
 	GameObject();
 
-	GameObject(SDL_Texture* texture,std::string name = "Default", std::string tag = "None");
+	GameObject(std::string name = "Default", std::string tag = "None", Application* _app = nullptr);
 
 	GameObject(GameObject& obj);
 
@@ -20,9 +23,19 @@ public:
 
 	virtual void OnCollision(PhysBody* col);
 
+	virtual void Start();
+
+	virtual void PreUpdate();
+
+	virtual void Update();
+
+	virtual void PostUpdate();
+
 	bool CompareTag(std::string tag);
 
 	iPoint GetDrawPos();
+
+	float GetDegreeAngle();
 
 public:
 
@@ -30,9 +43,11 @@ public:
 
 	std::string tag;
 
-	SDL_Texture* texture;
+	RenderObject renderObjects[MAX_GAMEOBJECT_TEXTURES];
 
 	PhysBody* pBody = nullptr;
+
+	Application* _app = nullptr;
 };
 
 #endif // !GAMEOBJECT_H

@@ -15,6 +15,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Boing.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Flipper.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
+    <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -39,12 +41,14 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="Sensor.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Boing.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -59,11 +63,13 @@
     <ClCompile Include="SceneDebug1.cpp" />
     <ClCompile Include="SceneDebug2.cpp" />
     <ClCompile Include="SceneDebug3.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="Sensor.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>

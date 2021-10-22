@@ -8,12 +8,17 @@ using namespace std;
 
 struct RenderObject
 {
-	SDL_Texture* texture;
-	SDL_Rect* section;
+	SDL_Texture* texture = nullptr;
+	SDL_Rect* section = nullptr;
 	SDL_Rect renderRect;
-	SDL_RendererFlip flip;
-	float rotation;
-	float orderInLayer;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	float rotation = 0.0f;
+	int layer = 0;
+	float orderInLayer = 0.0f;
+	float speed = 1.0f;
+	float scale = 1.0f;
+
+	bool rotationEnabled = true;
 };
 
 class ModuleRender : public Module
@@ -28,7 +33,8 @@ public:
 	UpdateStatus PostUpdate();
 	bool CleanUp();
 
-	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, int layer = 0, float orderInlayer = 0.0f, bool isFlipH = false, float rotation = 0, float scale = SCREEN_SIZE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
+	void AddTextureRenderQueue(RenderObject object);
+	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
 	void SortRenderObjects(vector<RenderObject>& obj);
 
 	#pragma region OBSOLETE
@@ -47,4 +53,5 @@ private:
 	float defaultSpeed = 1;
 
 	vector<vector<RenderObject>> layers;
+
 };

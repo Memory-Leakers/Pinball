@@ -5,11 +5,10 @@
 #include "SceneDebug1.h"
 #include "SceneDebug2.h"
 #include "SceneDebug3.h"
+#include "SceneGame.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
-
 }
 
 ModuleScene::~ModuleScene()
@@ -22,6 +21,7 @@ bool ModuleScene::Start()
 	scenes[1] = new SceneDebug2(App);
 	scenes[2] = new SceneDebug3(App);
 	scenes[3] = new SceneMain(App);
+	scenes[4] = new SceneGame(App);
 
 	currentScene = scenes[index];
 
@@ -66,6 +66,10 @@ UpdateStatus ModuleScene::Update()
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		ChangeCurrentScene(3, 0);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		ChangeCurrentScene(4, 0);
 	}
 
 

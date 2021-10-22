@@ -47,13 +47,43 @@ bool ModuleTextures::CleanUp()
 	}
 
 	textures.clear();
+
+	texturePath.clear();
+
 	IMG_Quit();
 	return true;
 }
 
-// Load new texture from file path
-SDL_Texture* const ModuleTextures::Load(const char* path)
+bool ModuleTextures::CleanUpTextures()
 {
+	LOG("Freeing textures and Image library");
+
+	p2List_item<SDL_Texture*>* item = textures.getFirst();
+
+	while (item != NULL)
+	{
+		SDL_DestroyTexture(item->data);
+		item = item->next;
+	}
+
+	textures.clear();
+
+	texturePath.clear();
+
+	return true;
+}
+
+// Load new texture from file path
+SDL_Texture* const ModuleTextures::Load(char* path)
+{
+	std::map<char*, SDL_Texture*>::iterator it;
+	it = texturePath.find(path);
+
+	if (it != texturePath.end())
+	{
+		return texturePath.find(path)->second;
+	}
+
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
@@ -76,6 +106,8 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 
 		SDL_FreeSurface(surface);
 	}
+
+	texturePath.insert(std::pair<char*, SDL_Texture*>(path, texture));
 
 	return texture;
 }

@@ -1,31 +1,115 @@
-#include "SceneDebug3.h"
+#include "SceneGame.h"
+#include "Ball.h"
+#include "Flipper.h"
+#include "ModuleTextures.h"
+#include "ModulePhysics.h"
+#include "Boing.h"
+#include "Sensor.h"
 
-PhysBody* bg1;
-PhysBody* bg2;
-PhysBody* bg3;
-PhysBody* ball;
-PhysBody* flipper1;
-PhysBody* flipper2;
+SDL_Texture* bg;
 
-PhysBody* smDivider1M;
-PhysBody* smDivider2M;
 
-PhysBody* pm;
-
-PhysBody* upperLeft;
-PhysBody* upperRight;
-
-SceneDebug3::SceneDebug3(Application* app) : Scene(app)
+bool SceneGame::Start()
 {
+	bg = _app->textures->Load("Assets/Images/Game/BG_Prov2.png");
 
+	// Ball
+	player = new Ball("Ball", "Player", _app);
+
+	// Boing
+	boing = new Boing("Boing", "Boing", _app);
+
+	// Flipper
+	flipper = new Flipper("Flipper", "Flipper", _app);
+
+	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
+
+	// Add gameObjects to the main array
+	gameObjects.add(player);
+	gameObjects.add(flipper);
+	gameObjects.add(boing);
+	gameObjects.add(sensor);
+
+	// Create Map
+	CreateMap();
+
+	// UI
+	uis[0] = _app->ui->CreateUI(0, 300, 25);
+	uis[1] = _app->ui->CreateUI(2340, 300, 75);
+	uis[2] = _app->ui->CreateUI(98320, 300, 125);
+
+	return true;
 }
 
-bool SceneDebug3::Start()
+bool SceneGame::PreUpdate()
 {
-	ball = _app->physics->CreateCircle(300, 300, 12);
-	ball->body->SetType(b2BodyType::b2_dynamicBody);
-	ball->body->SetBullet(true);
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		if (gameObjects[i] != nullptr)
+		{
+			gameObjects[i]->PreUpdate();
+		}
+	}
 
+	return true;
+}
+
+bool SceneGame::Update() 
+{
+	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+	{
+		Ball* temp = new Ball(*player, b2Vec2(150, 150));
+		gameObjects.del(gameObjects.At(gameObjects.find(player)));
+		player = temp;
+		gameObjects.add(player);
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	{
+		bg1->body->GetFixtureList()->SetSensor(!bg1->body->GetFixtureList()->IsSensor());
+	}
+
+
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		if (gameObjects[i] != nullptr)
+		{
+			gameObjects[i]->Update();
+		}
+	}
+	return true;
+}
+
+bool SceneGame::PostUpdate()
+{
+	_app->renderer->AddTextureRenderQueue(bg, { 0,0 });
+
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		if (gameObjects[i] != nullptr)
+		{
+			gameObjects[i]->PostUpdate();
+		}
+	}
+
+	return true;
+}
+
+bool SceneGame::CleanUp() 
+{
+	Scene::CleanUp();
+
+	// Delete Map
+	DeleteMap();
+
+	// Clean Up UI
+	_app->ui->CleanUp();
+
+	return true;
+}
+
+void SceneGame::CreateMap()
+{
+	//Map
 	int BG[110] = {
 		550, 822,
 		550, 316,
@@ -209,123 +293,11 @@ bool SceneDebug3::Start()
 		117, 403
 	};
 
-	int UPPERLEFT[120] = {
-		158, 541,
-		106, 495,
-		95, 487,
-		87, 484,
-		80, 480,
-		77, 487,
-		90, 492,
-		100, 495,
-		113, 504,
-		127, 515,
-		134, 524,
-		139, 534,
-		141, 544,
-		141, 567,
-		141, 647,
-		137, 652,
-		132, 657,
-		125, 657,
-		117, 655,
-		111, 648,
-		108, 640,
-		104, 632,
-		97, 628,
-		91, 627,
-		82, 625,
-		74, 625,
-		67, 625,
-		56, 625,
-		48, 624,
-		41, 624,
-		34, 622,
-		27, 618,
-		20, 612,
-		15, 607,
-		12, 569,
-		12, 549,
-		12, 534,
-		11, 521,
-		11, 510,
-		12, 495,
-		12, 482,
-		14, 470,
-		20, 460,
-		27, 453,
-		33, 448,
-		40, 445,
-		48, 442,
-		55, 440,
-		62, 438,
-		70, 438,
-		79, 439,
-		87, 440,
-		96, 445,
-		107, 449,
-		119, 461,
-		134, 473,
-		154, 488,
-		168, 497,
-		185, 508,
-		210, 525
-	};
-	int UPPERRIGHT[92] = {
-		388, 523,
-		416, 504,
-		445, 484,
-		460, 472,
-		476, 459,
-		488, 450,
-		497, 444,
-		512, 440,
-		526, 440,
-		542, 441,
-		555, 444,
-		566, 451,
-		575, 457,
-		581, 471,
-		583, 488,
-		583, 516,
-		585, 561,
-		583, 596,
-		580, 611,
-		570, 619,
-		564, 621,
-		553, 624,
-		544, 625,
-		524, 625,
-		508, 625,
-		496, 627,
-		488, 636,
-		485, 648,
-		479, 654,
-		470, 657,
-		461, 654,
-		454, 647,
-		454, 638,
-		454, 545,
-		456, 535,
-		459, 526,
-		465, 517,
-		477, 505,
-		490, 497,
-		508, 490,
-		519, 485,
-		518, 478,
-		508, 481,
-		479, 501,
-		455, 522,
-		438, 538
-	};
-
-
 	bg1 = _app->physics->CreateChainObj(0, 0, BG, 110, true);
 	bg1->body->SetType(b2BodyType::b2_staticBody);
 
-	/*bg2 = _app->physics->CreateChainObj(0, 0, BG2, 68, false);
-	bg2->body->SetType(b2BodyType::b2_staticBody);*/
+	bg2 = _app->physics->CreateChainObj(0, 0, BG2, 68, false);
+	bg2->body->SetType(b2BodyType::b2_staticBody);
 
 	bg3 = _app->physics->CreateChainObj(-10, 0, BG3, 42, true);
 	bg3->body->SetType(b2BodyType::b2_staticBody);
@@ -344,30 +316,9 @@ bool SceneDebug3::Start()
 
 	pm = _app->physics->CreateChainObj(0, 0, PM, 70, false);
 	pm->body->SetType(b2BodyType::b2_staticBody);
-
-	/*
-	upperLeft = _app->physics->CreateChainObj(0, 0, UPPERLEFT, 120, false);
-	upperLeft->body->SetType(b2BodyType::b2_staticBody);
-
-	upperRight = _app->physics->CreateChainObj(0, 0, UPPERRIGHT, 92, false);
-	upperRight->body->SetType(b2BodyType::b2_staticBody);
-	*/
-	return true;
 }
 
-bool SceneDebug3::Update()
-{
-
-	return true;
-}
-
-bool SceneDebug3::PostUpdate()
-{
-
-	return true;
-}
-
-bool SceneDebug3::CleanUp()
+void SceneGame::DeleteMap()
 {
 	delete bg1;
 	bg1 = nullptr;
@@ -377,26 +328,14 @@ bool SceneDebug3::CleanUp()
 	bg3 = nullptr;
 	delete ball;
 	ball = nullptr;
-
 	delete flipper1;
 	flipper1 = nullptr;
 	delete flipper2;
 	flipper2 = nullptr;
-
 	delete smDivider1M;
 	smDivider1M = nullptr;
 	delete smDivider2M;
 	smDivider2M = nullptr;
 	delete pm;
 	pm = nullptr;
-
-	delete upperLeft;
-	upperLeft = nullptr;
-	delete upperRight;
-	upperRight = nullptr;
-
-	//Clean up UIs
-	_app->ui->CleanUp();
-
-	return true;
 }

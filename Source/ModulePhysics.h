@@ -7,7 +7,7 @@
 class GameObject;
 
 #define GRAVITY_X 0.0f
-#define GRAVITY_Y -7.0f
+#define GRAVITY_Y -10.0f
 
 #define PIXELS_PER_METER 50.0f
 #define METERS_PER_PIXELS 0.02f
@@ -19,6 +19,7 @@ class GameObject;
 class PhysBody
 {
 public:
+
 	PhysBody() : body(NULL)
 	{}
 
@@ -29,26 +30,17 @@ public:
 
 	~PhysBody()
 	{
-		// TODO Luego se quita porque la herarquia de eliminar es gameobjetc->physbody
-		//if (gameObject != nullptr)
-		//{
-		//	delete gameObject;
-		//	gameObject = nullptr;
-		//}
-	}
-
-	void CleanUp()
-	{
 		if (body != nullptr)
 		{
 			body->GetWorld()->DestroyBody(body);
 		}
 	}
+
 	void GetPosition(int& x, int& y) const;
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
 	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
-
+	void GetCenterPosition(int& x, int& y) const;
 public:
 	int width, height;
 	bool chainLoop = false;
@@ -63,6 +55,7 @@ class ModulePhysics : public Module, public b2ContactListener
 public:
 
 	b2World* world = nullptr;
+	
 
 	ModulePhysics(Application* app, bool start_enabled = true);
 	~ModulePhysics();
@@ -74,12 +67,16 @@ public:
 
 	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
+	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
 	b2Vec2 Perp(b2Vec2 vec1);
-
+	/*b2Vec2 Normalise(b2Vec2 vecToNormalise);*/
+	void DotProductAngle(b2Vec2 v1,b2Vec2 v2, float& angle);
+	
 
 	void BeginContact(b2Contact* contact) override;
+
+	void ShapesRender();
 
 private:
 	b2Body* mouseBody = nullptr;

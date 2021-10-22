@@ -5,11 +5,12 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(SDL_Texture* texture, std::string name, std::string tag)
+//TODO: Poner Applicationi* en constructor
+GameObject::GameObject(std::string name, std::string tag , Application* _app)
 {
 	this->name = name;
-
-	this->texture = texture;
+	this->_app = _app;
+	this->tag = tag;
 }
 
 GameObject::GameObject(GameObject& obj)
@@ -21,6 +22,15 @@ GameObject::GameObject(GameObject& obj)
 
 GameObject::~GameObject()
 {
+	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
+	{
+		if (renderObjects[i].section != nullptr)
+		{
+			delete renderObjects[i].section;
+			renderObjects[i].section = nullptr;
+		}
+	}
+
 	if(pBody!=nullptr)
 	{
 		delete pBody;
@@ -30,6 +40,39 @@ GameObject::~GameObject()
 
 void GameObject::OnCollision(PhysBody* col)
 {
+}
+
+void GameObject::Start()
+{
+	//Cargar texturas
+}
+
+void GameObject::PreUpdate()
+{
+}
+
+void GameObject::Update()
+{
+}
+
+void GameObject::PostUpdate()
+{
+	// DIbujar texturas
+	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
+	{
+		if (renderObjects[i].texture != nullptr)
+		{
+			renderObjects[i].renderRect.x = GetDrawPos().x;
+			renderObjects[i].renderRect.y = GetDrawPos().y;
+
+			if (renderObjects[i].rotationEnabled)
+			{
+				renderObjects[i].rotation = GetDegreeAngle();
+			}
+
+			_app->renderer->AddTextureRenderQueue(renderObjects[i]);
+		}
+	}
 }
 
 bool GameObject::CompareTag(std::string tag)
@@ -51,4 +94,13 @@ iPoint GameObject::GetDrawPos()
 	pos.y = METERS_TO_PIXELS(pos.y - pBody->height);
 
 	return iPoint(pos.x,pos.y);
+}
+
+float GameObject::GetDegreeAngle()
+{
+	float agle = 0;
+
+	agle = (pBody->body->GetAngle() * 180) / b2_pi;
+
+	return agle;
 }

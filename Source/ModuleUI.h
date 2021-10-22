@@ -20,6 +20,7 @@ public:
 	int x;
 	int y;
 	std::vector<int> digitVec;
+	float digitScale;
 
 	void ChangeUI(int num);
 };
@@ -36,9 +37,12 @@ public:
 
 	UpdateStatus PostUpdate();	//	Print current UIs on screen
 
+	// TODO CleanUp Scene
 	bool CleanUp();
 
-	uint CreateUI(int num, int x, int y);	// Creates a new UI item on the position given
+	uint CreateUI(int num, int x, int y, float scale = 1.0f);	// Creates a new UI item on the position given
+
+	void DestroyUI(uint index);			// Deletes an existing UI based on its index
 
 	SDL_Texture* texture;
 

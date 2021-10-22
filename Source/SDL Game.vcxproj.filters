@@ -4,12 +4,6 @@
     <ClCompile Include="Application.cpp">
       <Filter>SourceFiles\Engine\Application</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Flipper.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>SourceFiles\Engine\BaseClasses</Filter>
     </ClCompile>
@@ -64,8 +58,23 @@
     <ClCompile Include="SceneMain.cpp">
       <Filter>SourceFiles\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Boing.cpp">
+    <ClCompile Include="SceneGame.cpp">
       <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Boing.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Flipper.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,12 +83,6 @@
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>HeaderFiles\Engine\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Flipper.h">
-      <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>HeaderFiles\Engine\BaseClasses</Filter>
@@ -153,8 +156,23 @@
     <ClInclude Include="SceneIntro.h">
       <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Boing.h">
+    <ClInclude Include="SceneGame.h">
       <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Boing.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Flipper.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +214,12 @@
     </Filter>
     <Filter Include="HeaderFiles\Engine\BaseClasses">
       <UniqueIdentifier>{2f6209ba-75db-40a7-9937-b75a2b1ecc1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFiles\Game\GameObjects">
+      <UniqueIdentifier>{3e16a85a-d2d8-4b39-bec0-eedc2bf3dacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HeaderFiles\Game\GameObjects">
+      <UniqueIdentifier>{a469e793-f45d-402c-b315-45f3c2a9ce95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

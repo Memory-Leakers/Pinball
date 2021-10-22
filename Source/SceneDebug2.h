@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Boss.h"
 class SceneDebug2 :
     public Scene
 {

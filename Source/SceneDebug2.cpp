@@ -20,6 +20,7 @@ bool SceneDebug2::Update()
 		currentScore++;
 		_app->ui->uiArray[uis[0]]->ChangeUI(currentScore);
 	}
+	
 	return true;
 }
 

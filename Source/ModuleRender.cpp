@@ -8,6 +8,8 @@ ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, s
 	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
+
+	layers.resize(3);
 }
 
 // Destructor
@@ -50,18 +52,18 @@ UpdateStatus ModuleRender::Update()
 {	
 	int speed = 3;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->renderer->camera.y += speed;
+	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//	App->renderer->camera.y += speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->renderer->camera.y -= speed;
+	//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//	App->renderer->camera.y -= speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->renderer->camera.x += speed;
+	//if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//	App->renderer->camera.x += speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->renderer->camera.x -= speed;
-	
+	//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//	App->renderer->camera.x -= speed;
+	//
 	return UPDATE_CONTINUE;
 }
 
@@ -85,13 +87,14 @@ UpdateStatus ModuleRender::PostUpdate()
 			}
 		}
 	}
+
+	App->physics->ShapesRender();
 	
 	SDL_RenderPresent(renderer);
 
-	// Clear layers
-	for each (auto layer in layers)
+	for (int i = 0; i < 3; i++)
 	{
-		layers.clear();
+		layers[i].clear();
 	}
 
 	return UPDATE_CONTINUE;
@@ -111,17 +114,11 @@ bool ModuleRender::CleanUp()
 	return true;
 }
 
-void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, int layer, float orderInlayer, bool isFlipH, float rotation, float scale, float speed)
+void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, float scale, int layer, float orderInlayer, float rotation, SDL_RendererFlip flip, float speed)
 {
 	RenderObject renderObject;
 
 	speed = defaultSpeed;
-
-	//Fullscreen
-	if (App->FullScreenDesktop)
-	{
-		scale /= 3;
-	}
 
 	renderObject.texture = texture;
 	renderObject.rotation = rotation;
@@ -130,8 +127,8 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 
 	if (layer == 2 || layer == 3) speed = 0;	//If texture in UI layer, it moves alongside the camera. Therefor, speed = 0;
 
-	renderObject.renderRect.x = (int)(-camera.x * speed) + pos.x * scale;
-	renderObject.renderRect.y = (int)(-camera.y * speed) + pos.y * scale;
+	renderObject.renderRect.x = (int)(-camera.x * speed) + pos.x * SCREEN_SIZE;
+	renderObject.renderRect.y = (int)(-camera.y * speed) + pos.y * SCREEN_SIZE;
 
 	if (section != nullptr)
 	{
@@ -147,16 +144,33 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 	renderObject.renderRect.w *= scale;
 	renderObject.renderRect.h *= scale;
 
-	if (isFlipH)
+	renderObject.flip = flip;
+
+	layers[layer].push_back(renderObject);
+}
+
+void ModuleRender::AddTextureRenderQueue(RenderObject object)
+{
+	object.speed = defaultSpeed;
+
+	object.renderRect.x = (int)(-camera.x * object.speed) + object.renderRect.x * SCREEN_SIZE;
+	object.renderRect.y = (int)(-camera.y * object.speed) + object.renderRect.y * SCREEN_SIZE;
+
+	if (object.section != nullptr)
 	{
-		renderObject.flip = SDL_FLIP_HORIZONTAL;
+		object.renderRect.w = object.section->w;
+		object.renderRect.h = object.section->h;
 	}
 	else
 	{
-		renderObject.flip = SDL_FLIP_VERTICAL;
+		// Collect the texture size into rect.w and rect.h variables
+		SDL_QueryTexture(object.texture, nullptr, nullptr, &object.renderRect.w, &object.renderRect.h);
 	}
 
-	layers[layer].push_back(renderObject);
+	object.renderRect.w *= object.scale;
+	object.renderRect.h *= object.scale;
+
+	layers[object.layer].push_back(object);
 }
 
 void ModuleRender::SortRenderObjects(vector<RenderObject>& obj)
