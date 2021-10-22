@@ -62,7 +62,7 @@ bool SceneGame::Update()
 {
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
-		Ball* temp = new Ball(*player, b2Vec2(150, 150));
+		Ball* temp = new Ball(*player, b2Vec2(750, 150));
 		gameObjects.del(gameObjects.At(gameObjects.find(player)));
 		player = temp;
 		gameObjects.add(player);

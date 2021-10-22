@@ -42,7 +42,7 @@ Ball::Ball(std::string name, std::string tag,Application* _app)
     renderObjects[1].rotationEnabled = false;
 
     //Create PhysBody
-    pBody = _app->physics->CreateCircle(200, 200, 12, this);
+    pBody = _app->physics->CreateCircle(520, 800, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
 }
@@ -55,6 +55,19 @@ void Ball::Start()
 void Ball::PreUpdate()
 {
 	//pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+}
+
+void Ball::Update()
+{
+    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+    {
+        impulseForce+= impulseForce >= 1200 ? 0 : 20;
+    }
+    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+    {
+        pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
+        impulseForce = 0;
+    }
 }
 
 void Ball::PostUpdate()

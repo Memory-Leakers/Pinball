@@ -3,6 +3,9 @@
 
 class Ball :  public GameObject
 {
+private:
+	int impulseForce = 0;
+
 public:
 
 	Ball(Ball &ball, b2Vec2 pos);
@@ -12,6 +15,8 @@ public:
 	void OnCollision(PhysBody* col) override;
 
 	void Start() override;
+
+	void Update() override;
 
 	void PreUpdate() override;
 
