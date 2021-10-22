@@ -21,6 +21,12 @@ struct RenderObject
 	bool rotationEnabled = true;
 };
 
+struct RenderRect
+{
+	SDL_Rect rect;
+	SDL_Color color;
+};
+
 class ModuleRender : public Module
 {
 public:
@@ -35,6 +41,7 @@ public:
 
 	void AddTextureRenderQueue(RenderObject object);
 	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
+	void AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true);
 	void SortRenderObjects(vector<RenderObject>& obj);
 
 	#pragma region OBSOLETE
@@ -53,5 +60,6 @@ private:
 	float defaultSpeed = 1;
 
 	vector<vector<RenderObject>> layers;
+	vector<RenderRect> rects;
 
 };
