@@ -79,9 +79,6 @@
     <ClCompile Include="Spring.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="TeleportTree.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -183,7 +180,6 @@
     <ClInclude Include="Spring.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="TeleportTree.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFiles">
