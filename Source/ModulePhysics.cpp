@@ -300,6 +300,8 @@ UpdateStatus ModulePhysics::PostUpdate()
 	// If mouse button 1 is pressed ...
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
+		if (b->GetType() != b2BodyType::b2_dynamicBody) continue;
+
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
 			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -320,7 +322,21 @@ UpdateStatus ModulePhysics::PostUpdate()
 				}
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr)
+			bool hasMouseJoint = false;
+			b2JointEdge* tempJoint = b->GetJointList();
+
+			while (tempJoint != nullptr)
+			{
+				if (tempJoint->joint == mouseJoint)
+				{
+					hasMouseJoint = true;
+				}
+				tempJoint = tempJoint->next;
+			}
+
+			if (!hasMouseJoint) break;
+
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
 				b2Vec2 nextPos = { (float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
 
@@ -334,7 +350,7 @@ UpdateStatus ModulePhysics::PostUpdate()
 					255, 0, 0);*/
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr)
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
 				world->DestroyJoint(mouseJoint);
 				mouseJoint = nullptr;
