@@ -64,7 +64,7 @@ void Ball::Update()
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
         impulseForce+= impulseForce >= 1200 ? 0 : 20;
-        printf("%d", impulseForce);
+        //printf("%d", impulseForce);
     }
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
