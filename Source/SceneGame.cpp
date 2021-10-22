@@ -100,7 +100,7 @@ bool SceneGame::Update()
 		}
 	}
 
-	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
+	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 	return true;
 }
 
