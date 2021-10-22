@@ -31,7 +31,13 @@ bool Scene::PostUpdate()
 
 bool Scene::CleanUp()
 {
+	for (int i = 0; i < gameObjects.count(); i++)
+	{
+		gameObjects[i]->CleanUp();
+	}
+
 	gameObjects.clearPtr();
+
 
 	for (int i = 0; i < sceneTextures.count(); i++)
 	{
