@@ -75,6 +75,10 @@ void GameObject::PostUpdate()
 	}
 }
 
+void GameObject::CleanUp()
+{
+}
+
 bool GameObject::CompareTag(std::string tag)
 {
 	if(this->tag == tag)

@@ -76,7 +76,13 @@ public:
 	HealthBar* healthBar = nullptr;
 
 	Boss(int health, std::string name, std::string tag, Application* _app);
+	
+	~Boss();
 
-	void CleanUp();
+	void Update() override;
+
+	void PostUpdate() override;
+
+	void CleanUp() override;
 };
 

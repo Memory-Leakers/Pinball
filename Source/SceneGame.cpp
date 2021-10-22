@@ -5,6 +5,7 @@
 #include "ModulePhysics.h"
 #include "Boing.h"
 #include "Sensor.h"
+#include "Boss.h"
 
 SDL_Texture* bg;
 
@@ -24,11 +25,14 @@ bool SceneGame::Start()
 
 	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 
+	boss = new Boss(100000, "Boss", "Boss", _app);
+
 	// Add gameObjects to the main array
 	gameObjects.add(player);
 	gameObjects.add(flipper);
 	gameObjects.add(boing);
 	gameObjects.add(sensor);
+	gameObjects.add(boss);
 
 	// Create Map
 	CreateMap();
@@ -66,6 +70,14 @@ bool SceneGame::Update()
 	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	{
 		bg1->body->GetFixtureList()->SetSensor(!bg1->body->GetFixtureList()->IsSensor());
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
+	{
+		boss->health -= 1000;
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		boss->health += 1000;
 	}
 
 

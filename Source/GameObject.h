@@ -31,6 +31,8 @@ public:
 
 	virtual void PostUpdate();
 
+	virtual void CleanUp();
+
 	bool CompareTag(std::string tag);
 
 	iPoint GetDrawPos();
