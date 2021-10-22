@@ -62,12 +62,15 @@ void GameObject::PostUpdate()
 	{
 		if (renderObjects[i].texture != nullptr)
 		{
-			renderObjects[i].renderRect.x = GetDrawPos().x;
-			renderObjects[i].renderRect.y = GetDrawPos().y;
-
-			if (renderObjects[i].rotationEnabled)
+			if (pBody != nullptr && renderObjects[i].followPhysBody)
 			{
-				renderObjects[i].rotation = GetDegreeAngle();
+				renderObjects[i].renderRect.x = GetDrawPos().x;
+				renderObjects[i].renderRect.y = GetDrawPos().y;
+
+				if (renderObjects[i].rotationEnabled)
+				{
+					renderObjects[i].rotation = GetDegreeAngle();
+				}
 			}
 
 			_app->renderer->AddTextureRenderQueue(renderObjects[i]);

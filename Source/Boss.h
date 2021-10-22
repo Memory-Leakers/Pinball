@@ -68,6 +68,7 @@ public:
 
 class Boss : public GameObject
 {
+private:
 public:
 
 	int health;

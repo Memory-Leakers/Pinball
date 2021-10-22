@@ -9,7 +9,7 @@ ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, s
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
 
-	layers.resize(3);
+	layers.resize(4);
 }
 
 // Destructor
@@ -77,9 +77,9 @@ UpdateStatus ModuleRender::PostUpdate()
 	}
 
 	//Draw
-	for each (auto layer in layers)
+	for (int i = 0; i < 3; i++)
 	{
-		for each (auto renderObject in layer)
+		for each (auto renderObject in layers[i])
 		{
 			if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, NULL, renderObject.flip) != 0)
 			{
@@ -89,7 +89,6 @@ UpdateStatus ModuleRender::PostUpdate()
 	}
 
 	// Draw Rects
-
 	for (int i = 0; i < rects.size(); i++)
 	{
 		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -98,11 +97,20 @@ UpdateStatus ModuleRender::PostUpdate()
 		SDL_RenderFillRect(renderer, &rects[i].rect);
 	}
 
+	// Draw Special Layer
+	for each (auto renderObject in layers[3])
+	{
+		if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, NULL, renderObject.flip) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
+	}
+
 	App->physics->ShapesRender();
 	
 	SDL_RenderPresent(renderer);
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		layers[i].clear();
 	}

@@ -38,7 +38,7 @@ UpdateStatus ModuleUI::PostUpdate()
 				iPoint tempPos = iPoint(uiArray[i]->x, uiArray[i]->y);
 				tempPos.x += (int)(26 * uiArray[i]->digitScale * j); // Spacing between digits
 				//App->renderer->Blit(texture, tempPos, uiArray[i]->y,uiArray[i]->digitScale, &numSection[uiArray[i]->digitVec.at(j)]);
-				App->renderer->AddTextureRenderQueue(texture, tempPos, &numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale);
+				App->renderer->AddTextureRenderQueue(texture, tempPos, &numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale, 2);
 			}
 		}
 	}
