@@ -21,7 +21,7 @@ void Spring::Update()
 {
 	if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		renderObjects[0].renderRect.y += renderObjects[0].renderRect.y >= defaultYPos+20 ? 0 : 1;
+		renderObjects[0].renderRect.y += renderObjects[0].renderRect.y >= defaultYPos+30 ? 0 : 1;
 	}
 	if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{

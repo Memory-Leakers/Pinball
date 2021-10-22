@@ -59,18 +59,19 @@ void Ball::PreUpdate()
 
 void Ball::Update()
 {
-    if (!initialSpring || pBody->body->GetLinearVelocity().y != 0) return;
-
-
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
         impulseForce+= impulseForce >= 1200 ? 0 : 20;
+        printf("%d", impulseForce);
     }
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
-        pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
-        impulseForce = 200;
-        initialSpring = false;
+        if (initialSpring && abs(pBody->body->GetLinearVelocity().y) <= 0.2f)
+        {
+            pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
+            initialSpring = false;
+        }
+        impulseForce = 200;  
     }
 }
 
