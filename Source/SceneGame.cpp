@@ -31,6 +31,7 @@ bool SceneGame::Start()
 	spring = new Spring(iPoint(513, 827), "Spring", "Spring", _app);
 
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
+	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 
 	// Add gameObjects to the main array
 	gameObjects.add(player);
@@ -40,6 +41,7 @@ bool SceneGame::Start()
 	gameObjects.add(boss);
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
+	gameObjects.add(sTeleportIn);
 
 	// Create Map
 	CreateMap();
@@ -62,6 +64,22 @@ bool SceneGame::PreUpdate()
 		}
 	}
 
+	if (player->isTeleporting)
+	{
+		player->isTeleporting = false;
+		
+		// Teleport Player
+		Ball* temp = new Ball(*player, b2Vec2(200, 150), false);
+		if (player->pBody->body->GetJointList() != nullptr)
+		{
+			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
+		}
+		gameObjects.del(gameObjects.At(gameObjects.find(player)));
+		player = temp;
+		gameObjects.add(player);
+
+	}
+
 	return true;
 }
 
@@ -69,7 +87,12 @@ bool SceneGame::Update()
 {
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
-		Ball* temp = new Ball(*player, b2Vec2(750, 150));
+		// Teleport Player
+		Ball* temp = new Ball(*player, b2Vec2(750, 150), true);
+		if (player->pBody->body->GetJointList() != nullptr)
+		{
+			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
+		}
 		gameObjects.del(gameObjects.At(gameObjects.find(player)));
 		player = temp;
 		gameObjects.add(player);

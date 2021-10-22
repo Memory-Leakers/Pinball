@@ -10,7 +10,7 @@ private:
 
 public:
 
-	Ball(Ball &ball, b2Vec2 pos);
+	Ball(Ball &ball, b2Vec2 pos, bool getVelocity);
 
 	Ball(std::string name, std::string tag,Application* _app);
 
@@ -23,6 +23,9 @@ public:
 	void PreUpdate() override;
 
 	void PostUpdate() override;
+
+	bool isTeleporting = false; // Activated when collisioning with a teleport Sensor
+
 
 	/*b2Vec2 velocity;
 

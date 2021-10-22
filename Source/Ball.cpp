@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(Ball& ball, b2Vec2 pos) : GameObject(ball.name, ball.tag, ball._app)
+Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, ball.tag, ball._app)
 {
     //Crate Ball RenderObject
     renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Ball120.png");
@@ -19,6 +19,8 @@ Ball::Ball(Ball& ball, b2Vec2 pos) : GameObject(ball.name, ball.tag, ball._app)
     pBody = _app->physics->CreateCircle(pos.x, pos.y, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+
+    if (!getVelocity) return;
 
     pBody->body->SetLinearVelocity(ball.pBody->body->GetLinearVelocity());
     pBody->body->SetAngularVelocity(ball.pBody->body->GetAngularVelocity());
@@ -94,6 +96,11 @@ void Ball::OnCollision(PhysBody* col)
     if (col->gameObject->name == "SensorBS")
     {
         initialSpring = true;
+    }
+
+    if (col->gameObject->name == "SensorT")
+    {
+        isTeleporting = true;
     }
 
 

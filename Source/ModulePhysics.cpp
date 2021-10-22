@@ -320,7 +320,7 @@ UpdateStatus ModulePhysics::PostUpdate()
 				}
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && mouseJoint != nullptr)
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr)
 			{
 				b2Vec2 nextPos = { (float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
 
@@ -329,12 +329,12 @@ UpdateStatus ModulePhysics::PostUpdate()
 
 				mouseJoint->SetTarget(nextPos);
 				// -------------------------------------------
-				App->renderer->DrawLine(METERS_TO_PIXELS(mouseJoint->GetAnchorA().x), METERS_TO_PIXELS(mouseJoint->GetAnchorA().y),
+				/*App->renderer->DrawLine(METERS_TO_PIXELS(mouseJoint->GetAnchorA().x), METERS_TO_PIXELS(mouseJoint->GetAnchorA().y),
 					METERS_TO_PIXELS(mouseJoint->GetAnchorB().x), METERS_TO_PIXELS(mouseJoint->GetAnchorB().y),
-					255, 0, 0);
+					255, 0, 0);*/
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && mouseJoint != nullptr)
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr)
 			{
 				world->DestroyJoint(mouseJoint);
 				mouseJoint = nullptr;

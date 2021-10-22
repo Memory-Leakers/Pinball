@@ -46,6 +46,9 @@ public:
     Spring* spring;
 
     Sensor* sBallSpring;
+    Sensor* sTeleportIn;
+
+    iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
 
     //Map
     PhysBody* bg1;
