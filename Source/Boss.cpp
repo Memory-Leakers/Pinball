@@ -10,14 +10,14 @@ Boss::Boss(int health, std::string name, std::string tag, Application* _app) : G
 
 	// Create RenderObject
 	renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Boss.png");
-
 	renderObjects[1].texture = _app->textures->Load("Assets/Images/Game/HealthBar.png");
+
+	renderObjects[0].section = new SDL_Rect{ 0, 0, 128, 128 };
+	renderObjects[0].scale = 0.65f;
 
 	renderObjects[1].renderRect.x = 300;
 	renderObjects[1].renderRect.y = 150;
-
 	renderObjects[1].followPhysBody = false;
-
 	renderObjects[1].layer = 3;
 
 	// Create HealthBar

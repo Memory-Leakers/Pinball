@@ -81,6 +81,8 @@ UpdateStatus ModuleRender::PostUpdate()
 	{
 		for each (auto renderObject in layers[i])
 		{
+			//SDL_SetTextureAlphaMod(renderObject.texture, 100);
+
 			if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, NULL, renderObject.flip) != 0)
 			{
 				LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());

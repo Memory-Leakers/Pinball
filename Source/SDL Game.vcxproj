@@ -29,6 +29,8 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleUI.h" />
+    <ClInclude Include="PhysLayer.h" />
+    <ClInclude Include="PhysLayerL.h" />
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
@@ -61,6 +63,8 @@
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
+    <ClCompile Include="PhysLayer.cpp" />
+    <ClCompile Include="PhysLayerL.cpp" />
     <ClCompile Include="SceneDebug1.cpp" />
     <ClCompile Include="SceneDebug2.cpp" />
     <ClCompile Include="SceneDebug3.cpp" />

@@ -6,6 +6,7 @@ class Boing;
 class Sensor;
 class Boss;
 class Spring;
+class PhysLayerL;
 
 class SceneGame : public Scene
 {
@@ -45,8 +46,13 @@ public:
 
     Spring* spring;
 
+    PhysLayerL* physLayer;
+
     Sensor* sBallSpring;
     Sensor* sTeleportIn;
+    
+    // background
+    SDL_Texture* bg; 
 
     iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
 

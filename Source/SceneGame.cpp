@@ -7,17 +7,18 @@
 #include "Sensor.h"
 #include "Boss.h"
 #include "Spring.h"
-
-SDL_Texture* bg;
-
-
+#include "PhysLayerL.h"
 
 bool SceneGame::Start()
 {
 	// Create Map
 	CreateMap();
 
-	bg = _app->textures->Load("Assets/Images/Game/BG_Prov2.png");
+	bg = _app->textures->Load("Assets/Images/Game/BG.png");
+
+	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
+
+	//pLayerR = _app->textures->Load("Assets/Images/Game/Layer2R.png");
 
 	// Ball
 	player = new Ball("Ball", "Player", _app);
@@ -46,14 +47,12 @@ bool SceneGame::Start()
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
 	gameObjects.add(sTeleportIn);
-
-	
-	
+	gameObjects.add(physLayer);
 
 	// UI
-	uis[0] = _app->ui->CreateUI(0, 300, 25);
-	uis[1] = _app->ui->CreateUI(2340, 300, 75);
-	uis[2] = _app->ui->CreateUI(98320, 300, 125);
+	uis[0] = _app->ui->CreateUI(0, 300, 125, 0.4f);
+	//uis[1] = _app->ui->CreateUI(2340, 300, 75, 0.4f);
+	//uis[2] = _app->ui->CreateUI(98320, 300, 125, 0.4f);
 
 	return true;
 }
@@ -357,7 +356,6 @@ void SceneGame::CreateMap()
 		77, 386
 	};
 
-
 	bg1 = _app->physics->CreateChainObj(0, 0, BG, 110, true);
 	bg1->body->SetType(b2BodyType::b2_staticBody);
 
@@ -375,9 +373,6 @@ void SceneGame::CreateMap()
 
 	flipper1 = _app->physics->CreateChainObj(-7, 0, FP1, 28, true);
 	flipper1->body->SetType(b2BodyType::b2_staticBody);
-
-
-
 
 	flipper2 = _app->physics->CreateChainObj(0, 0, FP2, 20, true);
 	flipper2->body->SetType(b2BodyType::b2_staticBody);

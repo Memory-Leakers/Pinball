@@ -18,7 +18,7 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
     //Create PhysBody
     pBody = _app->physics->CreateCircle(pos.x, pos.y, 12, this);
     pBody->body->SetBullet(true);
-    pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+    pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
 
     if (!getVelocity) return;
 

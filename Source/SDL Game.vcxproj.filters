@@ -79,6 +79,12 @@
     <ClCompile Include="Spring.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="PhysLayer.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysLayerL.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -178,6 +184,12 @@
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Spring.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysLayer.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysLayerL.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
