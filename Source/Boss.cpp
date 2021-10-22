@@ -3,8 +3,9 @@
 Boss::Boss(int health, std::string name, std::string tag, Application* _app) : GameObject(name, tag, _app)
 {
 	this->health = health;
-	pBody = _app->physics->CreateCircle(426, 350, 55, this);
+	pBody = _app->physics->CreateCircle(424, 355, 38, this);
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
+	pBody->body->GetFixtureList()->SetRestitution(0.7f);
 
 	int x, y;
 

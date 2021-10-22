@@ -337,7 +337,7 @@ void SceneGame::CreateMap()
 	smDivider2M = _app->physics->CreateChainObj(-5, 0, SM2, 8, true);
 	smDivider2M->body->SetType(b2BodyType::b2_staticBody);
 
-	flipper1 = _app->physics->CreateChainObj(0, 0, FP1, 28, true);
+	flipper1 = _app->physics->CreateChainObj(-7, 0, FP1, 28, true);
 	flipper1->body->SetType(b2BodyType::b2_staticBody);
 
 	flipper2 = _app->physics->CreateChainObj(0, 0, FP2, 20, true);
