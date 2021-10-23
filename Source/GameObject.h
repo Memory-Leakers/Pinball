@@ -52,6 +52,8 @@ public:
 	PhysBody* pBody2 = nullptr;
 
 	Application* _app = nullptr;
+
+	bool pendingToDelete = false;
 };
 
 #endif // !GAMEOBJECT_H

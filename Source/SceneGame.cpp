@@ -9,6 +9,7 @@
 #include "Spring.h"
 #include "PhysLayerL.h"
 #include "ScoreSystem.h"
+#include "Coins.h"
 
 bool SceneGame::Start()
 {
@@ -21,6 +22,8 @@ bool SceneGame::Start()
 
 	//pLayerR = _app->textures->Load("Assets/Images/Game/Layer2R.png");
 
+	coin = new Coins("Coin", "Coin", _app, iPoint{ 400,400 });
+
 	// Ball
 	player = new Ball("Ball", "Player", _app);
 
@@ -32,12 +35,14 @@ bool SceneGame::Start()
 
 	flipper_left = new Flipper("Flipper_left", "Flipper", _app, flipper2, false, SDL_SCANCODE_Z);
 
-	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
-
+	// Boss
 	boss = new Boss(100000, "Boss", "Boss", _app);
 
+	// Spring
 	spring = new Spring(iPoint(513, 827), "Spring", "Spring", _app);
 
+	// Sensor
+	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 
@@ -52,6 +57,7 @@ bool SceneGame::Start()
 	gameObjects.add(sBallSpring);
 	gameObjects.add(sTeleportIn);
 	gameObjects.add(physLayer);
+	gameObjects.add(coin);
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
@@ -65,7 +71,16 @@ bool SceneGame::PreUpdate()
 	{
 		if (gameObjects[i] != nullptr)
 		{
-			gameObjects[i]->PreUpdate();
+			if (gameObjects[i]->pendingToDelete)
+			{
+				// Delete gameOjects
+				DestroyGameObject(gameObjects[i]);
+			}
+			else
+			{
+				// Update gmeObjects
+				gameObjects[i]->PreUpdate();
+			}
 		}
 	}
 
@@ -79,10 +94,9 @@ bool SceneGame::PreUpdate()
 		{
 			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
 		}
-		gameObjects.del(gameObjects.At(gameObjects.find(player)));
+		DestroyGameObject(player);
 		player = temp;
 		gameObjects.add(player);
-
 	}
 
 	return true;

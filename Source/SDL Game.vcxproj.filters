@@ -196,7 +196,7 @@
       <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
     <ClInclude Include="Coins.h">
-      <Filter>HeaderFiles\Game</Filter>
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ class Boss;
 class Spring;
 class PhysLayerL;
 class ScoreSystem;
+class Coins;
 
 class SceneGame : public Scene
 {
@@ -48,6 +49,8 @@ public:
     Spring* spring;
 
     PhysLayerL* physLayer;
+
+    Coins* coin;
 
     Sensor* sBallSpring;
     Sensor* sTeleportIn;

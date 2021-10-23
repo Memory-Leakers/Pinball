@@ -27,14 +27,12 @@ public:
 
 		//Set variables
 		currentHealth = totalHealth;
-
 	};
 
 	Application* _app;
 
 	int totalHealth;	//Health in points (ex: 100000)
 	int currentHealth;	//Current boss health
-
 
 	int totalHealthW;	//The total X of teh health rect
 
@@ -63,7 +61,6 @@ public:
 		}
 
 	} 
-
 };
 
 class Boss : public GameObject

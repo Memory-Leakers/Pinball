@@ -46,7 +46,7 @@ UpdateStatus ModulePhysics::Update()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius,GameObject* gameObject)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* gameObject, bool isSensor)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -58,6 +58,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius,GameObject* gameO
 	shape.m_radius = PIXELS_TO_METER(radius);
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
+	fixture.isSensor = isSensor;
 	fixture.density = 1.0f;
 
 	b->CreateFixture(&fixture);
