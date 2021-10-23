@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ScoreSystem.h"
 
 class Ball :  public GameObject
 {
@@ -8,9 +9,11 @@ private:
 
 	bool initialSpring = false;
 
+	ScoreSystem* scoreInstance;
+
 public:
 
-	Ball(Ball &ball, b2Vec2 pos);
+	Ball(Ball &ball, b2Vec2 pos, bool getVelocity);
 
 	Ball(std::string name, std::string tag,Application* _app);
 
@@ -23,6 +26,9 @@ public:
 	void PreUpdate() override;
 
 	void PostUpdate() override;
+
+	bool isTeleporting = false; // Activated when collisioning with a teleport Sensor
+
 
 	/*b2Vec2 velocity;
 

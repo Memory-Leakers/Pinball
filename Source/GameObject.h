@@ -7,7 +7,7 @@
 struct SDL_Texture;
 class PhysBody;
 
-#define MAX_GAMEOBJECT_TEXTURES 4
+#define MAX_GAMEOBJECT_TEXTURES 5
 
 class GameObject 
 {
@@ -49,7 +49,11 @@ public:
 
 	PhysBody* pBody = nullptr;
 
+	PhysBody* pBody2 = nullptr;
+
 	Application* _app = nullptr;
+
+	bool pendingToDelete = false;
 };
 
 #endif // !GAMEOBJECT_H

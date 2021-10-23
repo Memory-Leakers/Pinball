@@ -62,10 +62,11 @@ public:
 
 	bool Start();
 	UpdateStatus PreUpdate();
+	UpdateStatus Update();
 	UpdateStatus PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr);
+	PhysBody* CreateCircle(int x, int y, int radius, GameObject* gameObject = nullptr, bool isSensor = false);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
@@ -73,6 +74,7 @@ public:
 	/*b2Vec2 Normalise(b2Vec2 vecToNormalise);*/
 	void DotProductAngle(b2Vec2 v1,b2Vec2 v2, float& angle);
 	
+	void Pause();
 
 	void BeginContact(b2Contact* contact) override;
 
@@ -83,4 +85,6 @@ private:
 	b2MouseJoint* mouseJoint = nullptr;
 
 	bool debug;
+
+	bool pause = false;
 };

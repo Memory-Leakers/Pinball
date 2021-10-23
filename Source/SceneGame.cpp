@@ -8,10 +8,9 @@
 #include "Sensor.h"
 #include "Boss.h"
 #include "Spring.h"
-
-SDL_Texture* bg;
-
-
+#include "PhysLayerL.h"
+#include "ScoreSystem.h"
+#include "Coins.h"
 
 bool SceneGame::Start()
 {
@@ -91,7 +90,13 @@ bool SceneGame::Start()
 	// Create Map
 	CreateMap();
 
-	bg = _app->textures->Load("Assets/Images/Game/BG_Prov2.png");
+	bg = _app->textures->Load("Assets/Images/Game/BG.png");
+
+	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
+
+	//pLayerR = _app->textures->Load("Assets/Images/Game/Layer2R.png");
+
+	coin = new Coins("Coin", "Coin", _app, iPoint{ 400,400 });
 
 	// Ball
 	player = new Ball("Ball", "Player", _app);
@@ -103,7 +108,7 @@ bool SceneGame::Start()
 	boing[2] = new Boing("Boing", "Boing", _app, 164, 358);
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
 	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
-	
+
 	//BOSS SIDE
 	/*
 	boing[5] = new Boing("Boing", "Boing", _app, 345, 381);
@@ -114,29 +119,35 @@ bool SceneGame::Start()
 	// PolygonBoing
 	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 5, 0, TBLEFT, 6);
 	triBoing[1] = new PolygonBoing("TriangleBoingRight", "PolygonBoing", _app, -20, 0, TBRIGHT, 6);
-	
+
 	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24);
 	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22);
 	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18);
 	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18);
 	bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22);
-	
+
 	// Flipper
-	flipper = new Flipper("Flipper", "Flipper", _app,flipper1);
+	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
 
-	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
+	flipper_left = new Flipper("Flipper_left", "Flipper", _app, flipper2, false, SDL_SCANCODE_Z);
 
+	// Boss
 	boss = new Boss(100000, "Boss", "Boss", _app);
 
+	// Spring
 	spring = new Spring(iPoint(513, 827), "Spring", "Spring", _app);
 
+	// Sensor
+	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
+	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 
 	deathSensor = new Sensor({ 288, 885, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
 
 	// Add gameObjects to the main array
 	gameObjects.add(player);
-	gameObjects.add(flipper);
+	gameObjects.add(flipper_right);
+	gameObjects.add(flipper_left);
 	for (int i = 0; i < BOINGCOUNT; i++) gameObjects.add(boing[i]);
 	for (int i = 0; i < TRIBOINGCOUNT; i++) gameObjects.add(triBoing[i]);
 	for (int i = 0; i < BOSSBOINGCOUNT; i++) gameObjects.add(bossBoing[i]);
@@ -145,14 +156,14 @@ bool SceneGame::Start()
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
 	gameObjects.add(deathSensor);
+	gameObjects.add(sTeleportIn);
+	gameObjects.add(physLayer);
+	gameObjects.add(coin);
 
-	
-	
+
 
 	// UI
-	uis[0] = _app->ui->CreateUI(0, 300, 25);
-	uis[1] = _app->ui->CreateUI(2340, 300, 75);
-	uis[2] = _app->ui->CreateUI(98320, 300, 125);
+	scoreSystem = ScoreSystem::Instance(_app);
 
 	return true;
 }
@@ -163,18 +174,51 @@ bool SceneGame::PreUpdate()
 	{
 		if (gameObjects[i] != nullptr)
 		{
-			gameObjects[i]->PreUpdate();
+			if (gameObjects[i]->pendingToDelete)
+			{
+				// Delete gameOjects
+				DestroyGameObject(gameObjects[i]);
+			}
+			else
+			{
+				// Update gmeObjects
+				gameObjects[i]->PreUpdate();
+			}
 		}
+	}
+
+	if (player->isTeleporting)
+	{
+		player->isTeleporting = false;
+
+		// Teleport Player
+		Ball* temp = new Ball(*player, b2Vec2(200, 150), false);
+		if (player->pBody->body->GetJointList() != nullptr)
+		{
+			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
+		}
+		DestroyGameObject(player);
+		player = temp;
+		gameObjects.add(player);
 	}
 
 	return true;
 }
 
-bool SceneGame::Update() 
+bool SceneGame::Update()
 {
+	//Update ScoreSystem
+	scoreSystem->Update();
+
+	// Debug Key
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
-		Ball* temp = new Ball(*player, b2Vec2(750, 150));
+		// Teleport Player
+		Ball* temp = new Ball(*player, b2Vec2(750, 150), true);
+		if (player->pBody->body->GetJointList() != nullptr)
+		{
+			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
+		}
 		gameObjects.del(gameObjects.At(gameObjects.find(player)));
 		player = temp;
 		gameObjects.add(player);
@@ -191,7 +235,14 @@ bool SceneGame::Update()
 	{
 		boss->health += 1000;
 	}
-
+	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+	{
+		scoreSystem->AddCombo(1);
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_REPEAT)
+	{
+		scoreSystem->ResetCombo();
+	}
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
@@ -201,6 +252,7 @@ bool SceneGame::Update()
 		}
 	}
 
+	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 	return true;
 }
 
@@ -219,12 +271,14 @@ bool SceneGame::PostUpdate()
 	return true;
 }
 
-bool SceneGame::CleanUp() 
+bool SceneGame::CleanUp()
 {
 	Scene::CleanUp();
 
 	// Delete Map
 	DeleteMap();
+
+	scoreSystem->Release();
 
 	// Clean Up UI
 	_app->ui->CleanUp();
@@ -432,7 +486,6 @@ void SceneGame::CreateMap()
 		88, 387,
 		77, 386
 	};
-
 
 	bg1 = _app->physics->CreateChainObj(0, 0, BG, 110, true);
 	bg1->body->SetType(b2BodyType::b2_staticBody);

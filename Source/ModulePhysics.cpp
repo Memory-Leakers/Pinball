@@ -30,12 +30,23 @@ bool ModulePhysics::Start()
  
 UpdateStatus ModulePhysics::PreUpdate()
 {
+	if(!pause)
 	world->Step(1.0f / 60, 6, 2);
 
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius,GameObject* gameObject)
+UpdateStatus ModulePhysics::Update()
+{
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		Pause();
+	}
+
+	return UPDATE_CONTINUE;
+}
+
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, GameObject* gameObject, bool isSensor)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -47,6 +58,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius,GameObject* gameO
 	shape.m_radius = PIXELS_TO_METER(radius);
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
+	fixture.isSensor = isSensor;
 	fixture.density = 1.0f;
 
 	b->CreateFixture(&fixture);
@@ -194,6 +206,11 @@ void ModulePhysics::DotProductAngle(b2Vec2 v1, b2Vec2 v2, float& angle)
 
 }
 
+void ModulePhysics::Pause()
+{
+	pause = !pause;
+}
+
 void ModulePhysics::BeginContact(b2Contact* contact)
 {	
 	PhysBody* a = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
@@ -300,6 +317,8 @@ UpdateStatus ModulePhysics::PostUpdate()
 	// If mouse button 1 is pressed ...
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
+		if (b->GetType() != b2BodyType::b2_dynamicBody) continue;
+
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
 			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -320,7 +339,21 @@ UpdateStatus ModulePhysics::PostUpdate()
 				}
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && mouseJoint != nullptr)
+			bool hasMouseJoint = false;
+			b2JointEdge* tempJoint = b->GetJointList();
+
+			while (tempJoint != nullptr)
+			{
+				if (tempJoint->joint == mouseJoint)
+				{
+					hasMouseJoint = true;
+				}
+				tempJoint = tempJoint->next;
+			}
+
+			if (!hasMouseJoint) break;
+
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
 				b2Vec2 nextPos = { (float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
 
@@ -329,12 +362,12 @@ UpdateStatus ModulePhysics::PostUpdate()
 
 				mouseJoint->SetTarget(nextPos);
 				// -------------------------------------------
-				App->renderer->DrawLine(METERS_TO_PIXELS(mouseJoint->GetAnchorA().x), METERS_TO_PIXELS(mouseJoint->GetAnchorA().y),
+				/*App->renderer->DrawLine(METERS_TO_PIXELS(mouseJoint->GetAnchorA().x), METERS_TO_PIXELS(mouseJoint->GetAnchorA().y),
 					METERS_TO_PIXELS(mouseJoint->GetAnchorB().x), METERS_TO_PIXELS(mouseJoint->GetAnchorB().y),
-					255, 0, 0);
+					255, 0, 0);*/
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && mouseJoint != nullptr)
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
 				world->DestroyJoint(mouseJoint);
 				mouseJoint = nullptr;

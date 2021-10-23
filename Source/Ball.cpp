@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(Ball& ball, b2Vec2 pos) : GameObject(ball.name, ball.tag, ball._app)
+Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, ball.tag, ball._app)
 {
     //Crate Ball RenderObject
     renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Ball120.png");
@@ -18,11 +18,16 @@ Ball::Ball(Ball& ball, b2Vec2 pos) : GameObject(ball.name, ball.tag, ball._app)
     //Create PhysBody
     pBody = _app->physics->CreateCircle(pos.x, pos.y, 12, this);
     pBody->body->SetBullet(true);
-    pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+    pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
+
+    //  Create instance of the Score System
+
+    scoreInstance = ScoreSystem::Instance(_app);
+
+    if (!getVelocity) return;
 
     pBody->body->SetLinearVelocity(ball.pBody->body->GetLinearVelocity());
     pBody->body->SetAngularVelocity(ball.pBody->body->GetAngularVelocity());
-
 }
 
 Ball::Ball(std::string name, std::string tag,Application* _app)
@@ -45,11 +50,15 @@ Ball::Ball(std::string name, std::string tag,Application* _app)
     pBody = _app->physics->CreateCircle(520, 780, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+
+    //  Create instance of the Score System
+
+    scoreInstance = ScoreSystem::Instance(_app);
 }
 
 void Ball::Start()
 {
-    
+
 }
 
 void Ball::PreUpdate()
@@ -62,16 +71,28 @@ void Ball::Update()
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
         impulseForce+= impulseForce >= 1200 ? 0 : 20;
-        printf("%d", impulseForce);
+        //printf("%d", impulseForce);
     }
-    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+    else if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
         if (initialSpring && abs(pBody->body->GetLinearVelocity().y) <= 0.2f)
         {
             pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
             initialSpring = false;
         }
-        impulseForce = 200;  
+        impulseForce = 200;
+    }
+
+    if (_app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+    {
+        b2Vec2 v = pBody->body->GetLinearVelocity();
+
+        if (v.x == 0 && v.y == 0)
+        {
+            float randomFloat = -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (10 + 10)));
+
+            pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 20), true);
+        }
     }
 }
 
@@ -96,11 +117,20 @@ void Ball::OnCollision(PhysBody* col)
         initialSpring = true;
     }
 
-    if (col->gameObject->name == "DeathSensor")
+    if (col->gameObject->name == "SensorT")
     {
-        
+        isTeleporting = true;
     }
 
+    if (col->gameObject->tag == "Boing")
+    {
+        scoreInstance->AddScore(100);
+    }
+
+    if (col->gameObject->name == "DeathSensor")
+    {
+
+    }
 
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{
@@ -109,7 +139,7 @@ void Ball::OnCollision(PhysBody* col)
     //Try boing
     int x, y;
     float angle;
-     
+
     pBody->GetPosition(x, y);
 
     if (pBody->RayCast(x, y, velocity.x, velocity.y, normal.x, normal.y) == -1)
@@ -120,7 +150,7 @@ void Ball::OnCollision(PhysBody* col)
     _app->physics->DotProductAngle(normal, velocityInvertido, angle);
 
     b2Vec2 vectorReflected;
-    
+
 
     vectorReflected.x = (velocityInvertido.x * cos(angle*2)) - (velocityInvertido.y * sin(angle*2));
     vectorReflected.y = (velocityInvertido.x * sin(angle*2)) + (velocityInvertido.y * cos(angle*2));
@@ -128,5 +158,3 @@ void Ball::OnCollision(PhysBody* col)
     bool wake = true;
     pBody->body->ApplyForceToCenter(vectorReflected, wake);*/
 }
-
-

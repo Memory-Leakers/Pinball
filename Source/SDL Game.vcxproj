@@ -16,6 +16,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Boing.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Coins.h" />
     <ClInclude Include="Flipper.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
@@ -29,6 +30,7 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleUI.h" />
+    <ClInclude Include="PhysLayerL.h" />
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
@@ -41,6 +43,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="ScoreSystem.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Timer.h" />
@@ -51,6 +54,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Boing.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Coins.cpp" />
     <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -62,6 +66,7 @@
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
+    <ClCompile Include="PhysLayerL.cpp" />
     <ClCompile Include="SceneDebug1.cpp" />
     <ClCompile Include="SceneDebug2.cpp" />
     <ClCompile Include="SceneDebug3.cpp" />
@@ -71,6 +76,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="ScoreSystem.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="PolygonBoing.cpp" />
@@ -115,6 +121,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

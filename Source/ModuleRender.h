@@ -19,6 +19,7 @@ struct RenderObject
 	float scale = 1.0f;
 
 	bool rotationEnabled = true;
+	bool followPhysBody = true;
 };
 
 struct RenderRect

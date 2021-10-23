@@ -7,6 +7,9 @@ class PolygonBoing;
 class Sensor;
 class Boss;
 class Spring;
+class PhysLayerL;
+class ScoreSystem;
+class Coins;
 
 #define BOINGCOUNT 5
 #define TRIBOINGCOUNT 2
@@ -46,8 +49,8 @@ public:
 
     PolygonBoing* bossBoing[BOSSBOINGCOUNT];
 
-    Flipper* flipper;
-
+    Flipper* flipper_right;
+    Flipper* flipper_left;
     Sensor* sensor;
 
     Sensor* deathSensor;
@@ -56,7 +59,19 @@ public:
 
     Spring* spring;
 
+    PhysLayerL* physLayer;
+
+    Coins* coin;
+
     Sensor* sBallSpring;
+    Sensor* sTeleportIn;
+    
+    // background
+    SDL_Texture* bg; 
+
+    iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
+
+    ScoreSystem* scoreSystem;
 
     //Map
     PhysBody* bg1;

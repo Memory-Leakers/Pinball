@@ -50,4 +50,14 @@ bool Scene::CleanUp()
 	return true;
 }
 
+void Scene::DestroyGameObject(GameObject* gameObject)
+{
+	int index = gameObjects.find(gameObject);
+
+	if (index >= 0)
+	{
+		gameObjects.del(gameObjects.At(index));
+	}
+}
+
 
