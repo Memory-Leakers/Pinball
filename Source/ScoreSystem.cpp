@@ -31,6 +31,7 @@ ScoreSystem::ScoreSystem(Application* app)
 
 	UIcurrentScore = app->ui->CreateUI(0, uiX, uiY, 0.4f);
 	UIcurrentCombo = app->ui->CreateUI(1, 500, 70, 0.5f);
+	UInextCombo = app->ui->CreateUI(1, 500, 110, 0.5f);
 }
 
 ScoreSystem::~ScoreSystem()
@@ -41,7 +42,37 @@ void ScoreSystem::Update()
 {
 	if (changingCombo)
 	{
-		//Move combo Up
+		if (_app->ui->uiArray[UIcurrentCombo]->y >= 30)
+		{
+			_app->ui->uiArray[UIcurrentCombo]->y -= 2;
+
+			_app->ui->uiArray[UInextCombo]->y -= 2;
+		}
+		else 
+		{
+			SetCombo(nextCombo);
+			_app->ui->uiArray[UIcurrentCombo]->y = _app->ui->uiArray[UInextCombo]->y;
+			_app->ui->uiArray[UIcurrentCombo]->ChangeUI(currentCombo);
+			_app->ui->uiArray[UInextCombo]->y = 110;
+			changingCombo = false;
+		}
+	}
+	if (resettingCombo)
+	{
+		if (_app->ui->uiArray[UIcurrentCombo]->y <= 110)
+		{
+			_app->ui->uiArray[UIcurrentCombo]->y += 2;
+
+			_app->ui->uiArray[UInextCombo]->y += 2;
+		}
+		else
+		{
+			SetCombo(nextCombo);
+			_app->ui->uiArray[UIcurrentCombo]->y = _app->ui->uiArray[UInextCombo]->y;
+			_app->ui->uiArray[UIcurrentCombo]->ChangeUI(currentCombo);
+			_app->ui->uiArray[UInextCombo]->y = 110;
+			resettingCombo = false;
+		}
 	}
 }
 
@@ -56,7 +87,9 @@ void ScoreSystem::AddCombo(int combo)
 {
 	nextCombo = currentCombo + combo;
 
-	_app->ui->uiArray[UIcurrentCombo]->ChangeUI(currentCombo);
+	_app->ui->uiArray[UInextCombo]->ChangeUI(nextCombo);
+
+	changingCombo = true;
 }
 
 void ScoreSystem::ResetScore()
@@ -68,7 +101,10 @@ void ScoreSystem::ResetScore()
 
 void ScoreSystem::ResetCombo()
 {
-	currentCombo = 1;
+	nextCombo = 1;
 
-	_app->ui->uiArray[UIcurrentCombo]->ChangeUI(currentCombo);
+	_app->ui->uiArray[UInextCombo]->ChangeUI(nextCombo);
+	_app->ui->uiArray[UInextCombo]->y = 30;
+
+	resettingCombo = true;
 }

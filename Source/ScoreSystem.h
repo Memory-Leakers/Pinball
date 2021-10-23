@@ -2,6 +2,7 @@
 
 #include "Application.h"
 
+
 class ScoreSystem
 {
 private:
@@ -18,11 +19,13 @@ private:
 
 	uint UIcurrentScore = 0;
 	uint UIcurrentCombo = 0;
+	uint UInextCombo = 0;
 
 	int uiX = 0;
 	int uiY = 0;
 
 	bool changingCombo = false;
+	bool resettingCombo = false;
 	int nextCombo;
 
 public:

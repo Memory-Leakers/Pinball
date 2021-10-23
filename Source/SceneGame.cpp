@@ -90,6 +90,10 @@ bool SceneGame::PreUpdate()
 
 bool SceneGame::Update() 
 {
+	//Update ScoreSystem
+
+	scoreSystem->Update();
+
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
@@ -113,6 +117,14 @@ bool SceneGame::Update()
 	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		boss->health += 1000;
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+	{
+		scoreSystem->AddCombo(1);
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_REPEAT)
+	{
+		scoreSystem->ResetCombo();
 	}
 	
 
