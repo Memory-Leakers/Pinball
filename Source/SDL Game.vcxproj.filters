@@ -85,6 +85,9 @@
     <ClCompile Include="ScoreSystem.cpp">
       <Filter>SourceFiles\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Coins.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -190,6 +193,9 @@
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="ScoreSystem.h">
+      <Filter>HeaderFiles\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Coins.h">
       <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
   </ItemGroup>
