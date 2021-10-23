@@ -82,6 +82,9 @@
     <ClCompile Include="PhysLayerL.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreSystem.cpp">
+      <Filter>SourceFiles\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="PhysLayerL.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreSystem.h">
+      <Filter>HeaderFiles\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="ScoreSystem.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Timer.h" />
@@ -72,6 +73,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="ScoreSystem.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="Spring.cpp" />
   </ItemGroup>

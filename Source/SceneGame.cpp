@@ -8,6 +8,7 @@
 #include "Boss.h"
 #include "Spring.h"
 #include "PhysLayerL.h"
+#include "ScoreSystem.h"
 
 bool SceneGame::Start()
 {
@@ -53,9 +54,7 @@ bool SceneGame::Start()
 	gameObjects.add(physLayer);
 
 	// UI
-	uis[0] = _app->ui->CreateUI(0, 300, 125, 0.4f);
-	//uis[1] = _app->ui->CreateUI(2340, 300, 75, 0.4f);
-	//uis[2] = _app->ui->CreateUI(98320, 300, 125, 0.4f);
+	scoreSystem = ScoreSystem::Instance(_app);
 
 	return true;
 }
@@ -151,6 +150,8 @@ bool SceneGame::CleanUp()
 
 	// Delete Map
 	DeleteMap();
+
+	scoreSystem->Release();
 
 	// Clean Up UI
 	_app->ui->CleanUp();
