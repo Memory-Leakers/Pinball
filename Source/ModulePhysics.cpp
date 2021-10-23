@@ -30,7 +30,18 @@ bool ModulePhysics::Start()
  
 UpdateStatus ModulePhysics::PreUpdate()
 {
+	if(!pause)
 	world->Step(1.0f / 60, 6, 2);
+
+	return UPDATE_CONTINUE;
+}
+
+UpdateStatus ModulePhysics::Update()
+{
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		Pause();
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -192,6 +203,11 @@ void ModulePhysics::DotProductAngle(b2Vec2 v1, b2Vec2 v2, float& angle)
 
 	angle = acos(theta);
 
+}
+
+void ModulePhysics::Pause()
+{
+	pause = !pause;
 }
 
 void ModulePhysics::BeginContact(b2Contact* contact)
