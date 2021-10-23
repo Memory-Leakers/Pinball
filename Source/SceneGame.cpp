@@ -8,6 +8,7 @@
 #include "Boss.h"
 #include "Spring.h"
 #include "PhysLayerL.h"
+#include "ScoreSystem.h"
 
 bool SceneGame::Start()
 {
@@ -53,9 +54,7 @@ bool SceneGame::Start()
 	gameObjects.add(physLayer);
 
 	// UI
-	uis[0] = _app->ui->CreateUI(0, 300, 125, 0.4f);
-	//uis[1] = _app->ui->CreateUI(2340, 300, 75, 0.4f);
-	//uis[2] = _app->ui->CreateUI(98320, 300, 125, 0.4f);
+	scoreSystem = ScoreSystem::Instance(_app);
 
 	return true;
 }
@@ -91,6 +90,10 @@ bool SceneGame::PreUpdate()
 
 bool SceneGame::Update() 
 {
+	//Update ScoreSystem
+
+	scoreSystem->Update();
+
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
@@ -114,6 +117,14 @@ bool SceneGame::Update()
 	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		boss->health += 1000;
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+	{
+		scoreSystem->AddCombo(1);
+	}
+	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_REPEAT)
+	{
+		scoreSystem->ResetCombo();
 	}
 	
 
@@ -151,6 +162,8 @@ bool SceneGame::CleanUp()
 
 	// Delete Map
 	DeleteMap();
+
+	scoreSystem->Release();
 
 	// Clean Up UI
 	_app->ui->CleanUp();

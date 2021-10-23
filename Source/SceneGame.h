@@ -7,6 +7,7 @@ class Sensor;
 class Boss;
 class Spring;
 class PhysLayerL;
+class ScoreSystem;
 
 class SceneGame : public Scene
 {
@@ -55,6 +56,8 @@ public:
     SDL_Texture* bg; 
 
     iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
+
+    ScoreSystem* scoreSystem;
 
     //Map
     PhysBody* bg1;

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ScoreSystem.h"
 
 class Ball :  public GameObject
 {
@@ -7,6 +8,8 @@ private:
 	int impulseForce = 200;
 
 	bool initialSpring = false;
+
+	ScoreSystem* scoreInstance;
 
 public:
 

@@ -20,10 +20,15 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
 
+    //  Create instance of the Score System
+
+    scoreInstance = ScoreSystem::Instance(_app);
+
     if (!getVelocity) return;
 
     pBody->body->SetLinearVelocity(ball.pBody->body->GetLinearVelocity());
     pBody->body->SetAngularVelocity(ball.pBody->body->GetAngularVelocity());
+
 
 }
 
@@ -47,6 +52,11 @@ Ball::Ball(std::string name, std::string tag,Application* _app)
     pBody = _app->physics->CreateCircle(520, 780, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+
+    //  Create instance of the Score System
+
+    scoreInstance = ScoreSystem::Instance(_app);
+
 }
 
 void Ball::Start()
@@ -101,6 +111,11 @@ void Ball::OnCollision(PhysBody* col)
     if (col->gameObject->name == "SensorT")
     {
         isTeleporting = true;
+    }
+
+    if (col->gameObject->tag == "Boing")
+    {
+        scoreInstance->AddScore(100);
     }
 
 
