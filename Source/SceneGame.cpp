@@ -105,9 +105,9 @@ bool SceneGame::PreUpdate()
 bool SceneGame::Update() 
 {
 	//Update ScoreSystem
-
 	scoreSystem->Update();
 
+	// Debug Key
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
@@ -141,7 +141,6 @@ bool SceneGame::Update()
 		scoreSystem->ResetCombo();
 	}
 	
-
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i] != nullptr)

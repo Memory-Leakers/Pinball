@@ -28,8 +28,6 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
 
     pBody->body->SetLinearVelocity(ball.pBody->body->GetLinearVelocity());
     pBody->body->SetAngularVelocity(ball.pBody->body->GetAngularVelocity());
-
-
 }
 
 Ball::Ball(std::string name, std::string tag,Application* _app)
@@ -56,12 +54,11 @@ Ball::Ball(std::string name, std::string tag,Application* _app)
     //  Create instance of the Score System
 
     scoreInstance = ScoreSystem::Instance(_app);
-
 }
 
 void Ball::Start()
 {
-    
+
 }
 
 void Ball::PreUpdate()
@@ -76,7 +73,7 @@ void Ball::Update()
         impulseForce+= impulseForce >= 1200 ? 0 : 20;
         //printf("%d", impulseForce);
     }
-    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+    else if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
         if (initialSpring && abs(pBody->body->GetLinearVelocity().y) <= 0.2f)
         {
@@ -84,6 +81,18 @@ void Ball::Update()
             initialSpring = false;
         }
         impulseForce = 200;  
+    }
+
+    if (_app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+    {
+        b2Vec2 v = pBody->body->GetLinearVelocity();
+
+        if (v.x == 0 && v.y == 0)
+        {
+            float randomFloat = -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (10 + 10)));
+
+            pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 20), true);
+        }
     }
 }
 
@@ -117,7 +126,6 @@ void Ball::OnCollision(PhysBody* col)
     {
         scoreInstance->AddScore(100);
     }
-
 
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{
