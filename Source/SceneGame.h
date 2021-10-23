@@ -38,8 +38,8 @@ public:
 
     Boing* boing;
 
-    Flipper* flipper;
-
+    Flipper* flipper_right;
+    Flipper* flipper_left;
     Sensor* sensor;
 
     Boss* boss;

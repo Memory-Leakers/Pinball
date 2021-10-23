@@ -27,7 +27,9 @@ bool SceneGame::Start()
 	boing = new Boing("Boing", "Boing", _app);
 
 	// Flipper
-	flipper = new Flipper("Flipper", "Flipper", _app,flipper1);
+	flipper_right = new Flipper("Flipper_right", "Flipper", _app,flipper1,true);
+
+	flipper_left = new Flipper("Flipper_left", "Flipper", _app,flipper2,false);
 
 	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 
@@ -40,7 +42,8 @@ bool SceneGame::Start()
 
 	// Add gameObjects to the main array
 	gameObjects.add(player);
-	gameObjects.add(flipper);
+	gameObjects.add(flipper_right);
+	gameObjects.add(flipper_left);
 	gameObjects.add(boing);
 	gameObjects.add(sensor);
 	gameObjects.add(boss);
@@ -112,7 +115,7 @@ bool SceneGame::Update()
 	{
 		boss->health += 1000;
 	}
-
+	
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
@@ -129,6 +132,7 @@ bool SceneGame::Update()
 bool SceneGame::PostUpdate()
 {
 	_app->renderer->AddTextureRenderQueue(bg, { 0,0 });
+	
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
