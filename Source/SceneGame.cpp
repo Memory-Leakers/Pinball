@@ -27,9 +27,9 @@ bool SceneGame::Start()
 	boing = new Boing("Boing", "Boing", _app);
 
 	// Flipper
-	flipper_right = new Flipper("Flipper_right", "Flipper", _app,flipper1,true);
+	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
 
-	flipper_left = new Flipper("Flipper_left", "Flipper", _app,flipper2,false);
+	flipper_left = new Flipper("Flipper_left", "Flipper", _app, flipper2, false, SDL_SCANCODE_Z);
 
 	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 
