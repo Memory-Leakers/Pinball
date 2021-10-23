@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModulePhysics.h"
 #include "Boing.h"
+#include "PolygonBoing.h"
 #include "Sensor.h"
 #include "Boss.h"
 #include "Spring.h"
@@ -14,6 +15,79 @@ SDL_Texture* bg;
 
 bool SceneGame::Start()
 {
+	//Triangle Points
+	int TBLEFT[6] = {
+		210, 748,
+		139, 696,
+		139, 646
+	};
+	int TBRIGHT[6] = {
+		388, 748,
+		456, 696,
+		456, 646
+	};
+	int BOSSBOING1[24] = {
+		368, 291,
+		370, 296,
+		370, 302,
+		369, 308,
+		366, 312,
+		362, 315,
+		357, 317,
+		352, 317,
+		349, 317,
+		352, 310,
+		360, 300,
+		366, 293
+	};
+	int BOSSBOING2[22] = {
+		342, 364,
+		349, 365,
+		356, 368,
+		360, 376,
+		361, 384,
+		359, 390,
+		354, 395,
+		351, 397,
+		346, 389,
+		342, 381,
+		341, 372
+	};
+	int BOSSBOING3[18] = {
+		468, 288,
+		465, 294,
+		465, 305,
+		470, 313,
+		480, 316,
+		489, 315,
+		483, 304,
+		474, 292,
+		471, 290
+	};
+	int BOSSBOING4[18] = {
+		501, 363,
+		492, 365,
+		485, 371,
+		483, 378,
+		483, 385,
+		486, 392,
+		493, 397,
+		502, 398,
+		503, 370
+	};
+	int LONGBOING[22] = {
+		160, 475,
+		164, 466,
+		166, 458,
+		164, 447,
+		159, 437,
+		152, 425,
+		145, 414,
+		138, 407,
+		131, 405,
+		123, 405,
+		142, 443
+	};
 	// Create Map
 	CreateMap();
 
@@ -23,8 +97,30 @@ bool SceneGame::Start()
 	player = new Ball("Ball", "Player", _app);
 
 	// Boing
-	boing = new Boing("Boing", "Boing", _app);
-
+	//LEFT SIDE OF THE SCREEN
+	boing[0] = new Boing("Boing", "Boing", _app, 140, 195);
+	boing[1] = new Boing("Boing", "Boing", _app, 203, 195);
+	boing[2] = new Boing("Boing", "Boing", _app, 164, 358);
+	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
+	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
+	
+	//BOSS SIDE
+	/*
+	boing[5] = new Boing("Boing", "Boing", _app, 345, 381);
+	boing[6] = new Boing("Boing", "Boing", _app, 500, 381);
+	boing[7] = new Boing("Boing", "Boing", _app, 353, 300);
+	boing[8] = new Boing("Boing", "Boing", _app, 482, 300);
+	*/
+	// PolygonBoing
+	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 5, 0, TBLEFT, 6);
+	triBoing[1] = new PolygonBoing("TriangleBoingRight", "PolygonBoing", _app, -20, 0, TBRIGHT, 6);
+	
+	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24);
+	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22);
+	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18);
+	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18);
+	bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22);
+	
 	// Flipper
 	flipper = new Flipper("Flipper", "Flipper", _app,flipper1);
 
@@ -36,14 +132,19 @@ bool SceneGame::Start()
 
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 
+	deathSensor = new Sensor({ 288, 885, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
+
 	// Add gameObjects to the main array
 	gameObjects.add(player);
 	gameObjects.add(flipper);
-	gameObjects.add(boing);
+	for (int i = 0; i < BOINGCOUNT; i++) gameObjects.add(boing[i]);
+	for (int i = 0; i < TRIBOINGCOUNT; i++) gameObjects.add(triBoing[i]);
+	for (int i = 0; i < BOSSBOINGCOUNT; i++) gameObjects.add(bossBoing[i]);
 	gameObjects.add(sensor);
 	gameObjects.add(boss);
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
+	gameObjects.add(deathSensor);
 
 	
 	
@@ -100,13 +201,12 @@ bool SceneGame::Update()
 		}
 	}
 
-	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 	return true;
 }
 
 bool SceneGame::PostUpdate()
 {
-	_app->renderer->AddTextureRenderQueue(bg, { 0,0 });
+	_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
@@ -307,7 +407,6 @@ void SceneGame::CreateMap()
 		107, 736,
 		107, 718
 	};
-
 	int PM[46] = {
 		77, 377,
 		88, 379,
@@ -352,9 +451,6 @@ void SceneGame::CreateMap()
 
 	flipper1 = _app->physics->CreateChainObj(-7, 0, FP1, 28, true);
 	flipper1->body->SetType(b2BodyType::b2_staticBody);
-
-
-
 
 	flipper2 = _app->physics->CreateChainObj(0, 0, FP2, 20, true);
 	flipper2->body->SetType(b2BodyType::b2_staticBody);

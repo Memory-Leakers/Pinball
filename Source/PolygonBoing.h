@@ -1,23 +1,20 @@
-#ifndef _BOING_H_
-#define _BOING_H_
+#ifndef _POLYGONBOING_H_
+#define _POLYGONBOING_h_
 
 #include "GameObject.h"
 #include "ModulePhysics.h"
 
-//#include "Point.h"
-
-class Boing : public GameObject 
+class PolygonBoing : public GameObject
 {
 private:
 	Point<int> pos;
 	SDL_Texture* texture = nullptr;
 
-
 public:
 
-	Boing(std::string name, std::string tag, Application* _app, int x, int y);
+	PolygonBoing(std::string name, std::string tag, Application* _app,int x, int y, int* points, int numberPoints);
 
-	~Boing();
+	~PolygonBoing();
 
 	void PreUpdate() override;
 
@@ -26,8 +23,7 @@ public:
 	void PostUpdate() override;
 
 	void OnCollision(PhysBody* col) override;
+
 };
-#endif // !_BOING_H_
-
-
+#endif // !_POLYGONBOING_H_
 

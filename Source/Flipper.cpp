@@ -43,5 +43,5 @@ Flipper::Flipper(std::string name, std::string tag, Application* _app,PhysBody* 
 
 void Flipper::OnCollision(PhysBody* col)
 {
-	printf("Col Flliper");
+	//printf("Col Flliper");
 }

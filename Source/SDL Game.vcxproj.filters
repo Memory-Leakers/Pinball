@@ -79,6 +79,9 @@
     <ClCompile Include="Spring.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="PolygonBoing.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -178,6 +181,9 @@
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Spring.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonBoing.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>

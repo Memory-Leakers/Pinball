@@ -96,6 +96,11 @@ void Ball::OnCollision(PhysBody* col)
         initialSpring = true;
     }
 
+    if (col->gameObject->name == "DeathSensor")
+    {
+        
+    }
+
 
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{

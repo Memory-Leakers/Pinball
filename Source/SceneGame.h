@@ -3,9 +3,14 @@
 class Ball;
 class Flipper;
 class Boing;
+class PolygonBoing;
 class Sensor;
 class Boss;
 class Spring;
+
+#define BOINGCOUNT 5
+#define TRIBOINGCOUNT 2
+#define BOSSBOINGCOUNT 5
 
 class SceneGame : public Scene
 {
@@ -35,11 +40,17 @@ public:
 
     Ball* player;
 
-    Boing* boing;
+    Boing* boing[BOINGCOUNT];
+
+    PolygonBoing* triBoing[TRIBOINGCOUNT];
+
+    PolygonBoing* bossBoing[BOSSBOINGCOUNT];
 
     Flipper* flipper;
 
     Sensor* sensor;
+
+    Sensor* deathSensor;
 
     Boss* boss;
 
