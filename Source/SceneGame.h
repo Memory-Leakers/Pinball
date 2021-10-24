@@ -60,6 +60,8 @@ public:
 
     PhysLayerL* physLayer;
 
+    Sensor* enterPhysLayerL;
+
     CoinsManager* coinsManager;
 
     Sensor* sBallSpring;

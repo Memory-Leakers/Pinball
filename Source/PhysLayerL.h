@@ -11,5 +11,7 @@ public:
 	bool showBG = false;
 
 	void Update() override;
+
+	void setSensor(bool value);
 };
 

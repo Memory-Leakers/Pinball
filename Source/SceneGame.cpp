@@ -94,7 +94,11 @@ bool SceneGame::Start()
 
 	bg = _app->textures->Load("Assets/Images/Game/BG.png");
 
+	//LEFTSIDE
 	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
+
+	enterPhysLayerL = new Sensor({ 90, 470, 10, 10 }, -1, "ChangeLayerSensor", "PhysLayer", _app);
+
 
 	//pLayerR = _app->textures->Load("Assets/Images/Game/Layer2R.png");
 
@@ -266,6 +270,10 @@ bool SceneGame::Update()
 
 	// Update Coins Manager
 	coinsManager->Update();
+
+	//Manages Ball layer Switch
+
+
 
 	return true;
 }

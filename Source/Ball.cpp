@@ -154,6 +154,10 @@ void Ball::OnCollision(PhysBody* col)
         isDeath = true;
     }
 
+    if (col->gameObject->name == "ChangeLayerSensor") {
+        topLayer = !topLayer;
+    }
+
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{
 		//pBody->body->GetFixtureList()[0].SetRestitution(1);

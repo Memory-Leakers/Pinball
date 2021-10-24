@@ -50,13 +50,14 @@ PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :Ga
 	renderObjects[1].rotationEnabled = false;
 	renderObjects[1].section = new SDL_Rect{ 0, 0, 152, 236 };
 
-	/*
+	
 	pBody = _app->physics->CreateChainObj(12, 438, POINTS, 64, false);
 	pBody->body->SetType(b2BodyType::b2_staticBody);
-	*/
+	pBody->body->GetFixtureList()->SetSensor(true);
+
 	//CREATE SENSORS
 
-
+	
 
 }
 
@@ -84,4 +85,8 @@ void PhysLayerL::Update()
 			SDL_SetTextureAlphaMod(renderObjects[0].texture, 255 - timeCount);
 		}
 	}
+}
+
+void PhysLayerL::setSensor(bool value) {
+	pBody->body->GetFixtureList()->SetSensor(value);
 }
