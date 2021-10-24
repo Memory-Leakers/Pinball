@@ -165,6 +165,7 @@ bool SceneGame::Start()
 	gameObjects.add(Cannon3);
 	gameObjects.add(sTeleportIn);
 	gameObjects.add(physLayer);
+	gameObjects.add(enterPhysLayerL);
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
