@@ -64,8 +64,7 @@ void Ball::Start()
 void Ball::PreUpdate()
 {
     b2Vec2 velocity = pBody->body->GetLinearVelocity();
-    int maxVelocity = 24;
-
+    int maxVelocity = 20;
 
     if (velocity.x > maxVelocity)
     {
