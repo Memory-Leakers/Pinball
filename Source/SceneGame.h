@@ -64,6 +64,9 @@ public:
 
     Sensor* sBallSpring;
     Sensor* sTeleportIn;
+    Sensor* Cannon1;
+    Sensor* Cannon2;
+    Sensor* Cannon3;
     
     // background
     SDL_Texture* bg; 
