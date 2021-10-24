@@ -29,7 +29,7 @@ public:
 
 	bool isTeleporting = false; // Activated when collisioning with a teleport Sensor
 
-
+	bool isDeath = false; //Activated when collisioning with a death sensor
 	/*b2Vec2 velocity;
 
 	b2Vec2 velocityInvertido;

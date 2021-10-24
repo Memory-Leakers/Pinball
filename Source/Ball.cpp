@@ -129,7 +129,7 @@ void Ball::OnCollision(PhysBody* col)
 
     if (col->gameObject->name == "DeathSensor")
     {
-
+        isDeath = true;
     }
 
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))

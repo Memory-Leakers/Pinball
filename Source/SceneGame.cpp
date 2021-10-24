@@ -16,15 +16,16 @@ bool SceneGame::Start()
 {
 	//Triangle Points
 	int TBLEFT[6] = {
-		210, 748,
-		139, 696,
-		139, 646
+		145, 633,
+		145, 696,
+		183, 726
 	};
 	int TBRIGHT[6] = {
-		388, 748,
-		456, 696,
-		456, 646
+		436, 640,
+		436, 704,
+		397, 732
 	};
+
 	int BOSSBOING1[24] = {
 		368, 291,
 		370, 296,
@@ -87,6 +88,7 @@ bool SceneGame::Start()
 		123, 405,
 		142, 443
 	};
+
 	// Create Map
 	CreateMap();
 
@@ -109,21 +111,18 @@ bool SceneGame::Start()
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
 	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
 
-	//BOSS SIDE
-	/*
-	boing[5] = new Boing("Boing", "Boing", _app, 345, 381);
-	boing[6] = new Boing("Boing", "Boing", _app, 500, 381);
-	boing[7] = new Boing("Boing", "Boing", _app, 353, 300);
-	boing[8] = new Boing("Boing", "Boing", _app, 482, 300);
-	*/
-	// PolygonBoing
-	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 5, 0, TBLEFT, 6);
-	triBoing[1] = new PolygonBoing("TriangleBoingRight", "PolygonBoing", _app, -20, 0, TBRIGHT, 6);
+	
 
+	// PolygonBoing
+	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 0, 0, TBLEFT, 6);
+	triBoing[1] = new PolygonBoing("TriangleBoingRight", "PolygonBoing", _app, 0, -5, TBRIGHT, 6);
+
+	//BOSS SIDE
 	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24);
 	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22);
 	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18);
 	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18);
+	//LONG BOING
 	bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22);
 
 	// Flipper
@@ -142,7 +141,7 @@ bool SceneGame::Start()
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 
-	deathSensor = new Sensor({ 288, 885, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
+	deathSensor = new Sensor({ 288, 900, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
 
 	// Add gameObjects to the main array
 	gameObjects.add(player);
@@ -187,12 +186,20 @@ bool SceneGame::PreUpdate()
 		}
 	}
 
-	if (player->isTeleporting)
+	if (player->isTeleporting || player->isDeath)
 	{
+		int tpX = 200, tpY = 150;
+		if (player->isDeath)
+		{
+			tpX = 520;
+			tpY = 780;
+		}
+
 		player->isTeleporting = false;
+		player->isDeath = false;
 
 		// Teleport Player
-		Ball* temp = new Ball(*player, b2Vec2(200, 150), false);
+		Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false);
 		if (player->pBody->body->GetJointList() != nullptr)
 		{
 			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
@@ -340,8 +347,8 @@ void SceneGame::CreateMap()
 		112, 824,
 		112, 806,
 		253, 855,
-		253, 900,
-		321, 900,
+		253, 935,	//PUNTOS CHAIN abajo centro
+		321, 935,	//PUNTOS CHAIN abajo centro
 		321, 855,
 		476, 808,
 		477, 824
