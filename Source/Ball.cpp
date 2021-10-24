@@ -116,6 +116,17 @@ void Ball::Update()
             pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 20), true);
         }
     }
+
+    if (topLayer)
+    {
+        renderObjects[0].layer = 3;
+        renderObjects[1].layer = 3;
+    }
+    else 
+    {
+        renderObjects[0].layer = 1;
+        renderObjects[1].layer = 1;
+    }
 }
 
 void Ball::PostUpdate()
@@ -154,9 +165,17 @@ void Ball::OnCollision(PhysBody* col)
         isDeath = true;
     }
 
-    if (col->gameObject->name == "ChangeLayerSensor") {
+    //SECOND LAYERS
+    if (col->gameObject->name == "ChangeLayerSensor" || col->gameObject->name == "ChangeLayerSensorUnlockedDoor") 
+    {//ENTER LEFT OR RIGHT
         topLayer = !topLayer;
     }
+
+    if (topLayer == true && col->gameObject->name == "ChangeLayerSensorSecondLevel") //EXIT LEFT and RIGHT
+    {
+        topLayer = !topLayer;
+    }
+
 
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{

@@ -21,6 +21,7 @@
     <ClInclude Include="Flipper.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="KeySensor.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="PhysLayerL.h" />
+    <ClInclude Include="PhysLayerR.h" />
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
@@ -59,6 +61,7 @@
     <ClCompile Include="CoinsManager.cpp" />
     <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="KeySensor.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
@@ -69,6 +72,7 @@
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="PhysLayerL.cpp" />
+    <ClCompile Include="PhysLayerR.cpp" />
     <ClCompile Include="SceneDebug1.cpp" />
     <ClCompile Include="SceneDebug2.cpp" />
     <ClCompile Include="SceneDebug3.cpp" />

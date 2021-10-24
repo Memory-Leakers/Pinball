@@ -1,4 +1,5 @@
 #include "PhysLayerL.h"
+#include "Boing.h"
 
 PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :GameObject(name, tag, _app)
 {
@@ -55,10 +56,8 @@ PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :Ga
 	pBody->body->SetType(b2BodyType::b2_staticBody);
 	pBody->body->GetFixtureList()->SetSensor(true);
 
-	//CREATE SENSORS
-
-	
-
+	//BOING inside
+	boing = new Boing("Boing", "Boing", _app, 49, 648);
 }
 
 void PhysLayerL::Update()
@@ -87,6 +86,18 @@ void PhysLayerL::Update()
 	}
 }
 
-void PhysLayerL::setSensor(bool value) {
+void PhysLayerL::setSensor(bool value) 
+{
 	pBody->body->GetFixtureList()->SetSensor(value);
+
+	if (!value)
+	{
+		renderObjects[1].layer = 2;
+		boing->setLayer(2);
+	}
+	else 
+	{
+		renderObjects[1].layer = 1;
+		boing->setLayer(1);
+	}
 }

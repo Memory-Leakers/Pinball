@@ -94,6 +94,12 @@
     <ClCompile Include="CoinsManager.cpp">
       <Filter>SourceFiles\Game\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="PhysLayerR.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="KeySensor.cpp">
+      <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -209,6 +215,12 @@
     </ClInclude>
     <ClInclude Include="CoinsManager.h">
       <Filter>HeaderFiles\Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysLayerR.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="KeySensor.h">
+      <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

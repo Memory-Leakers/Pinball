@@ -5,9 +5,11 @@ class Flipper;
 class Boing;
 class PolygonBoing;
 class Sensor;
+class KeySensor;
 class Boss;
 class Spring;
 class PhysLayerL;
+class PhysLayerR;
 class ScoreSystem;
 class CoinsManager;
 
@@ -35,6 +37,8 @@ public:
 
     void CreateMap();
 
+    void SecondLayer();
+
     void DeleteMap();
 
 public:
@@ -59,8 +63,7 @@ public:
     Spring* spring;
 
     PhysLayerL* physLayer;
-
-    Sensor* enterPhysLayerL;
+    PhysLayerR* physLayer2;
 
     CoinsManager* coinsManager;
 
@@ -69,6 +72,12 @@ public:
     Sensor* Cannon1;
     Sensor* Cannon2;
     Sensor* Cannon3;
+    Sensor* enterPhysLayerL;
+    Sensor* exitPhysLayerL;
+    Sensor* enterPhysLayerR;
+    Sensor* exitPhysLayerR;
+    KeySensor* rightKey1;
+    KeySensor* rightKey2;
     
     // background
     SDL_Texture* bg; 

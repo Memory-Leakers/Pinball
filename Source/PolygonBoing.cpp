@@ -50,3 +50,7 @@ void PolygonBoing::OnCollision(PhysBody* col)
 
 	}
 }
+
+void PolygonBoing::setSensor(bool value) {
+	pBody->body->GetFixtureList()->SetSensor(value);
+}

@@ -59,3 +59,9 @@ void Boing::OnCollision(PhysBody* col)
 
 	}
 }
+
+void Boing::setLayer(int layer)
+{
+	renderObjects[0].layer = layer;
+	renderObjects[0].orderInLayer = 1.0f;
+}

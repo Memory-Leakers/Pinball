@@ -6,9 +6,11 @@
 #include "Boing.h"
 #include "PolygonBoing.h"
 #include "Sensor.h"
+#include "KeySensor.h"
 #include "Boss.h"
 #include "Spring.h"
 #include "PhysLayerL.h"
+#include "PhysLayerR.h"
 #include "ScoreSystem.h"
 #include "CoinsManager.h"
 
@@ -96,11 +98,16 @@ bool SceneGame::Start()
 
 	//LEFTSIDE
 	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
+	physLayer2 = new PhysLayerR("PhysLayerR", "PhysLayer", _app);
 
 	enterPhysLayerL = new Sensor({ 90, 470, 10, 10 }, -1, "ChangeLayerSensor", "PhysLayer", _app);
+	exitPhysLayerL = new Sensor({ 118, 650, 50, 10 }, -1, "ChangeLayerSensorSecondLevel", "PhysLayer", _app);
 
+	enterPhysLayerR = new Sensor({ 407, 526, 10, 10 }, -1, "ChangeLayerSensorLockedDoor", "PhysLayer", _app);
+	exitPhysLayerR = new Sensor({ 454, 635, 10, 10 }, -1, "ChangeLayerSensorSecondLevel", "PhysLayer", _app);
 
-	//pLayerR = _app->textures->Load("Assets/Images/Game/Layer2R.png");
+	rightKey1 = new KeySensor({ 399, 514, 10, 10 }, -1, "KeySensor1", "PhysLayer", _app);
+	rightKey2 = new KeySensor({ 416, 541, 10, 10 }, -1, "KeySensor2", "PhysLayer", _app);
 
 	coinsManager = new CoinsManager(_app);
 
@@ -164,8 +171,15 @@ bool SceneGame::Start()
 	gameObjects.add(Cannon2);
 	gameObjects.add(Cannon3);
 	gameObjects.add(sTeleportIn);
+	gameObjects.add(physLayer->boing);
 	gameObjects.add(physLayer);
+	gameObjects.add(physLayer2);
 	gameObjects.add(enterPhysLayerL);
+	gameObjects.add(exitPhysLayerL);
+	gameObjects.add(enterPhysLayerR);
+	gameObjects.add(exitPhysLayerR);
+	gameObjects.add(rightKey1);
+	gameObjects.add(rightKey2);
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
@@ -279,10 +293,16 @@ bool SceneGame::Update()
 	// Update Coins Manager
 	coinsManager->Update();
 
-	//Manages Ball layer Switch
+	//Manages Layer Switch
+	SecondLayer();
 
-
-
+	//Manages Right Upper Layer Texture Swutch
+	if (rightKey1->unlocked && rightKey2->unlocked  && enterPhysLayerR->name == "ChangeLayerSensorLockedDoor")
+	{
+		physLayer2->swapLowerTexture();
+		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
+	}
+	
 	return true;
 }
 
@@ -320,6 +340,48 @@ bool SceneGame::CleanUp()
 	_app->ui->CleanUp();
 
 	return true;
+}
+
+void SceneGame::SecondLayer()
+{
+	if (player->topLayer)
+	{
+		//FIRST LAYER OFF
+		bg1->body->GetFixtureList()->SetSensor(true);
+		bg2->body->GetFixtureList()->SetSensor(true);
+		bg3->body->GetFixtureList()->SetSensor(true);
+		smDivider1M->body->GetFixtureList()->SetSensor(true);
+		smDivider2M->body->GetFixtureList()->SetSensor(true);
+		flipper1->body->GetFixtureList()->SetSensor(true);
+		flipper2->body->GetFixtureList()->SetSensor(true);
+		pm->body->GetFixtureList()->SetSensor(true);
+		triBoing[0]->setSensor(true);
+		triBoing[1]->setSensor(true);
+
+
+		//SECOND LAYER ON
+		physLayer->setSensor(false);
+		physLayer2->setSensor(false);
+	}
+	else
+	{
+		//FIRST LAYER ON
+		bg1->body->GetFixtureList()->SetSensor(false);
+		bg2->body->GetFixtureList()->SetSensor(false);
+		bg3->body->GetFixtureList()->SetSensor(false);
+		smDivider1M->body->GetFixtureList()->SetSensor(false);
+		smDivider2M->body->GetFixtureList()->SetSensor(false);
+		flipper1->body->GetFixtureList()->SetSensor(false);
+		flipper2->body->GetFixtureList()->SetSensor(false);
+		pm->body->GetFixtureList()->SetSensor(false);
+		triBoing[0]->setSensor(false);
+		triBoing[1]->setSensor(false);
+
+
+		//SECOND LAYER OFF
+		physLayer->setSensor(true);
+		physLayer2->setSensor(true);
+	}
 }
 
 void SceneGame::CreateMap()

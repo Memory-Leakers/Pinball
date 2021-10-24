@@ -24,6 +24,8 @@ public:
 
 	void OnCollision(PhysBody* col) override;
 
+	void setSensor(bool value);
+
 };
 #endif // !_POLYGONBOING_H_
 

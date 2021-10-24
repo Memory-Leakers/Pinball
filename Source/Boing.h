@@ -26,6 +26,8 @@ public:
 	void PostUpdate() override;
 
 	void OnCollision(PhysBody* col) override;
+
+	void setLayer(int layer);
 };
 #endif // !_BOING_H_
 

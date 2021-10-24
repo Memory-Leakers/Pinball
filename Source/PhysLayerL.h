@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+class Boing;
 class PhysLayerL : public GameObject
 {
 public:
@@ -13,5 +13,7 @@ public:
 	void Update() override;
 
 	void setSensor(bool value);
+
+	Boing* boing;
 };
 
