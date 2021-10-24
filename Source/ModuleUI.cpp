@@ -38,7 +38,7 @@ UpdateStatus ModuleUI::PostUpdate()
 				iPoint tempPos = iPoint(uiArray[i]->x, uiArray[i]->y);
 				tempPos.x += (int)(26 * uiArray[i]->digitScale * j); // Spacing between digits
 				//App->renderer->Blit(texture, tempPos, uiArray[i]->y,uiArray[i]->digitScale, &numSection[uiArray[i]->digitVec.at(j)]);
-				App->renderer->AddTextureRenderQueue(texture, tempPos, &numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale, 2);
+				App->renderer->AddTextureRenderQueue(texture, tempPos, &numSection[uiArray[i]->digitVec.at(j)], uiArray[i]->digitScale, uiArray[i]->layer, 0.1f);
 			}
 		}
 	}
@@ -58,13 +58,14 @@ UpdateStatus ModuleUI::PostUpdate()
 /// <param name="x"></param>
 /// <param name="y"></param>
 /// <returns></returns>
-uint ModuleUI::CreateUI(int num, int x, int y, float scale)
+uint ModuleUI::CreateUI(int num, int x, int y, float scale, int layer)
 {
 	//  Get position of the UI
 	itemUI* item = new itemUI();
 	item->x = x;
 	item->y = y;
 	item->digitScale = scale;
+	item->layer = layer;
 
 	//Make the number into an array of digits
 	//	Declare Variables

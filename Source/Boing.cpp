@@ -31,7 +31,14 @@ void Boing::PreUpdate()
 
 void Boing::Update() 
 {
-	
+	if (counter > 0)
+	{
+		counter--;
+	}
+	if (counter == 0)
+	{
+		renderObjects[0].section->x = 0;
+	}
 }
 
 void Boing::PostUpdate()
@@ -43,16 +50,11 @@ void Boing::OnCollision(PhysBody* col)
 {
 	if (col->gameObject && col->gameObject->CompareTag("Player"))
 	{
+		counter = 0.1f * FPS;
+
 		if (renderObjects[0].section != nullptr)
 		{
-			if(renderObjects[0].section->x == 120)
-			{
-				renderObjects[0].section->x = 0;
-			}
-			else
-			{
-				renderObjects[0].section->x = 120;
-			}
+			renderObjects[0].section->x = 120;
 		}
 
 	}

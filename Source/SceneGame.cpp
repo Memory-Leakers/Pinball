@@ -10,7 +10,7 @@
 #include "Spring.h"
 #include "PhysLayerL.h"
 #include "ScoreSystem.h"
-#include "Coins.h"
+#include "CoinsManager.h"
 
 bool SceneGame::Start()
 {
@@ -98,7 +98,7 @@ bool SceneGame::Start()
 
 	//pLayerR = _app->textures->Load("Assets/Images/Game/Layer2R.png");
 
-	coin = new Coins("Coin", "Coin", _app, iPoint{ 400,400 });
+	coinsManager = new CoinsManager(_app);
 
 	// Ball
 	player = new Ball("Ball", "Player", _app);
@@ -111,7 +111,7 @@ bool SceneGame::Start()
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
 	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
 
-	
+
 
 	// PolygonBoing
 	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 0, 0, TBLEFT, 6);
@@ -137,7 +137,6 @@ bool SceneGame::Start()
 	spring = new Spring(iPoint(513, 827), "Spring", "Spring", _app);
 
 	// Sensor
-	sensor = new Sensor({ 200,120,25,25 },1, "Sensor", "Sensor", _app);
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 
@@ -150,16 +149,12 @@ bool SceneGame::Start()
 	for (int i = 0; i < BOINGCOUNT; i++) gameObjects.add(boing[i]);
 	for (int i = 0; i < TRIBOINGCOUNT; i++) gameObjects.add(triBoing[i]);
 	for (int i = 0; i < BOSSBOINGCOUNT; i++) gameObjects.add(bossBoing[i]);
-	gameObjects.add(sensor);
 	gameObjects.add(boss);
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
 	gameObjects.add(deathSensor);
 	gameObjects.add(sTeleportIn);
 	gameObjects.add(physLayer);
-	gameObjects.add(coin);
-
-
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
@@ -188,7 +183,7 @@ bool SceneGame::PreUpdate()
 
 	if (player->isTeleporting || player->isDeath)
 	{
-		int tpX = 200, tpY = 150;
+		int tpX = 190, tpY = 140;
 		if (player->isDeath)
 		{
 			tpX = 520;
@@ -207,7 +202,15 @@ bool SceneGame::PreUpdate()
 		DestroyGameObject(player);
 		player = temp;
 		gameObjects.add(player);
+
+		float randomFloat = -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (10 + 10)));
+
+		player->pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 0), true);
 	}
+
+
+	// PreUpdate Coins Manager
+	coinsManager->PreUpdate();
 
 	return true;
 }
@@ -246,7 +249,7 @@ bool SceneGame::Update()
 	{
 		scoreSystem->AddCombo(1);
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_REPEAT)
+	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		scoreSystem->ResetCombo();
 	}
@@ -260,6 +263,10 @@ bool SceneGame::Update()
 	}
 
 	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
+
+	// Update Coins Manager
+	coinsManager->Update();
+
 	return true;
 }
 
@@ -275,6 +282,9 @@ bool SceneGame::PostUpdate()
 		}
 	}
 
+	// PostUpdate Coins Manager
+	coinsManager->PostUpdate();
+
 	return true;
 }
 
@@ -286,6 +296,9 @@ bool SceneGame::CleanUp()
 	DeleteMap();
 
 	scoreSystem->Release();
+
+	delete coinsManager;
+	coinsManager = nullptr;
 
 	// Clean Up UI
 	_app->ui->CleanUp();

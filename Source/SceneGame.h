@@ -9,7 +9,7 @@ class Boss;
 class Spring;
 class PhysLayerL;
 class ScoreSystem;
-class Coins;
+class CoinsManager;
 
 #define BOINGCOUNT 5
 #define TRIBOINGCOUNT 2
@@ -51,7 +51,6 @@ public:
 
     Flipper* flipper_right;
     Flipper* flipper_left;
-    Sensor* sensor;
 
     Sensor* deathSensor;
 
@@ -61,7 +60,7 @@ public:
 
     PhysLayerL* physLayer;
 
-    Coins* coin;
+    CoinsManager* coinsManager;
 
     Sensor* sBallSpring;
     Sensor* sTeleportIn;

@@ -32,6 +32,8 @@ public:
 
 	Timer globalTime;
 
+	bool isDebug = true;
+
 private:
 
 	p2List<Module*> list_modules;

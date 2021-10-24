@@ -108,7 +108,10 @@ UpdateStatus ModuleRender::PostUpdate()
 		}
 	}
 
-	App->physics->ShapesRender();
+	if (App->isDebug)
+	{
+		App->physics->ShapesRender();
+	}
 	
 	SDL_RenderPresent(renderer);
 

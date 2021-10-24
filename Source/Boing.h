@@ -11,7 +11,7 @@ class Boing : public GameObject
 private:
 	Point<int> pos;
 	SDL_Texture* texture = nullptr;
-
+	int counter = 0; 
 
 public:
 

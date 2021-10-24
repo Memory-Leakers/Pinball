@@ -63,8 +63,30 @@ void Ball::Start()
 
 void Ball::PreUpdate()
 {
-	//pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
-}
+    b2Vec2 velocity = pBody->body->GetLinearVelocity();
+    int maxVelocity = 24;
+
+
+    if (velocity.x > maxVelocity)
+    {
+        velocity.x = maxVelocity;
+    }
+    if (velocity.y > maxVelocity)
+    {
+        velocity.y = maxVelocity;
+    }
+    if (velocity.x < -maxVelocity)
+    {
+        velocity.x = -maxVelocity;
+    }
+    if (velocity.y < -maxVelocity)
+    {
+        velocity.y = -maxVelocity;
+    }
+
+    pBody->body->SetLinearVelocity(velocity);
+    
+    }
 
 void Ball::Update()
 {

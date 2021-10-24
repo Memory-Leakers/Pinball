@@ -30,8 +30,8 @@ ScoreSystem::ScoreSystem(Application* app)
 	uiY = 125;
 
 	UIcurrentScore = app->ui->CreateUI(0, uiX, uiY, 0.4f);
-	UIcurrentCombo = app->ui->CreateUI(1, 500, 70, 0.5f);
-	UInextCombo = app->ui->CreateUI(1, 500, 110, 0.5f);
+	UIcurrentCombo = app->ui->CreateUI(1, 500, 70, 0.5f, 0);
+	UInextCombo = app->ui->CreateUI(1, 500, 110, 0.5f, 0);
 }
 
 ScoreSystem::~ScoreSystem()
@@ -40,13 +40,21 @@ ScoreSystem::~ScoreSystem()
 
 void ScoreSystem::Update()
 {
+	_app->ui->uiArray[UIcurrentCombo]->x = currentCombo >= 10 ? 495 : 500;
+	_app->ui->uiArray[UInextCombo]->x = nextCombo >= 10 ? 495 : 500;
+
 	if (changingCombo)
 	{
-		if (_app->ui->uiArray[UIcurrentCombo]->y >= 30)
+		if (_app->ui->uiArray[UIcurrentCombo]->y > 30)
 		{
-			_app->ui->uiArray[UIcurrentCombo]->y -= 2;
+			_app->ui->uiArray[UIcurrentCombo]->y -= 4;
 
-			_app->ui->uiArray[UInextCombo]->y -= 2;
+			_app->ui->uiArray[UInextCombo]->y -= 4;
+
+			//	Si nos hemos pasado, lo asignamos a 30 / 70. Si no continuamos
+			_app->ui->uiArray[UIcurrentCombo]->y = _app->ui->uiArray[UIcurrentCombo]->y < 30 ? 30 : _app->ui->uiArray[UIcurrentCombo]->y;
+
+			_app->ui->uiArray[UInextCombo]->y = _app->ui->uiArray[UInextCombo]->y < 70 ? 70 : _app->ui->uiArray[UInextCombo]->y;
 		}
 		else 
 		{
@@ -59,11 +67,16 @@ void ScoreSystem::Update()
 	}
 	if (resettingCombo)
 	{
-		if (_app->ui->uiArray[UIcurrentCombo]->y <= 110)
+		if (_app->ui->uiArray[UIcurrentCombo]->y < 110 || _app->ui->uiArray[UInextCombo]->y < 70)
 		{
-			_app->ui->uiArray[UIcurrentCombo]->y += 2;
+			_app->ui->uiArray[UIcurrentCombo]->y += 4;
 
-			_app->ui->uiArray[UInextCombo]->y += 2;
+			_app->ui->uiArray[UInextCombo]->y += 4;
+
+			//	Si nos hemos pasado, lo asignamos a 110 / 70. Si no continuamos
+			_app->ui->uiArray[UIcurrentCombo]->y = _app->ui->uiArray[UIcurrentCombo]->y > 110 ? 110 : _app->ui->uiArray[UIcurrentCombo]->y;
+
+			_app->ui->uiArray[UInextCombo]->y = _app->ui->uiArray[UInextCombo]->y > 70 ? 70 : _app->ui->uiArray[UInextCombo]->y;
 		}
 		else
 		{
