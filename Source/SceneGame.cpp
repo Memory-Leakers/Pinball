@@ -143,6 +143,9 @@ bool SceneGame::Start()
 	// Sensor
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
+	Cannon1 = new Sensor({107,288,10,10}, -1, "SensorC1", "Sensor", _app);
+	Cannon2 = new Sensor({166,288,10,10}, -1, "SensorC2", "Sensor", _app);
+	Cannon3 = new Sensor({227,288,10,10}, -1, "SensorC3", "Sensor", _app);
 
 	deathSensor = new Sensor({ 288, 900, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
 
@@ -157,6 +160,9 @@ bool SceneGame::Start()
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
 	gameObjects.add(deathSensor);
+	gameObjects.add(Cannon1);
+	gameObjects.add(Cannon2);
+	gameObjects.add(Cannon3);
 	gameObjects.add(sTeleportIn);
 	gameObjects.add(physLayer);
 
@@ -265,6 +271,7 @@ bool SceneGame::Update()
 			gameObjects[i]->Update();
 		}
 	}
+
 
 	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 
