@@ -43,24 +43,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>SourceFiles\Engine\BaseClasses</Filter>
     </ClCompile>
-    <ClCompile Include="SceneDebug1.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDebug2.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDebug3.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneIntro.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMain.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneGame.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Ball.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
@@ -85,11 +67,32 @@
     <ClCompile Include="PhysLayerL.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreSystem.cpp">
-      <Filter>SourceFiles\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Coins.cpp">
       <Filter>SourceFiles\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreSystem.cpp">
+      <Filter>SourceFiles\Game\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDebug1.cpp">
+      <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDebug2.cpp">
+      <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDebug3.cpp">
+      <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneIntro.cpp">
+      <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMain.cpp">
+      <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinsManager.cpp">
+      <Filter>SourceFiles\Game\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,24 +159,6 @@
     <ClInclude Include="Timer.h">
       <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMain.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneDebug1.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneDebug2.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneDebug3.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneIntro.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneGame.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
@@ -198,11 +183,32 @@
     <ClInclude Include="PhysLayerL.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreSystem.h">
-      <Filter>HeaderFiles\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Coins.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDebug1.h">
+      <Filter>HeaderFiles\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDebug2.h">
+      <Filter>HeaderFiles\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDebug3.h">
+      <Filter>HeaderFiles\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>HeaderFiles\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneIntro.h">
+      <Filter>HeaderFiles\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMain.h">
+      <Filter>HeaderFiles\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreSystem.h">
+      <Filter>HeaderFiles\Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinsManager.h">
+      <Filter>HeaderFiles\Game\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +256,18 @@
     </Filter>
     <Filter Include="HeaderFiles\Game\GameObjects">
       <UniqueIdentifier>{a469e793-f45d-402c-b315-45f3c2a9ce95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFiles\Game\Managers">
+      <UniqueIdentifier>{e1a00204-771b-40a8-8088-692b58344579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceFiles\Game\Scenes">
+      <UniqueIdentifier>{590a55a8-2f59-4865-8144-799f6729420f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HeaderFiles\Game\Managers">
+      <UniqueIdentifier>{70277628-e083-493b-88da-a31463a7c453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HeaderFiles\Game\Scenes">
+      <UniqueIdentifier>{72fecaea-118d-4695-9a53-e756d79529ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

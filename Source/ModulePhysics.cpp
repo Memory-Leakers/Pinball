@@ -308,10 +308,7 @@ void ModulePhysics::ShapesRender()
 
 UpdateStatus ModulePhysics::PostUpdate()
 {
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
-		debug = !debug;
-
-	if (!debug)
+	if (!App->isDebug)
 		return UPDATE_CONTINUE;
 
 	// If mouse button 1 is pressed ...
