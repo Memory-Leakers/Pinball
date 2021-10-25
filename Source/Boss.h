@@ -3,11 +3,11 @@
 
 #include "SDL/include/SDL_rect.h"
 
+#include "ScoreSystem.h"
+
 class HealthBar
 {
 private:
-	int healthPercentage; // currentHealth  / (totalHealth / 100) Example -> 90.000 / (100.000 / 100) = 90%
-
 	float RGBrank; // -1 + (healthPercentage * 0,02)	// This makes the rank go from 1 to -1 // Example -> -1 + (80 * 0.02) = 0.6
 public:
 
@@ -38,6 +38,8 @@ public:
 
 	SDL_Rect healthRect;
 
+	int healthPercentage; // currentHealth  / (totalHealth / 100) Example -> 90.000 / (100.000 / 100) = 90%
+
 	void PostUpdate()
 	{
 		healthPercentage = currentHealth / (totalHealth / 100);	//Current health Percentage
@@ -66,6 +68,21 @@ public:
 class Boss : public GameObject
 {
 private:
+	
+	ScoreSystem* scoreInstance;
+	int spriteY;
+	int maxSpriteDown;
+	int topPerFrame = 5;
+	bool goUp;
+
+	iPoint bossSections[6];
+
+	bool isBeingHit = false;
+	int hitCounter = 30;
+
+	iPoint currentIdleSection;
+	iPoint currentHitSection;
+
 public:
 
 	int health;
@@ -82,5 +99,7 @@ public:
 	void PostUpdate() override;
 
 	void CleanUp() override;
+
+	void OnCollision(PhysBody* col) override;
 };
 

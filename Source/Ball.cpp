@@ -82,6 +82,10 @@ void Ball::PreUpdate()
     {
         velocity.y = -maxVelocity;
     }
+    if (abs(velocity.x) > maxVelocity || abs(velocity.y) > maxVelocity)
+    {
+        printf("Velocidad por encima de limite !!!!");
+    }
 
     pBody->body->SetLinearVelocity(velocity);
     
@@ -154,7 +158,7 @@ void Ball::OnCollision(PhysBody* col)
         isTeleporting = true;
     }
 
-    if (col->gameObject->tag == "Boing")
+    if (col->gameObject->tag == "Boing" || col->gameObject->tag == "PolygonBoing")
     {
         scoreInstance->AddScore(100);
     }
@@ -162,6 +166,11 @@ void Ball::OnCollision(PhysBody* col)
     if (col->gameObject->name == "DeathSensor")
     {
         isDeath = true;
+    }
+
+    if (col->gameObject->tag == "Coin")
+    {
+        scoreInstance->AddCombo(1);
     }
 
     //SECOND LAYERS
