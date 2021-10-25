@@ -41,6 +41,8 @@ public:
 
     void DeleteMap();
 
+    void GameOver();
+
 public:
 
     uint uis[3];
@@ -83,6 +85,7 @@ public:
     
     // background
     SDL_Texture* bg; 
+    SDL_Texture* gameover;
 
     iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
 
@@ -100,4 +103,6 @@ public:
     PhysBody* smDivider2M;
 
     PhysBody* pm;
+
+    bool gamefinished = false;
 };

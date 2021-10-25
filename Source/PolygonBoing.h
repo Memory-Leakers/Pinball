@@ -9,10 +9,16 @@ class PolygonBoing : public GameObject
 private:
 	Point<int> pos;
 	SDL_Texture* texture = nullptr;
+	int Offsetx;
+	int Offsety;
+	float AngularOffset;
+	int count = 0;
 
 public:
 
-	PolygonBoing(std::string name, std::string tag, Application* _app,int x, int y, int* points, int numberPoints);
+	PolygonBoing(std::string name, std::string tag, Application* _app,int x, int y, int* points, int numberPoints,int Id,bool isRight);
+
+	PolygonBoing(std::string name, std::string tag, Application* _app, int x, int y, int* points, int numberPoints,float rotation, iPoint offset, float Scale);
 
 	~PolygonBoing();
 

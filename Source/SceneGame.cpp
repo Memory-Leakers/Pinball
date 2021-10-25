@@ -95,6 +95,7 @@ bool SceneGame::Start()
 	CreateMap();
 
 	bg = _app->textures->Load("Assets/Images/Game/BG.png");
+	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 
 	//LEFTSIDE
 	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
@@ -126,16 +127,16 @@ bool SceneGame::Start()
 
 
 	// PolygonBoing
-	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 0, 0, TBLEFT, 6);
-	triBoing[1] = new PolygonBoing("TriangleBoingRight", "PolygonBoing", _app, 0, -5, TBRIGHT, 6);
+	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0,-5, TBLEFT, 6,1,false);
+	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 0, -8, TBRIGHT, 6,1,true);
 
 	//BOSS SIDE
-	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24);
-	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22);
-	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18);
-	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18);
-	//LONG BOING
-	bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22);
+	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24,32.0f,iPoint(352,286),0.3f);
+	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22,-10.0f,iPoint(344,361),0.3f);
+	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463,286), 0.3f);
+	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18, 180.0f, iPoint(483, 363), 0.3f);
+	////LONG BOING
+	//bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22,3,false);
 
 	// Flipper
 	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
@@ -163,7 +164,11 @@ bool SceneGame::Start()
 	gameObjects.add(flipper_left);
 	for (int i = 0; i < BOINGCOUNT; i++) gameObjects.add(boing[i]);
 	for (int i = 0; i < TRIBOINGCOUNT; i++) gameObjects.add(triBoing[i]);
-	for (int i = 0; i < BOSSBOINGCOUNT; i++) gameObjects.add(bossBoing[i]);
+	//for (int i = 0; i < BOSSBOINGCOUNT; i++) gameObjects.add(bossBoing[i]);
+	gameObjects.add(bossBoing[0]);
+	gameObjects.add(bossBoing[1]);
+	gameObjects.add(bossBoing[2]);
+	gameObjects.add(bossBoing[3]);
 	gameObjects.add(boss);
 	gameObjects.add(spring);
 	gameObjects.add(sBallSpring);
@@ -184,6 +189,8 @@ bool SceneGame::Start()
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
+
+	gamefinished = false;
 
 	return true;
 }
@@ -216,7 +223,7 @@ bool SceneGame::PreUpdate()
 			tpX = 520;
 			tpY = 780;
 		}
-		
+
 		player->isTeleporting = false;
 		player->isDeath = false;
 
@@ -236,10 +243,11 @@ bool SceneGame::PreUpdate()
 
 			player->pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 0), true);
 		}
-		else 
+		else
 		{
 			//Game Over
 			printf("\n\nGAME OVER!!\n\n");
+			GameOver();
 		}
 	}
 
@@ -287,7 +295,15 @@ bool SceneGame::Update()
 	{
 		scoreSystem->ResetCombo();
 	}
+	if(_app->input->GetKey(SDL_SCANCODE_L)==KEY_DOWN)
+	{
+		GameOver();
+	}
 
+	if (_app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && gamefinished)
+	{
+		_app->scene->ChangeCurrentScene(4, 0);
+	}
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i] != nullptr)
@@ -297,7 +313,7 @@ bool SceneGame::Update()
 	}
 
 
-	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
+	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 
 	// Update Coins Manager
 	coinsManager->Update();
@@ -311,12 +327,13 @@ bool SceneGame::Update()
 		physLayer2->swapLowerTexture();
 		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
 	}
-	
+
 	return true;
 }
 
 bool SceneGame::PostUpdate()
 {
+
 	_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
 
 	for (int i = 0; i < gameObjects.count(); i++)
@@ -326,7 +343,10 @@ bool SceneGame::PostUpdate()
 			gameObjects[i]->PostUpdate();
 		}
 	}
-
+	if (gamefinished)
+	{
+		_app->renderer->AddTextureRenderQueue(gameover, { 0,0 }, nullptr, 1.0f, 3, 1.0f);
+	}
 	// PostUpdate Coins Manager
 	coinsManager->PostUpdate();
 
@@ -392,7 +412,18 @@ void SceneGame::SecondLayer()
 		physLayer2->setSensor(true);
 	}
 }
+void SceneGame::GameOver()
+{
+	if (!gamefinished)
+	{
+		gamefinished = true;
 
+	}
+	else
+	{
+		gamefinished = false;
+	}
+}
 void SceneGame::CreateMap()
 {
 	//Map
