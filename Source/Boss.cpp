@@ -10,18 +10,36 @@ Boss::Boss(int health, std::string name, std::string tag, Application* _app) : G
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
 	pBody->body->GetFixtureList()->SetRestitution(0.7f);
 
+	spriteY = GetDrawPos().y;
+	maxSpriteDown = spriteY + 10;
+
+	for (int i = 0; i < 6; i++)
+	{
+		if (i < 3)
+		{
+			bossSections[i].x = 128 * i;
+			bossSections[i].y = 0;
+		}
+		else 
+		{
+			bossSections[i].x = 128 * (i - 3);
+			bossSections[i].y = 128;
+		}
+	}
 
 	// Create RenderObject
 	renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Boss.png");
 	renderObjects[1].texture = _app->textures->Load("Assets/Images/Game/HealthBar.png");
 
-	renderObjects[0].section = new SDL_Rect{ 0, 0, 128, 128 };
+	renderObjects[0].section = new SDL_Rect{ bossSections[0].x, bossSections[0].y, 128, 128};
 	renderObjects[0].scale = 0.65f;
 
 	renderObjects[1].renderRect.x = 300;
 	renderObjects[1].renderRect.y = 150;
 	renderObjects[1].followPhysBody = false;
 	renderObjects[1].layer = 3;
+
+
 
 	// Create HealthBar
 	this->health = health;
@@ -45,7 +63,85 @@ void Boss::Update()
 
 void Boss::PostUpdate()
 {
-	GameObject::PostUpdate();
+	//GameObject::PostUpdate();
+
+	topPerFrame--;
+
+	if (topPerFrame == 0)
+	{
+		int speed = 1;
+		int temp = GetDrawPos().y;
+
+		if (spriteY == GetDrawPos().y)
+		{
+			goUp = false;
+		}
+		if (spriteY == maxSpriteDown)
+		{
+			goUp = true;
+		}
+
+		spriteY = goUp ? spriteY - speed : spriteY + speed;
+
+		topPerFrame = 5;
+
+	}
+
+	// DIbujar texturas
+
+	// Posicion del sprite
+	renderObjects[0].renderRect.x = GetDrawPos().x-3;
+	renderObjects[0].renderRect.y = spriteY -5;
+
+
+	// Seccion del sprite
+
+	if (healthBar->healthPercentage > 80)
+	{
+		currentIdleSection.x = bossSections[0].x;
+		currentIdleSection.y = bossSections[0].y;
+
+		currentHitSection.x = bossSections[3].x;
+		currentHitSection.y = bossSections[3].y;
+	}
+	else if(healthBar->healthPercentage > 40)
+	{
+
+		currentIdleSection.x = bossSections[1].x;
+		currentIdleSection.y = bossSections[1].y;
+
+		currentHitSection.x = bossSections[4].x;
+		currentHitSection.y = bossSections[4].y;
+	}
+	else 
+	{
+		currentIdleSection.x = bossSections[2].x;
+		currentIdleSection.y = bossSections[2].y;
+
+		currentHitSection.x = bossSections[5].x;
+		currentHitSection.y = bossSections[5].y;
+	}
+	
+	if (isBeingHit)
+	{
+		renderObjects[0].section->x = currentHitSection.x;
+		renderObjects[0].section->y = currentHitSection.y;
+	
+		isBeingHit = --hitCounter != 0;
+	
+		hitCounter = isBeingHit ? hitCounter : 30;
+
+	}
+	else 
+	{
+		renderObjects[0].section->x = currentIdleSection.x;
+		renderObjects[0].section->y = currentIdleSection.y;
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		_app->renderer->AddTextureRenderQueue(renderObjects[i]);
+	}
 
 	healthBar->PostUpdate();
 }
@@ -58,6 +154,11 @@ void Boss::OnCollision(PhysBody* col)
 
 		scoreInstance->ResetCombo();
 		scoreInstance->ResetScore();
+
+		if (!isBeingHit)
+		{
+			isBeingHit = true;
+		}
 	}
 }
 
