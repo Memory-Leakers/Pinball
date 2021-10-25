@@ -83,7 +83,7 @@ UpdateStatus ModuleRender::PostUpdate()
 		{
 			//SDL_SetTextureAlphaMod(renderObject.texture, 100);
 
-			if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, NULL, renderObject.flip) != 0)
+			if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, &renderObject.pivot, renderObject.flip) != 0)
 			{
 				LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			}
@@ -95,7 +95,6 @@ UpdateStatus ModuleRender::PostUpdate()
 	{
 		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 		SDL_SetRenderDrawColor(renderer, rects[i].color.r, rects[i].color.g, rects[i].color.b, rects[i].color.a);
-
 		SDL_RenderFillRect(renderer, &rects[i].rect);
 	}
 
@@ -139,7 +138,7 @@ bool ModuleRender::CleanUp()
 	return true;
 }
 
-void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, float scale, int layer, float orderInlayer, float rotation, SDL_RendererFlip flip, float speed)
+void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section, float scale, int layer, float orderInlayer, float rotation, SDL_RendererFlip flip, SDL_Rect pivot, float speed)
 {
 	RenderObject renderObject;
 
@@ -171,6 +170,9 @@ void ModuleRender::AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_R
 
 	renderObject.flip = flip;
 
+	renderObject.pivot.x = renderObject.renderRect.w / 2 + pivot.x;
+	renderObject.pivot.y = renderObject.renderRect.h / 2 + pivot.y;
+
 	layers[layer].push_back(renderObject);
 }
 
@@ -194,6 +196,9 @@ void ModuleRender::AddTextureRenderQueue(RenderObject object)
 
 	object.renderRect.w *= object.scale;
 	object.renderRect.h *= object.scale;
+
+	object.pivot.x = object.renderRect.w / 2 + object.pivot.x;
+	object.pivot.y = object.renderRect.h / 2 + object.pivot.y;
 
 	layers[object.layer].push_back(object);
 }

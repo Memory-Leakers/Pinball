@@ -76,6 +76,8 @@ public:
 	
 	void Pause();
 
+	bool const GetPause() { return pause; }
+
 	void BeginContact(b2Contact* contact) override;
 
 	void ShapesRender();

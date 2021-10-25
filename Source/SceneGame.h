@@ -12,6 +12,7 @@ class PhysLayerL;
 class PhysLayerR;
 class ScoreSystem;
 class CoinsManager;
+class Cannon;
 
 #define BOINGCOUNT 5
 #define TRIBOINGCOUNT 2
@@ -66,6 +67,8 @@ public:
     PhysLayerR* physLayer2;
 
     CoinsManager* coinsManager;
+
+    Cannon* cannon;
 
     Sensor* sBallSpring;
     Sensor* sTeleportIn;

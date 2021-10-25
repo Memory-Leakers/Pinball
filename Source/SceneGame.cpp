@@ -13,6 +13,7 @@
 #include "PhysLayerR.h"
 #include "ScoreSystem.h"
 #include "CoinsManager.h"
+#include "Cannon.h"
 
 bool SceneGame::Start()
 {
@@ -114,6 +115,8 @@ bool SceneGame::Start()
 	// Ball
 	player = new Ball("Ball", "Player", _app);
 
+	cannon = new Cannon("Cannon", "Cannon", _app, iPoint(285, 550));
+
 	// Boing
 	//LEFT SIDE OF THE SCREEN
 	boing[0] = new Boing("Boing", "Boing", _app, 140, 195);
@@ -121,8 +124,6 @@ bool SceneGame::Start()
 	boing[2] = new Boing("Boing", "Boing", _app, 164, 358);
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
 	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
-
-
 
 	// PolygonBoing
 	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "PolygonBoing", _app, 0, 0, TBLEFT, 6);
@@ -180,6 +181,7 @@ bool SceneGame::Start()
 	gameObjects.add(exitPhysLayerR);
 	gameObjects.add(rightKey1);
 	gameObjects.add(rightKey2);
+	gameObjects.add(cannon);
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);

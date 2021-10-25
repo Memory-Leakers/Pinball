@@ -57,7 +57,7 @@ void GameObject::Update()
 
 void GameObject::PostUpdate()
 {
-	// DIbujar texturas
+	// Dibujar texturas
 	for (int i = 0; i < MAX_GAMEOBJECT_TEXTURES; i++)
 	{
 		if (renderObjects[i].texture != nullptr)
