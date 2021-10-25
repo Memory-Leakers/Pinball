@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Point.h"
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -17,6 +18,8 @@ struct RenderObject
 	float orderInLayer = 0.0f;
 	float speed = 1.0f;
 	float scale = 1.0f;
+	SDL_Point pivot = { 0,0 };
+	string name = "def";
 
 	bool rotationEnabled = true;
 	bool followPhysBody = true;
@@ -41,7 +44,7 @@ public:
 	bool CleanUp();
 
 	void AddTextureRenderQueue(RenderObject object);
-	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
+	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, SDL_Rect pivot = { 0,0 }, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
 	void AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true);
 	void SortRenderObjects(vector<RenderObject>& obj);
 

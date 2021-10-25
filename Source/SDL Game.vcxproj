@@ -16,6 +16,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Boing.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Cannon.h" />
     <ClInclude Include="Coins.h" />
     <ClInclude Include="CoinsManager.h" />
     <ClInclude Include="Flipper.h" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Boing.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Coins.cpp" />
     <ClCompile Include="CoinsManager.cpp" />
     <ClCompile Include="Flipper.cpp" />
