@@ -113,6 +113,7 @@ bool SceneGame::Start()
 
 	// Ball
 	player = new Ball("Ball", "Player", _app);
+	playerLifes = 3;
 
 	// Boing
 	//LEFT SIDE OF THE SCREEN
@@ -211,28 +212,36 @@ bool SceneGame::PreUpdate()
 		int tpX = 190, tpY = 140;
 		if (player->isDeath)
 		{
+			playerLifes--;
 			tpX = 520;
 			tpY = 780;
 		}
-
+		
 		player->isTeleporting = false;
 		player->isDeath = false;
 
-		// Teleport Player
-		Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false);
-		if (player->pBody->body->GetJointList() != nullptr)
+		if (playerLifes)
 		{
-			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
+			// Teleport Player
+			Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false);
+			if (player->pBody->body->GetJointList() != nullptr)
+			{
+				_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
+			}
+			DestroyGameObject(player);
+			player = temp;
+			gameObjects.add(player);
+
+			float randomFloat = -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (10 + 10)));
+
+			player->pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 0), true);
 		}
-		DestroyGameObject(player);
-		player = temp;
-		gameObjects.add(player);
-
-		float randomFloat = -10 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (10 + 10)));
-
-		player->pBody->body->ApplyForceToCenter(b2Vec2(randomFloat, 0), true);
+		else 
+		{
+			//Game Over
+			printf("\n\nGAME OVER!!\n\n");
+		}
 	}
-
 
 	// PreUpdate Coins Manager
 	coinsManager->PreUpdate();

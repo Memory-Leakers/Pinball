@@ -2,6 +2,9 @@
 
 Boss::Boss(int health, std::string name, std::string tag, Application* _app) : GameObject(name, tag, _app)
 {
+	// Score System
+	scoreInstance = ScoreSystem::Instance(_app);
+
 	// Create PhysBody
 	pBody = _app->physics->CreateCircle(424, 355, 38, this);
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
@@ -47,6 +50,17 @@ void Boss::PostUpdate()
 	healthBar->PostUpdate();
 }
 
+void Boss::OnCollision(PhysBody* col)
+{
+	if (col->gameObject->tag == "Player")
+	{
+		health -= scoreInstance->GetScore();
+
+		scoreInstance->ResetCombo();
+		scoreInstance->ResetScore();
+	}
+}
+
 void Boss::CleanUp()
 {
 	if (healthBar != nullptr)
@@ -55,3 +69,5 @@ void Boss::CleanUp()
 		healthBar = nullptr;
 	}
 }
+
+

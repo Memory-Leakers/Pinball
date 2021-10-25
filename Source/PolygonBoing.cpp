@@ -11,6 +11,7 @@ PolygonBoing::PolygonBoing(std::string name, std::string tag, Application* _app,
 	pBody = _app->physics->CreateChainObj(x, y, points, numberPoints, true);
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
 	pBody->body->GetFixtureList()->SetRestitution(1.25f);
+	pBody->gameObject = this;
 }
 
 PolygonBoing::~PolygonBoing()

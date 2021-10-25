@@ -47,9 +47,9 @@ void ScoreSystem::Update()
 	{
 		if (_app->ui->uiArray[UIcurrentCombo]->y > 30)
 		{
-			_app->ui->uiArray[UIcurrentCombo]->y -= 4;
+			_app->ui->uiArray[UIcurrentCombo]->y -= 16;
 
-			_app->ui->uiArray[UInextCombo]->y -= 4;
+			_app->ui->uiArray[UInextCombo]->y -= 16;
 
 			//	Si nos hemos pasado, lo asignamos a 30 / 70. Si no continuamos
 			_app->ui->uiArray[UIcurrentCombo]->y = _app->ui->uiArray[UIcurrentCombo]->y < 30 ? 30 : _app->ui->uiArray[UIcurrentCombo]->y;
@@ -69,9 +69,9 @@ void ScoreSystem::Update()
 	{
 		if (_app->ui->uiArray[UIcurrentCombo]->y < 110 || _app->ui->uiArray[UInextCombo]->y < 70)
 		{
-			_app->ui->uiArray[UIcurrentCombo]->y += 4;
+			_app->ui->uiArray[UIcurrentCombo]->y += 16;
 
-			_app->ui->uiArray[UInextCombo]->y += 4;
+			_app->ui->uiArray[UInextCombo]->y += 16;
 
 			//	Si nos hemos pasado, lo asignamos a 110 / 70. Si no continuamos
 			_app->ui->uiArray[UIcurrentCombo]->y = _app->ui->uiArray[UIcurrentCombo]->y > 110 ? 110 : _app->ui->uiArray[UIcurrentCombo]->y;

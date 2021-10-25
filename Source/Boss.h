@@ -3,6 +3,8 @@
 
 #include "SDL/include/SDL_rect.h"
 
+#include "ScoreSystem.h"
+
 class HealthBar
 {
 private:
@@ -66,6 +68,7 @@ public:
 class Boss : public GameObject
 {
 private:
+	ScoreSystem* scoreInstance;
 public:
 
 	int health;
@@ -82,5 +85,7 @@ public:
 	void PostUpdate() override;
 
 	void CleanUp() override;
+
+	void OnCollision(PhysBody* col) override;
 };
 

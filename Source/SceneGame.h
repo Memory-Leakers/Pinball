@@ -47,6 +47,8 @@ public:
 
     Ball* player;
 
+    int playerLifes = 3;
+
     Boing* boing[BOINGCOUNT];
 
     PolygonBoing* triBoing[TRIBOINGCOUNT];
