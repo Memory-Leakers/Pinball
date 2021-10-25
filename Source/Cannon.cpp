@@ -18,11 +18,12 @@ Cannon::Cannon(std::string name, std::string tag, Application* _app, iPoint pos)
 	pBody->body->SetType(b2_kinematicBody);
 }
 
+
 void Cannon::Update()
 {
 	//renderObjects[0].rotation += 2;
 
-	if (_app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)renderState++;
+	if (_app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)renderState = 1;
 
 	switch (renderState)
 	{
@@ -47,7 +48,7 @@ void Cannon::Update()
 			_app->physics->Pause();
 		}
 		break;
-	case 3:
+	case 4:
 		// Cannon rotate
 		renderObjects[0].rotation += 2.0f;
 		break;
@@ -73,6 +74,7 @@ void Cannon::PostUpdate()
 		break;
 	case 2:
 	case 3:
+	case 4:
 		_app->renderer->AddTextureRenderQueue
 		(renderObjects[0].texture, centerDrawPos, &holeSection, holeSize, 1, 0.6f, 0.0f, SDL_FLIP_NONE, { 200,200 });
 		// Dibujar texturas
@@ -107,5 +109,20 @@ void Cannon::OnCollision(PhysBody* col)
 	if (col->gameObject->CompareTag("Player") && renderState == 3)
 	{
 		renderState = 4;
+
+		isPlayerIn = true;
 	}
+}
+
+void Cannon::ShowCannon()
+{
+	renderState = 1;
+}
+
+void Cannon::Reset()
+{
+	renderObjects[0].rotation = 0;
+	renderObjects[0].scale = 0.0f;
+	renderState = 0;
+	isPlayerIn = false;
 }

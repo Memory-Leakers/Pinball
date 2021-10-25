@@ -30,7 +30,7 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
     pBody->body->SetAngularVelocity(ball.pBody->body->GetAngularVelocity());
 }
 
-Ball::Ball(std::string name, std::string tag,Application* _app)
+Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
     :GameObject(name,tag,_app)
 {
     //Crate Ball RenderObject
@@ -47,7 +47,7 @@ Ball::Ball(std::string name, std::string tag,Application* _app)
     renderObjects[1].rotationEnabled = false;
 
     //Create PhysBody
-    pBody = _app->physics->CreateCircle(520, 780, 12, this);
+    pBody = _app->physics->CreateCircle(initPos.x, initPos.y, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
 

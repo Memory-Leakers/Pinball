@@ -14,6 +14,7 @@
 #include "ScoreSystem.h"
 #include "CoinsManager.h"
 #include "Cannon.h"
+#include <math.h>
 
 bool SceneGame::Start()
 {
@@ -117,7 +118,8 @@ bool SceneGame::Start()
 	player = new Ball("Ball", "Player", _app);
 	playerLifes = 3;
 
-	cannon = new Cannon("Cannon", "Cannon", _app, iPoint(285, 550));
+	// Cannon
+	cannon = new Cannon("Cannon", "Cannon", _app, iPoint(285, 600));
 
 	// Boing
 	//LEFT SIDE OF THE SCREEN
@@ -159,7 +161,8 @@ bool SceneGame::Start()
 
 	deathSensor = new Sensor({ 288, 900, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
 
-	// Add gameObjects to the main array
+#pragma region Add gameObjects to the main array
+ 
 	gameObjects.add(player);
 	gameObjects.add(flipper_right);
 	gameObjects.add(flipper_left);
@@ -189,6 +192,8 @@ bool SceneGame::Start()
 	gameObjects.add(rightKey2);
 	gameObjects.add(cannon);
 
+#pragma endregion
+
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
 
@@ -216,7 +221,9 @@ bool SceneGame::PreUpdate()
 		}
 	}
 
-	if (player->isTeleporting || player->isDeath)
+
+
+	if ((player != nullptr) && (player->isTeleporting || player->isDeath))
 	{
 		int tpX = 190, tpY = 140;
 		if (player->isDeath)
@@ -268,12 +275,8 @@ bool SceneGame::Update()
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
-		Ball* temp = new Ball(*player, b2Vec2(750, 150), true);
-		if (player->pBody->body->GetJointList() != nullptr)
-		{
-			_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
-		}
-		gameObjects.del(gameObjects.At(gameObjects.find(player)));
+		Ball* temp = new Ball(*player, b2Vec2(550, 150), true);
+		DestroyGameObject(player);
 		player = temp;
 		gameObjects.add(player);
 	}
@@ -330,12 +333,53 @@ bool SceneGame::Update()
 		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
 	}
 
+	// Player in Cannon
+	if (cannon->isPlayerIn)
+	{
+		if (player !=  nullptr);
+		{
+			DestroyGameObject(player);
+			player = nullptr;
+		}
+
+		if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			printf("%f",cannon->renderObjects[0].rotation);
+
+			// angle
+			int angle = (int)cannon->renderObjects[0].rotation % 360;
+
+			// vector velocity
+			float y = -cos(DEGTORAD * angle);
+			float x = sin(DEGTORAD * angle);
+
+			// center cannon
+			iPoint centerCannon;
+			centerCannon.x = cannon->GetDrawPos().x;
+			centerCannon.y = cannon->GetDrawPos().y;
+			centerCannon.x = centerCannon.x + 128 * cannon->cannonSize - (128 * cannon->renderObjects[0].scale);
+			centerCannon.y = centerCannon.y + 128 * cannon->cannonSize - (128 * cannon->renderObjects[0].scale);
+
+			fPoint offset = { 16 * x, 16 * y };
+			centerCannon.x += offset.x;
+			centerCannon.y += offset.y;
+
+			Ball* temp = new Ball("Player", "Player", _app, centerCannon);
+			player = temp;
+			player->pBody->body->ApplyForceToCenter(b2Vec2(x * cannon->cannonForce, y * cannon->cannonForce), true);
+			gameObjects.add(player);
+
+			cannon->Reset();
+
+			// TODO: Close Cannon Sensor
+		}
+	}
+	
 	return true;
 }
 
 bool SceneGame::PostUpdate()
 {
-
 	_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
 
 	for (int i = 0; i < gameObjects.count(); i++)
@@ -375,7 +419,7 @@ bool SceneGame::CleanUp()
 
 void SceneGame::SecondLayer()
 {
-	if (player->topLayer)
+	if (player && player->topLayer)
 	{
 		//FIRST LAYER OFF
 		bg1->body->GetFixtureList()->SetSensor(true);

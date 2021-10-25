@@ -52,12 +52,21 @@ bool Scene::CleanUp()
 
 void Scene::DestroyGameObject(GameObject* gameObject)
 {
+	if (gameObject == nullptr) return;
+
+	if (gameObject->pBody->body->GetJointList() != nullptr)
+	{
+		_app->physics->world->DestroyJoint(gameObject->pBody->body->GetJointList()->joint);
+	}
+
 	int index = gameObjects.find(gameObject);
 
 	if (index >= 0)
 	{
 		gameObjects.del(gameObjects.At(index));
 	}
+
+	gameObject = nullptr;
 }
 
 

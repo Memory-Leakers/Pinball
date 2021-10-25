@@ -15,7 +15,7 @@ public:
 
 	Ball(Ball &ball, b2Vec2 pos, bool getVelocity);
 
-	Ball(std::string name, std::string tag,Application* _app);
+	Ball(std::string name, std::string tag, Application* _app, iPoint initPos = { 520, 780 });
 
 	void OnCollision(PhysBody* col) override;
 
