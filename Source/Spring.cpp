@@ -9,7 +9,6 @@ Spring::Spring(iPoint pos, std::string name, std::string tag, Application* _app)
 	renderObjects[0].scale = 0.65f;
 	renderObjects[0].layer = 1;
 	
-
 	defaultYPos = pos.y;
 }
 

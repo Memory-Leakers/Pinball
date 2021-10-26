@@ -20,80 +20,7 @@ bool SceneGame::Start()
 {
 	_app->gameOver = false;
 
-	//Triangle Points
-	int TBLEFT[6] = {
-		145, 633,
-		145, 696,
-		183, 726
-	};
-	int TBRIGHT[6] = {
-		436, 640,
-		436, 704,
-		397, 732
-	};
-
-	int BOSSBOING1[24] = {
-		368, 291,
-		370, 296,
-		370, 302,
-		369, 308,
-		366, 312,
-		362, 315,
-		357, 317,
-		352, 317,
-		349, 317,
-		352, 310,
-		360, 300,
-		366, 293
-	};
-	int BOSSBOING2[22] = {
-		342, 364,
-		349, 365,
-		356, 368,
-		360, 376,
-		361, 384,
-		359, 390,
-		354, 395,
-		351, 397,
-		346, 389,
-		342, 381,
-		341, 372
-	};
-	int BOSSBOING3[18] = {
-		468, 288,
-		465, 294,
-		465, 305,
-		470, 313,
-		480, 316,
-		489, 315,
-		483, 304,
-		474, 292,
-		471, 290
-	};
-	int BOSSBOING4[18] = {
-		501, 363,
-		492, 365,
-		485, 371,
-		483, 378,
-		483, 385,
-		486, 392,
-		493, 397,
-		502, 398,
-		503, 370
-	};
-	int LONGBOING[22] = {
-		160, 475,
-		164, 466,
-		166, 458,
-		164, 447,
-		159, 437,
-		152, 425,
-		145, 414,
-		138, 407,
-		131, 405,
-		123, 405,
-		142, 443
-	};
+	
 
 	// Create Map
 	CreateMap();
@@ -144,18 +71,6 @@ bool SceneGame::Start()
 	boing[2] = new Boing("Boing", "Boing", _app, 164, 358);
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
 	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
-
-	// PolygonBoing
-	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0, -5, TBLEFT, 6, 1, false);
-	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 0, -8, TBRIGHT, 6, 1, true);
-
-	//BOSS SIDE
-	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24, 32.0f, iPoint(352, 286), 0.3f);
-	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);
-	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463, 286), 0.3f);
-	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18, 180.0f, iPoint(483, 363), 0.3f);
-	////LONG BOING
-	//bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22,3,false);
 
 	// Flipper
 	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
@@ -496,7 +411,6 @@ void SceneGame::SecondLayer()
 		triBoing[0]->setSensor(false);
 		triBoing[1]->setSensor(false);
 
-
 		//SECOND LAYER OFF
 		physLayer->setSensor(true);
 		physLayer2->setSensor(true);
@@ -737,6 +651,94 @@ void SceneGame::CreateMap()
 
 	pm = _app->physics->CreateChainObj(0, 0, PM, 46, false);
 	pm->body->SetType(b2BodyType::b2_staticBody);
+
+	// Boing
+	 
+	//Triangle Points
+	int TBLEFT[6] = {
+		145, 633,
+		145, 696,
+		183, 726
+	};
+	int TBRIGHT[6] = {
+		436, 640,
+		436, 704,
+		397, 732
+	};
+	int BOSSBOING1[24] = {
+		368, 291,
+		370, 296,
+		370, 302,
+		369, 308,
+		366, 312,
+		362, 315,
+		357, 317,
+		352, 317,
+		349, 317,
+		352, 310,
+		360, 300,
+		366, 293
+	};
+	int BOSSBOING2[22] = {
+		342, 364,
+		349, 365,
+		356, 368,
+		360, 376,
+		361, 384,
+		359, 390,
+		354, 395,
+		351, 397,
+		346, 389,
+		342, 381,
+		341, 372
+	};
+	int BOSSBOING3[18] = {
+		468, 288,
+		465, 294,
+		465, 305,
+		470, 313,
+		480, 316,
+		489, 315,
+		483, 304,
+		474, 292,
+		471, 290
+	};
+	int BOSSBOING4[18] = {
+		501, 363,
+		492, 365,
+		485, 371,
+		483, 378,
+		483, 385,
+		486, 392,
+		493, 397,
+		502, 398,
+		503, 370
+	};
+	int LONGBOING[22] = {
+		160, 475,
+		164, 466,
+		166, 458,
+		164, 447,
+		159, 437,
+		152, 425,
+		145, 414,
+		138, 407,
+		131, 405,
+		123, 405,
+		142, 443
+	};
+
+	// PolygonBoing
+	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0, -5, TBLEFT, 6, 1, false);
+	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 0, -8, TBRIGHT, 6, 1, true);
+
+	//BOSS SIDE
+	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24, 32.0f, iPoint(352, 286), 0.3f);
+	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);
+	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463, 286), 0.3f);
+	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18, 180.0f, iPoint(483, 363), 0.3f);
+	////LONG BOING
+	//bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22,3,false);
 }
 
 void SceneGame::DeleteMap()
