@@ -18,7 +18,6 @@ Cannon::Cannon(std::string name, std::string tag, Application* _app, iPoint pos)
 	pBody->body->SetType(b2_kinematicBody);
 }
 
-
 void Cannon::Update()
 {
 	//renderObjects[0].rotation += 2;

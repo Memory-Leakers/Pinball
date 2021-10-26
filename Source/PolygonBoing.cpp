@@ -29,8 +29,6 @@ PolygonBoing::PolygonBoing(std::string name, std::string tag, Application* _app,
 	renderObjects[0].section = new SDL_Rect{ 0,0,240,462 };
 	renderObjects[0].flip = flip;
 
-	
-
 	// PhysBody
 	pBody = _app->physics->CreateChainObj(x, y, points, numberPoints, true);
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
@@ -60,13 +58,10 @@ PolygonBoing::PolygonBoing(std::string name, std::string tag, Application* _app,
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
 	pBody->body->GetFixtureList()->SetRestitution(1.25f);
 	pBody->gameObject = this;
-
-
 }
 
 PolygonBoing::~PolygonBoing()
 {
-
 }
 
 void PolygonBoing::PreUpdate()
@@ -75,7 +70,6 @@ void PolygonBoing::PreUpdate()
 
 void PolygonBoing::Update()
 {
-
 	if(count>0)
 	{
 		count--;
@@ -104,11 +98,9 @@ void PolygonBoing::PostUpdate()
 				renderObjects[i].renderRect.x = GetDrawPos().x + Offsetx;
 				renderObjects[i].renderRect.y = GetDrawPos().y + Offsety;
 			}
-
 			_app->renderer->AddTextureRenderQueue(renderObjects[i]);
 		}
-	}
-	
+	}	
 }
 
 void PolygonBoing::OnCollision(PhysBody* col)
@@ -128,10 +120,10 @@ void PolygonBoing::OnCollision(PhysBody* col)
 				renderObjects[0].section->x = 180;
 			}
 		}
-
 	}
 }
 
-void PolygonBoing::setSensor(bool value) {
+void PolygonBoing::setSensor(bool value) 
+{
 	pBody->body->GetFixtureList()->SetSensor(value);
 }

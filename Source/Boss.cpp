@@ -39,8 +39,6 @@ Boss::Boss(int health, std::string name, std::string tag, Application* _app) : G
 	renderObjects[1].followPhysBody = false;
 	renderObjects[1].layer = 3;
 
-
-
 	// Create HealthBar
 	this->health = health;
 
@@ -87,15 +85,13 @@ void Boss::PostUpdate()
 
 	}
 
-	// DIbujar texturas
+	// Dibujar texturas
 
 	// Posicion del sprite
 	renderObjects[0].renderRect.x = GetDrawPos().x-3;
 	renderObjects[0].renderRect.y = spriteY -5;
 
-
 	// Seccion del sprite
-
 	if (healthBar->healthPercentage > 80)
 	{
 		currentIdleSection.x = bossSections[0].x;

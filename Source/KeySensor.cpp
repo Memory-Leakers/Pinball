@@ -1,8 +1,7 @@
 #include "KeySensor.h"
 
 KeySensor::KeySensor(SDL_Rect rect, int layer, std::string name, std::string tag, Application* _app) : GameObject(name, tag, _app)
-{
-	
+{	
 	//CREATE RenderObject
 	renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/KeyLocked.png");
 	renderObjects[0].layer = 1;
@@ -22,7 +21,6 @@ KeySensor::KeySensor(SDL_Rect rect, int layer, std::string name, std::string tag
 
 void KeySensor::OnCollision(PhysBody* col)
 {
-	
 	if (col->gameObject->name == "Ball")
 	{
 		unlocked = true;

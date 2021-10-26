@@ -60,14 +60,12 @@ PhysLayerR::PhysLayerR(std::string name, std::string tag, Application* _app) :Ga
 	renderObjects[2].orderInLayer = 1.0f;
 	renderObjects[2].rotationEnabled = false;
 	renderObjects[2].section = new SDL_Rect{ 0, 0, 182, 226 };
-
 	
 	pBody = _app->physics->CreateChainObj(400, 438, POINTS, 74, false);
 	pBody->body->SetType(b2BodyType::b2_staticBody);
 	pBody->body->GetFixtureList()->SetSensor(true);
 	
 	//BOING inside
-	
 }
 
 void PhysLayerR::Update()
@@ -102,13 +100,11 @@ void PhysLayerR::setSensor(bool value)
 
 	if (!value)
 	{
-		renderObjects[2].layer = 2;
-		
+		renderObjects[2].layer = 2;		
 	}
 	else
 	{
-		renderObjects[2].layer = 1;
-		
+		renderObjects[2].layer = 1;		
 	}
 }
 
