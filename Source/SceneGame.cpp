@@ -98,6 +98,20 @@ bool SceneGame::Start()
 
 	bg = _app->textures->Load("Assets/Images/Game/BG.png");
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
+	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
+
+	for (int i = 0; i < 3; i++)
+	{
+		lifeIcons[i] = new RenderObject();
+		lifeIcons[i]->texture = lifes;
+
+		lifeIcons[i]->section = new SDL_Rect({ 0,0,128,128 });
+
+		lifeIcons[i]->renderRect.x = 226 + (i * 50);
+		lifeIcons[i]->renderRect.y = 738;
+
+		lifeIcons[i]->scale = 0.3f;
+	}
 
 	//LEFTSIDE
 	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
@@ -130,13 +144,13 @@ bool SceneGame::Start()
 	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
 
 	// PolygonBoing
-	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0,-5, TBLEFT, 6,1,false);
-	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 0, -8, TBRIGHT, 6,1,true);
+	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0, -5, TBLEFT, 6, 1, false);
+	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 0, -8, TBRIGHT, 6, 1, true);
 
 	//BOSS SIDE
-	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24,32.0f,iPoint(352,286),0.3f);
-	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22,-10.0f,iPoint(344,361),0.3f);
-	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463,286), 0.3f);
+	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24, 32.0f, iPoint(352, 286), 0.3f);
+	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);
+	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463, 286), 0.3f);
 	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18, 180.0f, iPoint(483, 363), 0.3f);
 	////LONG BOING
 	//bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22,3,false);
@@ -155,9 +169,9 @@ bool SceneGame::Start()
 	// Sensor
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
-	Cannon1 = new Sensor({107,288,10,10}, -1, "SensorC1", "Sensor", _app);
-	Cannon2 = new Sensor({166,288,10,10}, -1, "SensorC2", "Sensor", _app);
-	Cannon3 = new Sensor({227,288,10,10}, -1, "SensorC3", "Sensor", _app);
+	Cannon1 = new Sensor({ 107,288,10,10 }, -1, "SensorC1", "Sensor", _app);
+	Cannon2 = new Sensor({ 166,288,10,10 }, -1, "SensorC2", "Sensor", _app);
+	Cannon3 = new Sensor({ 227,288,10,10 }, -1, "SensorC3", "Sensor", _app);
 
 	deathSensor = new Sensor({ 288, 900, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
 
@@ -263,6 +277,19 @@ bool SceneGame::PreUpdate()
 	// PreUpdate Coins Manager
 	coinsManager->PreUpdate();
 
+	// Life icons logic
+	/*int i, j;
+
+	for (i = 2, j = (3 - playerLifes) ; j > 0; i--, j--)
+	{
+		lifeIcons[i]->section->x = 128;
+	}*/
+
+	for (int i = 2; i >= playerLifes; i--)
+	{
+		lifeIcons[i]->section->x = 128;
+	}
+	
 	return true;
 }
 
@@ -300,7 +327,7 @@ bool SceneGame::Update()
 	{
 		scoreSystem->ResetCombo();
 	}
-	if(_app->input->GetKey(SDL_SCANCODE_L)==KEY_DOWN)
+	if (_app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 	{
 		GameOver();
 	}
@@ -327,7 +354,7 @@ bool SceneGame::Update()
 	SecondLayer();
 
 	//Manages Right Upper Layer Texture Swutch
-	if (rightKey1->unlocked && rightKey2->unlocked  && enterPhysLayerR->name == "ChangeLayerSensorLockedDoor")
+	if (rightKey1->unlocked && rightKey2->unlocked && enterPhysLayerR->name == "ChangeLayerSensorLockedDoor")
 	{
 		physLayer2->swapLowerTexture();
 		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
@@ -382,6 +409,11 @@ bool SceneGame::PostUpdate()
 {
 	_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
 
+	for (int i = 0; i < 3; i++)
+	{
+		_app->renderer->AddTextureRenderQueue(*lifeIcons[i]);
+	}
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i] != nullptr)
@@ -413,6 +445,18 @@ bool SceneGame::CleanUp()
 
 	// Clean Up UI
 	_app->ui->CleanUp();
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (lifeIcons[i] != nullptr && lifeIcons[i]->section != nullptr)
+		{
+			delete lifeIcons[i]->section;
+			lifeIcons[i]->section = nullptr;
+
+			delete lifeIcons[i];
+			lifeIcons[i] = nullptr;
+		}
+	}
 
 	return true;
 }
