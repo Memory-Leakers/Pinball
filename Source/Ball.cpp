@@ -19,9 +19,9 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
     pBody = _app->physics->CreateCircle(pos.x, pos.y, 12, this);
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
+    pBody->body->SetLinearDamping(0.2f);
 
     //  Create instance of the Score System
-
     scoreInstance = ScoreSystem::Instance(_app);
 
     if (!getVelocity) return;
@@ -49,7 +49,8 @@ Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
     //Create PhysBody
     pBody = _app->physics->CreateCircle(initPos.x, initPos.y, 12, this);
     pBody->body->SetBullet(true);
-    pBody->body->GetFixtureList()[0].SetRestitution(0.25f);
+    pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
+    pBody->body->SetLinearDamping(0.2f);
 
     //  Create instance of the Score System
 
@@ -63,7 +64,7 @@ void Ball::Start()
 
 void Ball::PreUpdate()
 {
-    b2Vec2 velocity = pBody->body->GetLinearVelocity();
+    /*b2Vec2 velocity = pBody->body->GetLinearVelocity();
     int maxVelocity = 20;
 
     if (velocity.x > maxVelocity)
@@ -88,8 +89,8 @@ void Ball::PreUpdate()
     }
 
     pBody->body->SetLinearVelocity(velocity);
-    
-    }
+    */
+}
 
 void Ball::Update()
 {

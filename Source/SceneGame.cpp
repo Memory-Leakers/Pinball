@@ -235,15 +235,13 @@ bool SceneGame::PreUpdate()
 		}
 	}
 
-
-
 	if ((player != nullptr) && (player->isTeleporting || player->isDeath))
 	{
 		int tpX = 190, tpY = 140;
 		if (player->isDeath)
 		{
 			playerLifes--;
-			tpX = 520;
+			tpX = 535;
 			tpY = 780;
 		}
 

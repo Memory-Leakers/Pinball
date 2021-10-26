@@ -49,8 +49,6 @@ public:
 
 	PhysBody* pBody = nullptr;
 
-	PhysBody* pBody2 = nullptr;
-
 	Application* _app = nullptr;
 
 	bool pendingToDelete = false;
