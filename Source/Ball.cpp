@@ -20,6 +20,7 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
     pBody->body->SetLinearDamping(0.2f);
+    pBody->debugException = true;
 
     //  Create instance of the Score System
     scoreInstance = ScoreSystem::Instance(_app);
@@ -51,6 +52,7 @@ Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
     pBody->body->SetBullet(true);
     pBody->body->GetFixtureList()[0].SetRestitution(0.3f);
     pBody->body->SetLinearDamping(0.2f);
+    pBody->debugException = true;
 
     //  Create instance of the Score System
 

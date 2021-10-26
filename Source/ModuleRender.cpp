@@ -76,7 +76,7 @@ UpdateStatus ModuleRender::PostUpdate()
 		SortRenderObjects(layers[i]);
 	}
 
-	//Draw
+	//Draw textures
 	for (int i = 0; i < 3; i++)
 	{
 		for each (auto renderObject in layers[i])
@@ -107,13 +107,15 @@ UpdateStatus ModuleRender::PostUpdate()
 		}
 	}
 
-	if (App->isDebug)
+	// Draw edges
+	if (!App->gameOver)
 	{
 		App->physics->ShapesRender();
 	}
 	
 	SDL_RenderPresent(renderer);
 
+	// Clear layers
 	for (int i = 0; i < 4; i++)
 	{
 		layers[i].clear();

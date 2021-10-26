@@ -18,6 +18,8 @@
 
 bool SceneGame::Start()
 {
+	_app->gameOver = false;
+
 	//Triangle Points
 	int TBLEFT[6] = {
 		145, 633,
@@ -276,13 +278,6 @@ bool SceneGame::PreUpdate()
 	coinsManager->PreUpdate();
 
 	// Life icons logic
-	/*int i, j;
-
-	for (i = 2, j = (3 - playerLifes) ; j > 0; i--, j--)
-	{
-		lifeIcons[i]->section->x = 128;
-	}*/
-
 	for (int i = 2; i >= playerLifes; i--)
 	{
 		lifeIcons[i]->section->x = 128;
@@ -296,7 +291,7 @@ bool SceneGame::Update()
 	//Update ScoreSystem
 	scoreSystem->Update();
 
-	// Debug Key
+	#pragma region Debug Key
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
@@ -329,11 +324,12 @@ bool SceneGame::Update()
 	{
 		GameOver();
 	}
-
 	if (_app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && gamefinished)
 	{
 		_app->scene->ChangeCurrentScene(4, 0);
 	}
+	#pragma endregion
+
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		if (gameObjects[i] != nullptr)
@@ -342,8 +338,7 @@ bool SceneGame::Update()
 		}
 	}
 
-
-	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
+	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 
 	// Update Coins Manager
 	coinsManager->Update();
@@ -405,26 +400,34 @@ bool SceneGame::Update()
 
 bool SceneGame::PostUpdate()
 {
-	_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
-
-	for (int i = 0; i < 3; i++)
+	if(!gamefinished)
 	{
-		_app->renderer->AddTextureRenderQueue(*lifeIcons[i]);
-	}
+		//BackGround
+		_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
 
-	for (int i = 0; i < gameObjects.count(); i++)
-	{
-		if (gameObjects[i] != nullptr)
+		// GameObjects
+		for (int i = 0; i < gameObjects.count(); i++)
 		{
-			gameObjects[i]->PostUpdate();
+			if (gameObjects[i] != nullptr)
+			{
+				gameObjects[i]->PostUpdate();
+			}
 		}
+
+		// Lifes
+		for (int i = 0; i < 3; i++)
+		{
+			_app->renderer->AddTextureRenderQueue(*lifeIcons[i]);
+		}
+
+		// Coins Manager
+		coinsManager->PostUpdate();
 	}
-	if (gamefinished)
+	else 
 	{
+		_app->gameOver = true;
 		_app->renderer->AddTextureRenderQueue(gameover, { 0,0 }, nullptr, 1.0f, 3, 1.0f);
 	}
-	// PostUpdate Coins Manager
-	coinsManager->PostUpdate();
 
 	return true;
 }
@@ -475,7 +478,6 @@ void SceneGame::SecondLayer()
 		triBoing[0]->setSensor(true);
 		triBoing[1]->setSensor(true);
 
-
 		//SECOND LAYER ON
 		physLayer->setSensor(false);
 		physLayer2->setSensor(false);
@@ -505,7 +507,6 @@ void SceneGame::GameOver()
 	if (!gamefinished)
 	{
 		gamefinished = true;
-
 	}
 	else
 	{

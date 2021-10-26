@@ -34,6 +34,8 @@ public:
 
 	bool isDebug = true;
 
+	bool gameOver = false;
+
 private:
 
 	p2List<Module*> list_modules;
