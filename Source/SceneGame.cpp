@@ -15,6 +15,7 @@
 #include "ScoreSystem.h"
 #include "CoinsManager.h"
 #include "Cannon.h"
+#include "RectObsatcle.h"
 #include <math.h>
 
 bool SceneGame::Start()
@@ -80,6 +81,10 @@ bool SceneGame::Start()
 	// Boss
 	boss = new Boss(100000, "Boss", "Boss", _app);
 
+	// Rect save life
+	rectSaveLifeR = new RectObstacle("RectSaveLifeR", "RectSaveLife", _app, 488, 800, -30);
+	rectSaveLifeL = new RectObstacle("RectSaveLifeL", "RectSaveLife", _app, 93, 800, 30);
+
 	// Springs
 	spring = new Spring(iPoint(514, 829), "Spring", "Spring", _app, SDL_SCANCODE_SPACE);
 	springR = new Spring(iPoint(469, 825), "SpringR", "Spring", _app, SDL_SCANCODE_SPACE, false);
@@ -97,7 +102,7 @@ bool SceneGame::Start()
 
 	deathSensor = new Sensor({ 288, 935, 68, 1 }, -1, "DeathSensor", "Sensor", _app);
 
-#pragma region Add gameObjects to the main array
+	#pragma region Add gameObjects to the main array
 
 	gameObjects.add(player);
 	gameObjects.add(flipper_right);
@@ -110,6 +115,8 @@ bool SceneGame::Start()
 	gameObjects.add(bossBoing[2]);
 	gameObjects.add(bossBoing[3]);
 	gameObjects.add(boss);
+	gameObjects.add(rectSaveLifeR);
+	gameObjects.add(rectSaveLifeL);
 	gameObjects.add(spring);
 	gameObjects.add(springR);
 	gameObjects.add(springL);
@@ -132,7 +139,7 @@ bool SceneGame::Start()
 	gameObjects.add(rightKey2);
 	gameObjects.add(cannon);
 
-#pragma endregion
+	#pragma endregion
 
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
@@ -212,8 +219,6 @@ bool SceneGame::PreUpdate()
 		IsCannonShown = true;
 	}
 
-
-
 	return true;
 }
 
@@ -283,7 +288,6 @@ bool SceneGame::Update()
 		physLayer2->swapLowerTexture();
 		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
 	}
-
 
 	// Player in Cannon
 	if (cannon->isPlayerIn)
@@ -380,11 +384,11 @@ bool SceneGame::CleanUp()
 
 	scoreSystem->Release();
 
-	delete coinsManager;
-	coinsManager = nullptr;
-
-	// Clean Up UI
-	_app->ui->CleanUp();
+	if(coinsManager != nullptr)
+	{
+		delete coinsManager;
+		coinsManager = nullptr;
+	}
 
 	for (int i = 0; i < 3; i++)
 	{

@@ -31,14 +31,16 @@ bool Scene::PostUpdate()
 
 bool Scene::CleanUp()
 {
+	// Clean gameObjects
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
 		gameObjects[i]->CleanUp();
 	}
 
+	// Clean gameobjects ptr
 	gameObjects.clearPtr();
 
-
+	// Clean Textures
 	for (int i = 0; i < sceneTextures.count(); i++)
 	{
 		if(sceneTextures[i])
@@ -46,6 +48,9 @@ bool Scene::CleanUp()
 			_app->textures->Unload(sceneTextures[i]);
 		}
 	}
+
+	// Clean Up UI
+	_app->ui->CleanUp();
 
 	return true;
 }

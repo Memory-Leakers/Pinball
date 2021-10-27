@@ -36,6 +36,7 @@
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="PhysLayerL.h" />
     <ClInclude Include="PhysLayerR.h" />
+    <ClInclude Include="RectObsatcle.h" />
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="PhysLayerL.cpp" />
     <ClCompile Include="PhysLayerR.cpp" />
+    <ClCompile Include="RectObsatcle.cpp" />
     <ClCompile Include="SceneDebug1.cpp" />
     <ClCompile Include="SceneDebug2.cpp" />
     <ClCompile Include="SceneDebug3.cpp" />

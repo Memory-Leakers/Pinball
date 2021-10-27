@@ -60,7 +60,6 @@ Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
 
 void Ball::Start()
 {
-
 }
 
 void Ball::PreUpdate()
@@ -152,7 +151,8 @@ void Ball::OnCollision(PhysBody* col)
 
     //SECOND LAYERS
     if (col->gameObject->name == "ChangeLayerSensor" || col->gameObject->name == "ChangeLayerSensorUnlockedDoor") 
-    {//ENTER LEFT OR RIGHT
+    {  
+        //ENTER LEFT OR RIGHT
         topLayer = !topLayer;
     }
 
@@ -160,7 +160,6 @@ void Ball::OnCollision(PhysBody* col)
     {
         topLayer = !topLayer;
     }
-
 
 	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
 	{

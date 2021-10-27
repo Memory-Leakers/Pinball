@@ -2,8 +2,7 @@
 
 #include "GameObject.h"
 
-class CannonSensor : 
-	public GameObject
+class CannonSensor : public GameObject
 {
 public:
 
@@ -20,8 +19,6 @@ public:
 	void PostUpdate() override;
 
 	int offsetx = -9;
-	int offsety = -4;
-
-	
+	int offsety = -4;	
 };
 

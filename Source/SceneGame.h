@@ -14,6 +14,7 @@ class ScoreSystem;
 class CoinsManager;
 class Cannon;
 class CannonSensor;
+class RectObstacle;
 
 #define BOINGCOUNT 5
 #define TRIBOINGCOUNT 2
@@ -77,6 +78,8 @@ public:
 
     Cannon* cannon;
 
+    RectObstacle* rectSaveLifeR;
+    RectObstacle* rectSaveLifeL;
     Sensor* sBallSpring;
     Sensor* sBallSpringR;
     Sensor* sBallSpringL;
