@@ -7,6 +7,7 @@
 #include "PolygonBoing.h"
 #include "Sensor.h"
 #include "KeySensor.h"
+#include "CannonSensor.h"
 #include "Boss.h"
 #include "Spring.h"
 #include "PhysLayerL.h"
@@ -26,6 +27,7 @@ bool SceneGame::Start()
 	bg = _app->textures->Load("Assets/Images/Game/BG.png");
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
+
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -96,7 +98,7 @@ bool SceneGame::Start()
 	deathSensor = new Sensor({ 288, 935, 68, 1 }, -1, "DeathSensor", "Sensor", _app);
 
 #pragma region Add gameObjects to the main array
- 
+
 	gameObjects.add(player);
 	gameObjects.add(flipper_right);
 	gameObjects.add(flipper_left);
@@ -204,7 +206,14 @@ bool SceneGame::PreUpdate()
 	{
 		lifeIcons[i]->section->x = 128;
 	}
-	
+	if (Cannon1->CannonSensor1 && Cannon2->CannonSensor2 && Cannon3->CannonSensor3 && !IsCannonShown )
+	{
+		cannon->ShowCannon();
+		IsCannonShown = true;
+	}
+
+
+
 	return true;
 }
 
@@ -275,6 +284,7 @@ bool SceneGame::Update()
 		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
 	}
 
+
 	// Player in Cannon
 	if (cannon->isPlayerIn)
 	{
@@ -314,9 +324,16 @@ bool SceneGame::Update()
 			cannon->Reset();
 
 			// TODO: Close Cannon Sensor
+			if (IsCannonShown)
+			{
+				Cannon1->Reset();
+				Cannon2->Reset();
+				Cannon3->Reset();
+				IsCannonShown = false;
+			}
 		}
 	}
-	
+
 	return true;
 }
 
@@ -345,7 +362,7 @@ bool SceneGame::PostUpdate()
 		// Coins Manager
 		coinsManager->PostUpdate();
 	}
-	else 
+	else
 	{
 		_app->gameOver = true;
 		_app->renderer->AddTextureRenderQueue(gameover, { 0,0 }, nullptr, 1.0f, 3, 1.0f);
@@ -660,7 +677,7 @@ void SceneGame::CreateMap()
 	pm->body->SetType(b2BodyType::b2_staticBody);
 
 	// Boing
-	 
+
 	//Triangle Points
 	int TBLEFT[6] = {
 		145, 633,
@@ -721,19 +738,19 @@ void SceneGame::CreateMap()
 		502, 398,
 		503, 370
 	};
-	int LONGBOING[22] = {
-		160, 475,
-		164, 466,
-		166, 458,
-		164, 447,
-		159, 437,
-		152, 425,
-		145, 414,
-		138, 407,
-		131, 405,
-		123, 405,
-		142, 443
-	};
+	//int LONGBOING[22] = {
+	//	160, 475,
+	//	164, 466,
+	//	166, 458,
+	//	164, 447,
+	//	159, 437,
+	//	152, 425,
+	//	145, 414,
+	//	138, 407,
+	//	131, 405,
+	//	123, 405,
+	//	142, 443
+	//};
 
 	// PolygonBoing
 	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0, -5, TBLEFT, 6, 1, false);
