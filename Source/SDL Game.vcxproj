@@ -17,6 +17,7 @@
     <ClInclude Include="Boing.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Cannon.h" />
+    <ClInclude Include="CannonSensor.h" />
     <ClInclude Include="Coins.h" />
     <ClInclude Include="CoinsManager.h" />
     <ClInclude Include="Flipper.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="Boing.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="CannonSensor.cpp" />
     <ClCompile Include="Coins.cpp" />
     <ClCompile Include="CoinsManager.cpp" />
     <ClCompile Include="Flipper.cpp" />

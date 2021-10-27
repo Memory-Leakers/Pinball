@@ -7,6 +7,7 @@
 #include "PolygonBoing.h"
 #include "Sensor.h"
 #include "KeySensor.h"
+#include "CannonSensor.h"
 #include "Boss.h"
 #include "Spring.h"
 #include "PhysLayerL.h"
@@ -28,6 +29,7 @@ bool SceneGame::Start()
 	bg = _app->textures->Load("Assets/Images/Game/BG.png");
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
+	
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -86,10 +88,11 @@ bool SceneGame::Start()
 	// Sensor
 	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
-	Cannon1 = new Sensor({ 107,288,10,10 }, -1, "SensorC1", "Sensor", _app);
-	Cannon2 = new Sensor({ 166,288,10,10 }, -1, "SensorC2", "Sensor", _app);
-	Cannon3 = new Sensor({ 227,288,10,10 }, -1, "SensorC3", "Sensor", _app);
-
+	Cannon1 = new CannonSensor({ 107,288,10,10 }, -1, "SensorC1", "SensorC1", _app);
+	Cannon2 = new CannonSensor({ 166,288,10,10 }, -1, "SensorC2", "SensorC2", _app);
+	Cannon3 = new CannonSensor({ 227,288,10,10 }, -1, "SensorC3", "SensorC3", _app);
+	
+	
 	deathSensor = new Sensor({ 288, 900, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
 
 #pragma region Add gameObjects to the main array
@@ -197,6 +200,13 @@ bool SceneGame::PreUpdate()
 	{
 		lifeIcons[i]->section->x = 128;
 	}
+	if (Cannon1->CannonSensor1 && Cannon2->CannonSensor2 && Cannon3->CannonSensor3 && !IsCannonShown )
+	{
+		cannon->ShowCannon();
+		IsCannonShown = true;
+	}
+	
+	
 	
 	return true;
 }
@@ -267,6 +277,7 @@ bool SceneGame::Update()
 		physLayer2->swapLowerTexture();
 		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
 	}
+	
 
 	// Player in Cannon
 	if (cannon->isPlayerIn)
@@ -307,6 +318,13 @@ bool SceneGame::Update()
 			cannon->Reset();
 
 			// TODO: Close Cannon Sensor
+			if (IsCannonShown)
+			{
+				Cannon1->Reset();
+				Cannon2->Reset();
+				Cannon3->Reset();
+				IsCannonShown = false;
+			}
 		}
 	}
 	
@@ -334,7 +352,7 @@ bool SceneGame::PostUpdate()
 		{
 			_app->renderer->AddTextureRenderQueue(*lifeIcons[i]);
 		}
-
+		
 		// Coins Manager
 		coinsManager->PostUpdate();
 	}
@@ -714,19 +732,19 @@ void SceneGame::CreateMap()
 		502, 398,
 		503, 370
 	};
-	int LONGBOING[22] = {
-		160, 475,
-		164, 466,
-		166, 458,
-		164, 447,
-		159, 437,
-		152, 425,
-		145, 414,
-		138, 407,
-		131, 405,
-		123, 405,
-		142, 443
-	};
+	//int LONGBOING[22] = {
+	//	160, 475,
+	//	164, 466,
+	//	166, 458,
+	//	164, 447,
+	//	159, 437,
+	//	152, 425,
+	//	145, 414,
+	//	138, 407,
+	//	131, 405,
+	//	123, 405,
+	//	142, 443
+	//};
 
 	// PolygonBoing
 	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0, -5, TBLEFT, 6, 1, false);

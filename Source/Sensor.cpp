@@ -6,7 +6,9 @@ Sensor::Sensor(SDL_Rect rect, int layer, std::string name, std::string tag, Appl
 	pBody->gameObject = this;
 }
 
+
 void Sensor::OnCollision(PhysBody* col)
 {
 	printf("SensorCol");
+	
 }

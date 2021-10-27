@@ -23,7 +23,7 @@ void Cannon::Update()
 	//renderObjects[0].rotation += 2;
 
 	if (_app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)renderState = 1;
-
+	
 	switch (renderState)
 	{
 	case 0:
@@ -108,6 +108,7 @@ void Cannon::OnCollision(PhysBody* col)
 	if (col->gameObject->CompareTag("Player") && renderState == 3)
 	{
 		renderState = 4;
+		
 
 		isPlayerIn = true;
 	}

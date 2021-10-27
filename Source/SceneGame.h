@@ -13,6 +13,7 @@ class PhysLayerR;
 class ScoreSystem;
 class CoinsManager;
 class Cannon;
+class CannonSensor;
 
 #define BOINGCOUNT 5
 #define TRIBOINGCOUNT 2
@@ -76,20 +77,21 @@ public:
 
     Sensor* sBallSpring;
     Sensor* sTeleportIn;
-    Sensor* Cannon1;
-    Sensor* Cannon2;
-    Sensor* Cannon3;
     Sensor* enterPhysLayerL;
     Sensor* exitPhysLayerL;
     Sensor* enterPhysLayerR;
     Sensor* exitPhysLayerR;
     KeySensor* rightKey1;
     KeySensor* rightKey2;
+    CannonSensor* Cannon1;
+    CannonSensor* Cannon2;
+    CannonSensor* Cannon3;
     
     // background
     SDL_Texture* bg; 
     SDL_Texture* gameover;
     SDL_Texture* lifes;
+    
 
     RenderObject* lifeIcons[3];
 
@@ -110,5 +112,8 @@ public:
 
     PhysBody* pm;
 
+    //Cannon
+
     bool gamefinished = false;
+    bool IsCannonShown = false;
 };
