@@ -20,8 +20,6 @@ bool SceneGame::Start()
 {
 	_app->gameOver = false;
 
-	
-
 	// Create Map
 	CreateMap();
 
@@ -80,17 +78,22 @@ bool SceneGame::Start()
 	// Boss
 	boss = new Boss(100000, "Boss", "Boss", _app);
 
-	// Spring
-	spring = new Spring(iPoint(513, 827), "Spring", "Spring", _app);
+	// Springs
+	spring = new Spring(iPoint(514, 829), "Spring", "Spring", _app, SDL_SCANCODE_SPACE);
+	springR = new Spring(iPoint(469, 825), "SpringR", "Spring", _app, SDL_SCANCODE_SPACE, false);
+	springL = new Spring(iPoint(74, 825), "SpringL", "Spring", _app, SDL_SCANCODE_SPACE, false);
 
 	// Sensor
-	sBallSpring = new Sensor({ 533, 805, 10, 10 }, -1, "SensorBS", "Sensor", _app);
+	sBallSpring = new Sensor({ 533, 815, 10, 5 }, -1, "SensorBS", "SpringSensor", _app);
+	sBallSpringR = new Sensor({ 488, 815, 10, 5 }, -1, "SensorBSR", "SpringSensor", _app);
+	sBallSpringL = new Sensor({ 93, 815, 10, 5 }, -1, "SensorBSL", "SpringSensor", _app);
+
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 	Cannon1 = new Sensor({ 107,288,10,10 }, -1, "SensorC1", "Sensor", _app);
 	Cannon2 = new Sensor({ 166,288,10,10 }, -1, "SensorC2", "Sensor", _app);
 	Cannon3 = new Sensor({ 227,288,10,10 }, -1, "SensorC3", "Sensor", _app);
 
-	deathSensor = new Sensor({ 288, 900, 68, 30 }, -1, "DeathSensor", "Sensor", _app);
+	deathSensor = new Sensor({ 288, 935, 68, 1 }, -1, "DeathSensor", "Sensor", _app);
 
 #pragma region Add gameObjects to the main array
  
@@ -106,7 +109,11 @@ bool SceneGame::Start()
 	gameObjects.add(bossBoing[3]);
 	gameObjects.add(boss);
 	gameObjects.add(spring);
+	gameObjects.add(springR);
+	gameObjects.add(springL);
 	gameObjects.add(sBallSpring);
+	gameObjects.add(sBallSpringR);
+	gameObjects.add(sBallSpringL);
 	gameObjects.add(deathSensor);
 	gameObjects.add(Cannon1);
 	gameObjects.add(Cannon2);

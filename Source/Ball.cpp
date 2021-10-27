@@ -71,8 +71,7 @@ void Ball::Update()
 {
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
-        impulseForce+= impulseForce >= 1200 ? 0 : 20;
-       
+        impulseForce+= impulseForce >= 1200 ? 0 : 20;   
     }
     else if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
@@ -126,7 +125,7 @@ void Ball::OnCollision(PhysBody* col)
 {
     if (col->gameObject == nullptr) return;
 
-    if (col->gameObject->name == "SensorBS")
+    if (col->gameObject->CompareTag("SpringSensor"))
     {
         initialSpring = true;
     }

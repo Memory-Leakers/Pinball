@@ -66,6 +66,8 @@ public:
     Boss* boss;
 
     Spring* spring;
+    Spring* springR;
+    Spring* springL;
 
     PhysLayerL* physLayer;
     PhysLayerR* physLayer2;
@@ -75,6 +77,8 @@ public:
     Cannon* cannon;
 
     Sensor* sBallSpring;
+    Sensor* sBallSpringR;
+    Sensor* sBallSpringL;
     Sensor* sTeleportIn;
     Sensor* Cannon1;
     Sensor* Cannon2;

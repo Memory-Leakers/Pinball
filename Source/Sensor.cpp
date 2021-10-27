@@ -8,5 +8,5 @@ Sensor::Sensor(SDL_Rect rect, int layer, std::string name, std::string tag, Appl
 
 void Sensor::OnCollision(PhysBody* col)
 {
-	printf("SensorCol");
+	//printf("SensorCol\n");
 }
