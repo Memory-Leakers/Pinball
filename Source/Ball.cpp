@@ -55,7 +55,6 @@ Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
     pBody->debugException = true;
 
     //  Create instance of the Score System
-
     scoreInstance = ScoreSystem::Instance(_app);
 }
 
@@ -66,32 +65,6 @@ void Ball::Start()
 
 void Ball::PreUpdate()
 {
-    /*b2Vec2 velocity = pBody->body->GetLinearVelocity();
-    int maxVelocity = 20;
-
-    if (velocity.x > maxVelocity)
-    {
-        velocity.x = maxVelocity;
-    }
-    if (velocity.y > maxVelocity)
-    {
-        velocity.y = maxVelocity;
-    }
-    if (velocity.x < -maxVelocity)
-    {
-        velocity.x = -maxVelocity;
-    }
-    if (velocity.y < -maxVelocity)
-    {
-        velocity.y = -maxVelocity;
-    }
-    if (abs(velocity.x) > maxVelocity || abs(velocity.y) > maxVelocity)
-    {
-        printf("Velocidad por encima de limite !!!!");
-    }
-
-    pBody->body->SetLinearVelocity(velocity);
-    */
 }
 
 void Ball::Update()
@@ -99,13 +72,15 @@ void Ball::Update()
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
         impulseForce+= impulseForce >= 1200 ? 0 : 20;
-        //printf("%d", impulseForce);
+       
     }
     else if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
         if (initialSpring && abs(pBody->body->GetLinearVelocity().y) <= 0.2f)
         {
+            printf("%d\n", impulseForce);
             pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
+            //pBody->body->SetLinearVelocity(b2Vec2(0, impulseForce));
             initialSpring = false;
         }
         impulseForce = 200;
