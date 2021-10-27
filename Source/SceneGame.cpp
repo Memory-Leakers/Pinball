@@ -91,9 +91,9 @@ bool SceneGame::Start()
 	sBallSpringL = new Sensor({ 93, 815, 10, 5 }, -1, "SensorBSL", "SpringSensor", _app);
 
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
-	Cannon1 = new Sensor({ 107,288,10,10 }, -1, "SensorC1", "Sensor", _app);
-	Cannon2 = new Sensor({ 166,288,10,10 }, -1, "SensorC2", "Sensor", _app);
-	Cannon3 = new Sensor({ 227,288,10,10 }, -1, "SensorC3", "Sensor", _app);
+	Cannon1 = new CannonSensor({ 107,288,10,10 }, -1, "SensorC1", "SensorC1", _app);
+	Cannon2 = new CannonSensor({ 166,288,10,10 }, -1, "SensorC2", "SensorC2", _app);
+	Cannon3 = new CannonSensor({ 227,288,10,10 }, -1, "SensorC3", "SensorC3", _app);
 
 	deathSensor = new Sensor({ 288, 935, 68, 1 }, -1, "DeathSensor", "Sensor", _app);
 
