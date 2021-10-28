@@ -312,8 +312,6 @@ bool SceneGame::Update()
 		}
 	}
 
-	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
-
 	// Update Coins Manager
 	coinsManager->Update();
 
@@ -358,7 +356,7 @@ bool SceneGame::Update()
 			centerCannon.x += offset.x;
 			centerCannon.y += offset.y;
 
-			Ball* temp = new Ball("Player", "Player", _app, centerCannon);
+			Ball* temp = new Ball("Ball", "Player", _app, centerCannon);
 			player = temp;
 			player->pBody->body->ApplyForceToCenter(b2Vec2(x * cannon->cannonForce, y * cannon->cannonForce), true);
 			gameObjects.add(player);
@@ -460,7 +458,7 @@ bool SceneGame::CleanUp()
 
 void SceneGame::SecondLayer()
 {
-	if (player && player->topLayer)
+	if (player != nullptr && player->topLayer)
 	{
 		player->layer = 2;
 		//FIRST LAYER OFF
@@ -481,9 +479,10 @@ void SceneGame::SecondLayer()
 		physLayer->setSensor(false);
 		physLayer2->setSensor(false);
 	}
-	else
+	else if (player != nullptr)
 	{
 		player->layer = 1;
+		
 		//FIRST LAYER ON
 		bg1->body->GetFixtureList()->SetSensor(false);
 		bg2->body->GetFixtureList()->SetSensor(false);
