@@ -209,6 +209,8 @@ bool SceneGame::PreUpdate()
 	coinsManager->PreUpdate();
 
 	// Life icons logic
+	
+	if (gamefinished) return true;
 	for (int i = 2; i >= playerLifes; i--)
 	{
 		lifeIcons[i]->section->x = 128;
