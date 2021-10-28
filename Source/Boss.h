@@ -40,6 +40,8 @@ public:
 
 	int healthPercentage; // currentHealth  / (totalHealth / 100) Example -> 90.000 / (100.000 / 100) = 90%
 
+	bool isAboveLayer3 = false;
+
 	void PostUpdate()
 	{
 		if (currentHealth < 0) currentHealth = 0;
@@ -56,12 +58,12 @@ public:
 		if (RGBrank >= 0)
 		{
 			int red = (int)(255 - (RGBrank * 255));
-			_app->renderer->AddRectRenderQueue(healthRect,red, 255, 0);
+			_app->renderer->AddRectRenderQueue(healthRect,red, 255, 0, 255, isAboveLayer3);
 		}
 		else 
 		{
 			int green = (int)(255 - abs(RGBrank * 255));
-			_app->renderer->AddRectRenderQueue(healthRect, 255,green, 0);
+			_app->renderer->AddRectRenderQueue(healthRect, 255,green, 0, 255, isAboveLayer3);
 		}
 
 	} 

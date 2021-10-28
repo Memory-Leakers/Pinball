@@ -398,6 +398,7 @@ bool SceneGame::PostUpdate()
 	{
 		_app->gameOver = true;
 		_app->renderer->AddTextureRenderQueue(gameover, { 0,0 }, nullptr, 1.0f, 3, 1.0f);
+		boss->PostUpdate();
 	}
 
 	return true;
@@ -487,6 +488,12 @@ void SceneGame::GameOver()
 	{
 		gamefinished = false;
 	}
+	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3);
+	boss->healthBar->healthRect.x = 116;
+	boss->healthBar->healthRect.y = 608;
+	boss->healthBar->totalHealthW = 367;
+	boss->healthBar->healthRect.h = 48;
+	boss->healthBar->isAboveLayer3 = true;
 }
 
 void SceneGame::CreateMap()

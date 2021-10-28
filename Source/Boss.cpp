@@ -45,7 +45,7 @@ Boss::Boss(int health, std::string name, std::string tag, Application* _app) : G
 	// Create HealthBar
 	this->health = health;
 
-	healthBar = new HealthBar(_app, renderObjects[1].renderRect.x + 5, renderObjects[1].renderRect.y + 6, 195, 20, this->health);
+	healthBar = new HealthBar(_app, renderObjects[1].renderRect.x + 6, renderObjects[1].renderRect.y + 6, 188, 19, this->health);
 }
 
 Boss::~Boss()

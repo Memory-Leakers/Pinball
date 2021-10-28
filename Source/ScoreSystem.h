@@ -16,6 +16,7 @@ private:
 
 	int currentScore = 0;
 	int currentCombo = 1;
+	int totalScore = 0;
 
 	uint UIcurrentScore = 0;
 	uint UIcurrentCombo = 0;
@@ -27,6 +28,8 @@ private:
 	bool changingCombo = false;
 	bool resettingCombo = false;
 	int nextCombo;
+
+
 
 public:
 
@@ -59,6 +62,16 @@ public:
 	void SetCombo(int combo)
 	{
 		currentCombo = combo;
+	}
+
+	int GetTotalScore()
+	{
+		return totalScore;
+	}
+	
+	void SetTotalScore(int score)
+	{
+		totalScore = score;
 	}
 };
 
