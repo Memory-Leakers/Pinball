@@ -240,7 +240,7 @@ bool SceneGame::PreUpdate()
 		rectSaveLifeR->OpenSavePoint();
 		rectSaveLifeL->OpenSavePoint();
 		if (player != nullptr) player->saveSpring = true;
-		scoreSystem->AddScore(1000);
+		scoreSystem->AddScore(1000, cannon->GetDrawPos() + iPoint(15, 0));
 	}
 
 	if (player != nullptr && !player->saveSpring)
@@ -496,14 +496,15 @@ void SceneGame::SecondLayer()
 
 void SceneGame::GameOver()
 {
-	if (!gamefinished)
+	/*if (!gamefinished)
 	{
 		gamefinished = true;
 	}
 	else
 	{
 		gamefinished = false;
-	}
+	}*/
+	gamefinished = true;
 	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
 	boss->healthBar->healthRect.x = 116;
 	boss->healthBar->healthRect.y = 608;
