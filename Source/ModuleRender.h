@@ -29,6 +29,7 @@ struct RenderRect
 {
 	SDL_Rect rect;
 	SDL_Color color;
+	bool isAbove;
 };
 
 class ModuleRender : public Module
@@ -45,7 +46,7 @@ public:
 
 	void AddTextureRenderQueue(RenderObject object);
 	void AddTextureRenderQueue(SDL_Texture* texture, iPoint pos, SDL_Rect* section = nullptr, float scale = 1, int layer = 0, float orderInlayer = 0.0f, float rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, SDL_Rect pivot = { 0,0 }, float speed = 1.0f);// Speed = 1.0f = Fullscreen camera
-	void AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true);
+	void AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool above = false, bool filled = true, bool use_camera = true);
 	void SortRenderObjects(vector<RenderObject>& obj);
 
 	#pragma region OBSOLETE

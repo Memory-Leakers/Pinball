@@ -93,9 +93,12 @@ UpdateStatus ModuleRender::PostUpdate()
 	// Draw Rects
 	for (int i = 0; i < rects.size(); i++)
 	{
-		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-		SDL_SetRenderDrawColor(renderer, rects[i].color.r, rects[i].color.g, rects[i].color.b, rects[i].color.a);
-		SDL_RenderFillRect(renderer, &rects[i].rect);
+		if (!rects[i].isAbove)
+		{
+			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(renderer, rects[i].color.r, rects[i].color.g, rects[i].color.b, rects[i].color.a);
+			SDL_RenderFillRect(renderer, &rects[i].rect);
+		}
 	}
 
 	// Draw Special Layer
@@ -104,6 +107,17 @@ UpdateStatus ModuleRender::PostUpdate()
 		if (SDL_RenderCopyEx(renderer, renderObject.texture, renderObject.section, &renderObject.renderRect, renderObject.rotation, NULL, renderObject.flip) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
+	}
+
+	// Draw Rects above special layer
+	for (int i = 0; i < rects.size(); i++)
+	{
+		if (rects[i].isAbove)
+		{
+			SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(renderer, rects[i].color.r, rects[i].color.g, rects[i].color.b, rects[i].color.a);
+			SDL_RenderFillRect(renderer, &rects[i].rect);
 		}
 	}
 
@@ -205,12 +219,13 @@ void ModuleRender::AddTextureRenderQueue(RenderObject object)
 	layers[object.layer].push_back(object);
 }
 
-void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera)
+void ModuleRender::AddRectRenderQueue(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool above, bool filled, bool use_camera)
 {
 	RenderRect renderR;
 
 	renderR.rect = rect;
 	renderR.color = { r,g,b,a };
+	renderR.isAbove = above;
 	
 	rects.push_back(renderR);
 }
