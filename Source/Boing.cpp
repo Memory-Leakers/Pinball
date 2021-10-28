@@ -43,7 +43,7 @@ void Boing::Update()
 
 void Boing::PostUpdate()
 {
-	GameObject::PostUpdate();
+	GameObject::PostUpdate();	
 }
 
 void Boing::OnCollision(PhysBody* col)

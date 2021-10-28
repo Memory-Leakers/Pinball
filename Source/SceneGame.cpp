@@ -69,9 +69,9 @@ bool SceneGame::Start()
 	//LEFT SIDE OF THE SCREEN
 	boing[0] = new Boing("Boing", "Boing", _app, 140, 195);
 	boing[1] = new Boing("Boing", "Boing", _app, 203, 195);
-	boing[2] = new Boing("Boing", "Boing", _app, 164, 358);
+	boing[2] = new Boing("Boing", "Boing", _app, 164, 370);
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
-	boing[4] = new Boing("Boing", "Boing", _app, 247, 358);
+	boing[4] = new Boing("Boing", "Boing", _app, 247, 388);
 
 	// Flipper
 	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
@@ -114,6 +114,7 @@ bool SceneGame::Start()
 	gameObjects.add(bossBoing[1]);
 	gameObjects.add(bossBoing[2]);
 	gameObjects.add(bossBoing[3]);
+	//gameObjects.add(bossBoing[4]);
 	gameObjects.add(boss);
 	gameObjects.add(rectSaveLifeR);
 	gameObjects.add(rectSaveLifeL);
@@ -291,7 +292,7 @@ bool SceneGame::Update()
 		}
 	}
 
-	//printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
+	printf("%d,%d\n", _app->input->GetMouseX(), _app->input->GetMouseY());
 
 	// Update Coins Manager
 	coinsManager->Update();
@@ -817,6 +818,7 @@ void SceneGame::CreateMap()
 	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);
 	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463, 286), 0.3f);
 	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18, 180.0f, iPoint(483, 363), 0.3f);
+	//bossBoing[4] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(10, 10), 0.3f);
 	////LONG BOING
 	//bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22,3,false);
 }
