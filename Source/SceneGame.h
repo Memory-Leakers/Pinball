@@ -96,6 +96,9 @@ public:
     
     // background
     SDL_Texture* bg; 
+    // foreground
+    SDL_Texture* fg;
+
     SDL_Texture* gameover;
     SDL_Texture* lifes;
     

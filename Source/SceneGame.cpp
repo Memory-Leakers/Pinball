@@ -26,9 +26,9 @@ bool SceneGame::Start()
 	CreateMap();
 
 	bg = _app->textures->Load("Assets/Images/Game/BG.png");
+	fg = _app->textures->Load("Assets/Images/Game/FG.png");
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
-
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -96,12 +96,12 @@ bool SceneGame::Start()
 	sBallSpringR = new Sensor({ 488, 815, 10, 5 }, -1, "SensorBSR", "SpringSensorSave", _app);
 	sBallSpringL = new Sensor({ 93, 815, 10, 5 }, -1, "SensorBSL", "SpringSensorSave", _app);
 
-	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
+	sTeleportIn = new Sensor({ 90, 400, 10,2 }, -1, "SensorT", "Sensor", _app);
 	Cannon1 = new CannonSensor({ 107,288,10,10 }, -1, "SensorC1", "SensorC1", _app);
 	Cannon2 = new CannonSensor({ 166,288,10,10 }, -1, "SensorC2", "SensorC2", _app);
 	Cannon3 = new CannonSensor({ 227,288,10,10 }, -1, "SensorC3", "SensorC3", _app);
 
-	deathSensor = new Sensor({ 288, 935, 68, 1 }, -1, "DeathSensor", "Sensor", _app);
+	deathSensor = new Sensor({ 288, 935, 75, 1 }, -1, "DeathSensor", "Sensor", _app);
 
 	#pragma region Add gameObjects to the main array
 
@@ -373,8 +373,11 @@ bool SceneGame::PostUpdate()
 {
 	if(!gamefinished)
 	{
-		//BackGround
+		// BackGround
 		_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
+
+		// ForeGround
+		_app->renderer->AddTextureRenderQueue(fg, { 0,0 }, nullptr, 1.0f, 1, 2.0f);
 
 		// GameObjects
 		for (int i = 0; i < gameObjects.count(); i++)
