@@ -71,7 +71,8 @@ bool SceneGame::Start()
 	boing[1] = new Boing("Boing", "Boing", _app, 203, 195);
 	boing[2] = new Boing("Boing", "Boing", _app, 164, 370);
 	boing[3] = new Boing("Boing", "Boing", _app, 79, 358);
-	boing[4] = new Boing("Boing", "Boing", _app, 247, 388);
+	boing[4] = new Boing("Boing", "Boing", _app, 247, 428);
+	boing[5] = new Boing("Boing", "Boing", _app, 247, 338);
 
 	// Flipper
 	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
@@ -114,7 +115,7 @@ bool SceneGame::Start()
 	gameObjects.add(bossBoing[1]);
 	gameObjects.add(bossBoing[2]);
 	gameObjects.add(bossBoing[3]);
-	//gameObjects.add(bossBoing[4]);
+	gameObjects.add(bossBoing[4]);
 	gameObjects.add(boss);
 	gameObjects.add(rectSaveLifeR);
 	gameObjects.add(rectSaveLifeL);
@@ -794,6 +795,24 @@ void SceneGame::CreateMap()
 		502, 398,
 		503, 370
 	};
+	// Pivot 0, 0
+	int BOSSBOING5[30] = {
+		152, 461,
+		156, 461,
+		167, 461,
+		175, 467,
+		177, 473,
+		174, 486,
+		172, 489,
+		170, 492,
+		168, 490,
+		167, 487,
+		166, 485,
+		163, 480,
+		160, 473,
+		157, 470,
+		154, 466
+	};
 	//int LONGBOING[22] = {
 	//	160, 475,
 	//	164, 466,
@@ -818,7 +837,7 @@ void SceneGame::CreateMap()
 	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);
 	bossBoing[2] = new PolygonBoing("PolygonBoing3", "PolygonBoing", _app, 2, -2, BOSSBOING3, 18, 155.0f, iPoint(463, 286), 0.3f);
 	bossBoing[3] = new PolygonBoing("PolygonBoing4", "PolygonBoing", _app, 3, 0, BOSSBOING4, 18, 180.0f, iPoint(483, 363), 0.3f);
-	//bossBoing[4] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(10, 10), 0.3f);
+	bossBoing[4] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, 0, 0, BOSSBOING5, 30, -35.0f, iPoint(160, 454), 0.3f);
 	////LONG BOING
 	//bossBoing[4] = new PolygonBoing("PolygonBoing5", "PolygonBoing", _app, 0, 0, LONGBOING, 22,3,false);
 }
