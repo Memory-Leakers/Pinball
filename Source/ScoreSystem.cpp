@@ -99,7 +99,7 @@ void ScoreSystem::AddScore(int score, iPoint pos)
 
 	// Create dynamic UI to show points added
 	
-	_app->ui->CreateUI(currentCombo * score, pos.x, pos.y, 0.3f, 3, true, 30, { 0,-1 });
+	_app->ui->CreateUI(currentCombo * score, pos.x, pos.y, 0.3f, 3, 1.1f, true, 30, { 0,-1 });
 }
 
 void ScoreSystem::AddCombo(int combo)

@@ -24,11 +24,14 @@ bool SceneGame::Start()
 	
 	// Set audio
 	_app->audio->PlayMusic("Assets/Audio/BGMusic.mp3", 0);
+
+	Mix_VolumeMusic(10);
 	
 	_app->audio->LoadFx("Assets/Audio/Boing.wav");
 	_app->audio->LoadFx("Assets/Audio/TriangleBoing.wav");
 	_app->audio->LoadFx("Assets/Audio/PickCoin.wav");
 	
+	Mix_Volume(-1, 40);
 	
 	// Create Map
 	CreateMap();
@@ -501,7 +504,7 @@ void SceneGame::GameOver()
 	{
 		gamefinished = false;
 	}
-	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3);
+	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
 	boss->healthBar->healthRect.x = 116;
 	boss->healthBar->healthRect.y = 608;
 	boss->healthBar->totalHealthW = 367;
