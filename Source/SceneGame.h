@@ -17,7 +17,7 @@ class CannonSensor;
 class RectObstacle;
 
 #define BOINGCOUNT 5
-#define TRIBOINGCOUNT 2
+#define TRIBOINGCOUNT 4
 #define BOSSBOINGCOUNT 5
 
 class SceneGame : public Scene

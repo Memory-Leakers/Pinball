@@ -759,9 +759,10 @@ void SceneGame::CreateMap()
 	//};
 
 	// PolygonBoing
-	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 0, -5, TBLEFT, 6, 1, false);
-	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 0, -8, TBRIGHT, 6, 1, true);
-
+	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 1, -3, TBLEFT, 6, 1, false);
+	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, -1, -4, TBRIGHT, 6, 1, true);
+	triBoing[2] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, -1, 0, TBLEFT, 6, 2, false);
+	triBoing[3] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 1, -3, TBRIGHT, 6, 2, true);
 	//BOSS SIDE
 	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24, 32.0f, iPoint(352, 286), 0.3f);
 	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);

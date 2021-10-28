@@ -71,6 +71,7 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(iPoint pos, int width, int height);
 	PhysBody* CreateChainObj(int x, int y, int* points, int size, bool loop);
+	PhysBody* CreateCircleSensor(iPoint pos, int radius);
 	b2Vec2 Perp(b2Vec2 vec1);
 	/*b2Vec2 Normalise(b2Vec2 vecToNormalise);*/
 	void DotProductAngle(b2Vec2 v1,b2Vec2 v2, float& angle);

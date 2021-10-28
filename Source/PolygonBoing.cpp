@@ -6,6 +6,7 @@ PolygonBoing::PolygonBoing(std::string name, std::string tag, Application* _app,
 {
 	float scale;
 	SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
+	norestitution = false;
 	
 	if (Id == 1)
 	{
@@ -18,8 +19,24 @@ PolygonBoing::PolygonBoing(std::string name, std::string tag, Application* _app,
 			flip = SDL_FLIP_NONE;
 			Offsetx = 398;
 			Offsety = 642;
-			AngularOffset = 0;
+			
 		}
+	}
+
+	if (Id == 2)
+	{
+		scale = 0.20f;
+		Offsetx = 200;
+		Offsety = 637;
+
+		if (isRight)
+		{
+			flip = SDL_FLIP_NONE;
+			Offsetx = 402;
+			Offsety = 642;
+
+		}
+		norestitution = true;
 	}
 
 	renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Triangle_Boing.png");
@@ -33,6 +50,11 @@ PolygonBoing::PolygonBoing(std::string name, std::string tag, Application* _app,
 	pBody = _app->physics->CreateChainObj(x, y, points, numberPoints, true);
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
 	pBody->body->GetFixtureList()->SetRestitution(1.25f);
+	if (norestitution) 
+	{
+		renderObjects[0].texture = nullptr;
+		pBody->body->GetFixtureList()->SetRestitution(0.0f);
+	}
 	pBody->gameObject = this;
 
 }
