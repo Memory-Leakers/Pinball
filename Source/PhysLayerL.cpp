@@ -27,7 +27,7 @@ PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :Ga
 		102, 193,
 		102, 221,
 		104, 224,
-		147, 224,
+		126, 224,
 		147, 82,
 		140, 67,
 		132, 57,

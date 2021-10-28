@@ -58,7 +58,9 @@ bool SceneGame::Start()
 	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
 	physLayer2 = new PhysLayerR("PhysLayerR", "PhysLayer", _app);
 
-	enterPhysLayerL = new Sensor({ 85, 465, 10, 10 }, -1, "ChangeLayerSensor", "PhysLayer", _app);
+	enterPhysLayerL = new Sensor({ 82, 465, 2, 20 }, -1, "ChangeLayerSensor", "UpLayerTrue", _app);
+	exitPhysLayerUpL = new Sensor({ 120, 465, 15,30 }, -1, "ChangeLayerSensor", "UpLayerFalse", _app);
+
 	exitPhysLayerL = new Sensor({ 118, 650, 50, 10 }, -1, "ChangeLayerSensorSecondLevel", "PhysLayer", _app);
 
 	enterPhysLayerR = new Sensor({ 407, 526, 10, 10 }, -1, "ChangeLayerSensorLockedDoor", "PhysLayer", _app);
@@ -145,6 +147,7 @@ bool SceneGame::Start()
 	gameObjects.add(physLayer);
 	gameObjects.add(physLayer2);
 	gameObjects.add(enterPhysLayerL);
+	gameObjects.add(exitPhysLayerUpL);
 	gameObjects.add(exitPhysLayerL);
 	gameObjects.add(enterPhysLayerR);
 	gameObjects.add(exitPhysLayerR);
@@ -496,15 +499,8 @@ void SceneGame::SecondLayer()
 
 void SceneGame::GameOver()
 {
-	/*if (!gamefinished)
-	{
-		gamefinished = true;
-	}
-	else
-	{
-		gamefinished = false;
-	}*/
 	gamefinished = true;
+
 	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
 	boss->healthBar->healthRect.x = 116;
 	boss->healthBar->healthRect.y = 608;
@@ -863,8 +859,8 @@ void SceneGame::CreateMap()
 	// PolygonBoing
 	triBoing[0] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, 1, -3, TBLEFT, 6, 1, false);
 	triBoing[1] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, -1, -4, TBRIGHT, 6, 1, true);
-	triBoing[2] = new PolygonBoing("TriangleBoingLeft", "TriangularBoing", _app, -1, 0, TBLEFT, 6, 2, false);
-	triBoing[3] = new PolygonBoing("TriangleBoingRight", "TriangularBoing", _app, 1, -3, TBRIGHT, 6, 2, true);
+	triBoing[2] = new PolygonBoing("TriangleBoingLeft", "Triangular", _app, -1, 0, TBLEFT, 6, 2, false);
+	triBoing[3] = new PolygonBoing("TriangleBoingRight", "Triangular", _app, 1, -3, TBRIGHT, 6, 2, true);
 	//BOSS SIDE
 	bossBoing[0] = new PolygonBoing("PolygonBoing1", "PolygonBoing", _app, 0, 0, BOSSBOING1, 24, 32.0f, iPoint(352, 286), 0.3f);
 	bossBoing[1] = new PolygonBoing("PolygonBoing2", "PolygonBoing", _app, -3, 3, BOSSBOING2, 22, -10.0f, iPoint(344, 361), 0.3f);

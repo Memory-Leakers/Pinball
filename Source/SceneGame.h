@@ -85,6 +85,7 @@ public:
     Sensor* sBallSpringL;
     Sensor* sTeleportIn;
     Sensor* enterPhysLayerL;
+    Sensor* exitPhysLayerUpL;
     Sensor* exitPhysLayerL;
     Sensor* enterPhysLayerR;
     Sensor* exitPhysLayerR;

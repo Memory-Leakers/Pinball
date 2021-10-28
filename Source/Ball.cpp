@@ -164,7 +164,16 @@ void Ball::OnCollision(PhysBody* col)
         scoreInstance->AddCombo(1);
     }
 
-    //SECOND LAYERS
+    if (col->gameObject->CompareTag("UpLayerTrue"))
+    {
+        topLayer = true;
+    }
+    if (col->gameObject->CompareTag("UpLayerFalse"))
+    {
+        topLayer = false;
+    }
+
+    /*//SECOND LAYERS
     if (col->gameObject->name == "ChangeLayerSensor" || col->gameObject->name == "ChangeLayerSensorUnlockedDoor") 
     {  
         //ENTER LEFT OR RIGHT
@@ -174,12 +183,9 @@ void Ball::OnCollision(PhysBody* col)
     if (topLayer == true && col->gameObject->name == "ChangeLayerSensorSecondLevel") //EXIT LEFT and RIGHT
     {
         topLayer = !topLayer;
-    }
+    }*/
 
-	/*if (col->gameObject && col->gameObject->CompareTag("Boing"))
-	{
-		//pBody->body->GetFixtureList()[0].SetRestitution(1);
-	}
+	/*
     //Try boing
     int x, y;
     float angle;
