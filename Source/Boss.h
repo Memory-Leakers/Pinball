@@ -42,6 +42,8 @@ public:
 
 	void PostUpdate()
 	{
+		if (currentHealth < 0) currentHealth = 0;
+
 		healthPercentage = currentHealth / (totalHealth / 100);	//Current health Percentage
 
 		RGBrank = (float)(-1 + (healthPercentage * 0.02));	// Current RGB rank, from 1 to -1
@@ -83,10 +85,16 @@ private:
 	iPoint currentIdleSection;
 	iPoint currentHitSection;
 
+	SDL_Rect bossEyeR;
+	SDL_Rect bossEyeL;
+
+
 public:
 
 	int health;
 	int currentPhase;	// 0 = phase 0; 1 = phase 1;
+
+	b2Vec2 targetPos;
 
 	HealthBar* healthBar = nullptr;
 

@@ -149,7 +149,7 @@ void Ball::OnCollision(PhysBody* col)
         isTeleporting = true;
     }
 
-    if (col->gameObject->tag == "Boing" || col->gameObject->tag == "PolygonBoing")
+    if (col->gameObject->tag == "Boing" || col->gameObject->tag == "PolygonBoing" || col->gameObject->tag == "TriangularBoing")
     {
         scoreInstance->AddScore(100);
     }

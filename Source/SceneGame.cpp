@@ -356,6 +356,15 @@ bool SceneGame::Update()
 		}
 	}
 
+	// Boss 
+	if (player != nullptr)
+	{
+		boss->targetPos.x = player->GetDrawPos().x - boss->GetDrawPos().x;
+		boss->targetPos.y = player->GetDrawPos().y - boss->GetDrawPos().y;
+		boss->targetPos.Normalize();
+	}
+
+
 	return true;
 }
 

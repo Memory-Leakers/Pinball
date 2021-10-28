@@ -13,6 +13,9 @@ Boss::Boss(int health, std::string name, std::string tag, Application* _app) : G
 	spriteY = GetDrawPos().y;
 	maxSpriteDown = spriteY + 10;
 
+	bossEyeR = { 441, 365, 3, 3 };
+	bossEyeL = { 411, 365, 3, 3 };
+
 	for (int i = 0; i < 6; i++)
 	{
 		if (i < 3)
@@ -91,6 +94,15 @@ void Boss::PostUpdate()
 	renderObjects[0].renderRect.x = GetDrawPos().x-3;
 	renderObjects[0].renderRect.y = spriteY -5;
 
+	iPoint bossEyeBaseR = { 441, spriteY + 42 };
+	iPoint bossEyeBaseL = { 408, spriteY + 42 };
+
+	bossEyeR.x = bossEyeBaseR.x + (targetPos.x * 2);
+	bossEyeR.y = bossEyeBaseR.y + (targetPos.y * 2);
+
+	bossEyeL.x = bossEyeBaseL.x + (targetPos.x * 2);
+	bossEyeL.y = bossEyeBaseL.y + (targetPos.y * 2);
+
 	// Seccion del sprite
 	if (healthBar->healthPercentage > 80)
 	{
@@ -139,6 +151,13 @@ void Boss::PostUpdate()
 		_app->renderer->AddTextureRenderQueue(renderObjects[i]);
 	}
 
+	// Draw boss eyes
+	if (health > 0)
+	{
+		_app->renderer->AddRectRenderQueue(bossEyeR, 0, 0, 0);
+		_app->renderer->AddRectRenderQueue(bossEyeL, 0, 0, 0);
+	}
+
 	healthBar->PostUpdate();
 }
 
@@ -146,11 +165,12 @@ void Boss::OnCollision(PhysBody* col)
 {
 	if (col->gameObject->tag == "Player")
 	{
+
 		health -= scoreInstance->GetScore();
 
 		scoreInstance->ResetCombo();
 		scoreInstance->ResetScore();
-
+	
 		if (!isBeingHit)
 		{
 			isBeingHit = true;
