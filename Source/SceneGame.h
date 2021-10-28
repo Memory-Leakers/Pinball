@@ -16,7 +16,7 @@ class Cannon;
 class CannonSensor;
 class RectObstacle;
 
-#define BOINGCOUNT 5
+#define BOINGCOUNT 6
 #define TRIBOINGCOUNT 4
 #define BOSSBOINGCOUNT 5
 
