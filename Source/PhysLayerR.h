@@ -1,4 +1,9 @@
 #include "GameObject.h"
+#include "Coins.h"
+
+#define COINNUM 15
+#define COIN_ROW 5
+#define COIN_COLUMN 3
 
 class PhysLayerR : public GameObject
 {
@@ -14,6 +19,8 @@ public:
 	void setSensor(bool value);
 
 	void swapLowerTexture();
+
+	Coins* coinPool[COINNUM];
 
 };
 

@@ -3,7 +3,8 @@
 
 PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :GameObject(name, tag, _app)
 {
-	int POINTS[64] = {
+	int POINTS[66] = {
+		100, 3,
 		69, 3,
 		50, 5,
 		37, 10,
@@ -52,7 +53,7 @@ PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :Ga
 	renderObjects[1].section = new SDL_Rect{ 0, 0, 152, 236 };
 
 	
-	pBody = _app->physics->CreateChainObj(12, 438, POINTS, 64, false);
+	pBody = _app->physics->CreateChainObj(12, 438, POINTS, 66, false);
 	pBody->body->SetType(b2BodyType::b2_staticBody);
 	pBody->body->GetFixtureList()->SetSensor(true);
 
@@ -89,6 +90,7 @@ void PhysLayerL::Update()
 void PhysLayerL::setSensor(bool value) 
 {
 	pBody->body->GetFixtureList()->SetSensor(value);
+	boing->pBody->body->GetFixtureList()->SetSensor(value);
 
 	if (!value)
 	{

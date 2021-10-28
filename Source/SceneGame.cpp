@@ -47,7 +47,7 @@ bool SceneGame::Start()
 	physLayer = new PhysLayerL("PhysLayerL", "PhysLayer", _app);
 	physLayer2 = new PhysLayerR("PhysLayerR", "PhysLayer", _app);
 
-	enterPhysLayerL = new Sensor({ 90, 470, 10, 10 }, -1, "ChangeLayerSensor", "PhysLayer", _app);
+	enterPhysLayerL = new Sensor({ 85, 465, 10, 10 }, -1, "ChangeLayerSensor", "PhysLayer", _app);
 	exitPhysLayerL = new Sensor({ 118, 650, 50, 10 }, -1, "ChangeLayerSensorSecondLevel", "PhysLayer", _app);
 
 	enterPhysLayerR = new Sensor({ 407, 526, 10, 10 }, -1, "ChangeLayerSensorLockedDoor", "PhysLayer", _app);
@@ -138,6 +138,11 @@ bool SceneGame::Start()
 	gameObjects.add(rightKey1);
 	gameObjects.add(rightKey2);
 	gameObjects.add(cannon);
+
+	for (int i = 0; i < COINNUM; i++) //COINS IN SECOND LEVEL
+	{
+		gameObjects.add(physLayer2->coinPool[i]);
+	}
 
 	#pragma endregion
 
@@ -422,6 +427,8 @@ void SceneGame::SecondLayer()
 		pm->body->GetFixtureList()->SetSensor(true);
 		triBoing[0]->setSensor(true);
 		triBoing[1]->setSensor(true);
+		flWallRight->body->GetFixtureList()->SetSensor(true);
+		flWallLeft->body->GetFixtureList()->SetSensor(true);
 
 		//SECOND LAYER ON
 		physLayer->setSensor(false);
@@ -440,6 +447,8 @@ void SceneGame::SecondLayer()
 		pm->body->GetFixtureList()->SetSensor(false);
 		triBoing[0]->setSensor(false);
 		triBoing[1]->setSensor(false);
+		flWallRight->body->GetFixtureList()->SetSensor(false);
+		flWallLeft->body->GetFixtureList()->SetSensor(false);
 
 		//SECOND LAYER OFF
 		physLayer->setSensor(true);
@@ -657,6 +666,28 @@ void SceneGame::CreateMap()
 		88, 387,
 		77, 386
 	};
+	int FLWALLRIGHT[22] = {
+		502, 445,
+		478, 448,
+		458, 458,
+		401, 510,
+		421, 541,
+		452, 515,
+		471, 500,
+		482, 493,
+		495, 500,
+		499, 510,
+		503, 520
+	};
+	int FLWALLLEFT[14] = {
+		80, 485,
+		91, 488,
+		100, 495,
+		111, 505,
+		120, 516,
+		131, 528,
+		139, 540
+	};
 
 	bg1 = _app->physics->CreateChainObj(0, 0, BG, 110, true);
 	bg1->body->SetType(b2BodyType::b2_staticBody);
@@ -681,6 +712,12 @@ void SceneGame::CreateMap()
 
 	pm = _app->physics->CreateChainObj(0, 0, PM, 46, false);
 	pm->body->SetType(b2BodyType::b2_staticBody);
+
+	flWallRight = _app->physics->CreateChainObj(0, 0, FLWALLRIGHT, 22, false);
+	flWallRight->body->SetType(b2BodyType::b2_staticBody);
+
+	flWallLeft = _app->physics->CreateChainObj(0, 0, FLWALLLEFT, 14, false);
+	flWallLeft->body->SetType(b2BodyType::b2_staticBody);
 
 	// Boing
 
@@ -791,4 +828,8 @@ void SceneGame::DeleteMap()
 	smDivider2M = nullptr;
 	delete pm;
 	pm = nullptr;
+	delete flWallRight;
+	flWallRight = nullptr;
+	delete flWallLeft;
+	flWallLeft = nullptr;
 }

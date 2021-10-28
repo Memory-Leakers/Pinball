@@ -113,6 +113,8 @@ public:
     PhysBody* ball;
     PhysBody* flipper1;
     PhysBody* flipper2;
+    PhysBody* flWallRight;
+    PhysBody* flWallLeft;
 
     PhysBody* smDivider1M;
     PhysBody* smDivider2M;

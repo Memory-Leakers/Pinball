@@ -13,5 +13,7 @@ public:
 	void PostUpdate() override;
 
 	void OnCollision(PhysBody* col) override;
+
+	bool colSwitch = true; //True == ON | False == OFF
 };
 
