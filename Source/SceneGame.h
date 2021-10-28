@@ -99,7 +99,6 @@ public:
     SDL_Texture* gameover;
     SDL_Texture* lifes;
     
-
     RenderObject* lifeIcons[3];
 
     iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
@@ -120,7 +119,6 @@ public:
     PhysBody* pm;
 
     //Cannon
-
     bool gamefinished = false;
     bool IsCannonShown = false;
 };

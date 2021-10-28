@@ -92,8 +92,8 @@ bool SceneGame::Start()
 
 	// Sensor
 	sBallSpring = new Sensor({ 533, 815, 10, 5 }, -1, "SensorBS", "SpringSensor", _app);
-	sBallSpringR = new Sensor({ 488, 815, 10, 5 }, -1, "SensorBSR", "SpringSensor", _app);
-	sBallSpringL = new Sensor({ 93, 815, 10, 5 }, -1, "SensorBSL", "SpringSensor", _app);
+	sBallSpringR = new Sensor({ 488, 815, 10, 5 }, -1, "SensorBSR", "SpringSensorSave", _app);
+	sBallSpringL = new Sensor({ 93, 815, 10, 5 }, -1, "SensorBSL", "SpringSensorSave", _app);
 
 	sTeleportIn = new Sensor({ 90, 415, 10,10 }, -1, "SensorT", "Sensor", _app);
 	Cannon1 = new CannonSensor({ 107,288,10,10 }, -1, "SensorC1", "SensorC1", _app);
@@ -219,6 +219,15 @@ bool SceneGame::PreUpdate()
 	{
 		cannon->ShowCannon();
 		IsCannonShown = true;
+		rectSaveLifeR->OpenSavePoint();
+		rectSaveLifeL->OpenSavePoint();
+		player->saveSpring = true;
+	}
+
+	if (player != nullptr && !player->saveSpring)
+	{
+		rectSaveLifeR->CloseSavePoint();
+		rectSaveLifeL->CloseSavePoint();
 	}
 
 	return true;
