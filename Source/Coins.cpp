@@ -34,6 +34,7 @@ void Coins::PostUpdate()
 
 void Coins::OnCollision(PhysBody* col)
 {
+	if (!colSwitch) return;
 	if (col->gameObject->CompareTag("Player"))
 	{
 		pendingToDelete = true;

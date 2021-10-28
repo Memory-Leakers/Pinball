@@ -65,7 +65,23 @@ PhysLayerR::PhysLayerR(std::string name, std::string tag, Application* _app) :Ga
 	pBody->body->SetType(b2BodyType::b2_staticBody);
 	pBody->body->GetFixtureList()->SetSensor(true);
 	
-	//BOING inside
+	//COINS inside
+	
+	for (int y = 550, i = 0, f = 0; i < COIN_COLUMN; i++)
+	{
+		for (int k = 0, x = 457; k < COIN_ROW; k++)
+		{
+			coinPool[f] = new Coins("Coin", "Coin", _app, { x, y });
+			coinPool[f]->renderObjects[0].layer = 1;
+			coinPool[f]->renderObjects[0].orderInLayer = 1.4;
+			coinPool[f]->colSwitch = false;
+
+			x += 25;
+			f++;
+		}
+		y += 25;
+	}
+
 }
 
 void PhysLayerR::Update()
@@ -98,13 +114,28 @@ void PhysLayerR::setSensor(bool value)
 {
 	pBody->body->GetFixtureList()->SetSensor(value);
 
+	for (int k = 0; k < COINNUM; k++)
+	{
+		//coinPool[k]->pBody->body->GetFixtureList()->SetSensor(value);
+	}
+
 	if (!value)
 	{
-		renderObjects[2].layer = 2;		
+		renderObjects[2].layer = 2;
+		for (int i = 0; i < COINNUM; i++)
+		{
+			coinPool[i]->renderObjects[0].layer = 2;
+			coinPool[i]->colSwitch = true;
+		}
 	}
 	else
 	{
-		renderObjects[2].layer = 1;		
+		renderObjects[2].layer = 1;
+		for (int i = 0; i < COINNUM; i++)
+		{
+			coinPool[i]->renderObjects[0].layer = 1;
+			coinPool[i]->colSwitch = false;
+		}
 	}
 }
 
