@@ -84,6 +84,8 @@ public:
 
 	void ShapesRender();
 
+	bool HasMouseJoint(b2Body* b);
+
 private:
 	b2Body* mouseBody = nullptr;
 	b2MouseJoint* mouseJoint = nullptr;

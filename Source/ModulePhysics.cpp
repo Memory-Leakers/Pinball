@@ -340,11 +340,18 @@ void ModulePhysics::ShapesRender()
 
 UpdateStatus ModulePhysics::PostUpdate()
 {
-	if (!App->isDebug) return UPDATE_CONTINUE;
-
 	// If mouse button 1 is pressed ...
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
+		if (!App->isDebug)
+		{
+			if (HasMouseJoint(b))
+			{
+				world->DestroyJoint(b->GetJointList()->joint);
+			}
+			continue;
+		}
+
 		if (b->GetType() != b2BodyType::b2_dynamicBody) continue;
 
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
@@ -367,19 +374,9 @@ UpdateStatus ModulePhysics::PostUpdate()
 				}
 			}
 
-			bool hasMouseJoint = false;
-			b2JointEdge* tempJoint = b->GetJointList();
+		
 
-			while (tempJoint != nullptr)
-			{
-				if (tempJoint->joint == mouseJoint)
-				{
-					hasMouseJoint = true;
-				}
-				tempJoint = tempJoint->next;
-			}
-
-			if (!hasMouseJoint) break;
+			if (!HasMouseJoint(b)) break;
 
 			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && b->GetJointList() != nullptr && mouseJoint != nullptr)
 			{
@@ -491,4 +488,21 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 	}
 
 	return -1;
+}
+
+bool ModulePhysics::HasMouseJoint(b2Body* b)
+{
+	bool hasMouseJoint = false;
+	b2JointEdge* tempJoint = b->GetJointList();
+
+	while (tempJoint != nullptr)
+	{
+		if (tempJoint->joint == mouseJoint)
+		{
+			hasMouseJoint = true;
+		}
+		tempJoint = tempJoint->next;
+	}
+
+	return hasMouseJoint;
 }
