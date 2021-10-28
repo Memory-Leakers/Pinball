@@ -52,6 +52,8 @@ public:
 	Application* _app = nullptr;
 
 	bool pendingToDelete = false;
+
+	int layer = 1;
 };
 
 #endif // !GAMEOBJECT_H

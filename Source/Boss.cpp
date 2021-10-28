@@ -73,7 +73,7 @@ void Boss::PostUpdate()
 		int speed = 1;
 		int temp = GetDrawPos().y;
 
-		if (spriteY == GetDrawPos().y)
+		if (spriteY == GetDrawPos().y - 10)
 		{
 			goUp = false;
 		}

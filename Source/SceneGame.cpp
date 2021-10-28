@@ -61,13 +61,15 @@ bool SceneGame::Start()
 	enterPhysLayerL = new Sensor({ 82, 465, 2, 20 }, -1, "ChangeLayerSensor", "UpLayerTrue", _app);
 	exitPhysLayerUpL = new Sensor({ 120, 465, 15,30 }, -1, "ChangeLayerSensor", "UpLayerFalse", _app);
 
-	exitPhysLayerL = new Sensor({ 118, 650, 50, 10 }, -1, "ChangeLayerSensorSecondLevel", "PhysLayer", _app);
+	exitPhysLayerL = new Sensor({ 118, 650, 50, 10 }, -1, "ChangeLayerSensorSecondLevel", "UpLayerFalse", _app);
 
-	enterPhysLayerR = new Sensor({ 407, 526, 10, 10 }, -1, "ChangeLayerSensorLockedDoor", "PhysLayer", _app);
-	exitPhysLayerR = new Sensor({ 454, 635, 10, 10 }, -1, "ChangeLayerSensorSecondLevel", "PhysLayer", _app);
+	exitPhysLayerUpR = new Sensor({ 407, 526, 10, 10 }, -1, "ChangeLayerSensorLockedDoor", "UpLayerFalse", _app);
+	enterPhysLayerR = new Sensor({ 445, 505, 10, 10 }, -1, "ChangeLayerSensorLockedDoor", "UpLayerTrue", _app);
 
-	rightKey1 = new KeySensor({ 399, 514, 10, 10 }, -1, "KeySensor1", "PhysLayer", _app);
-	rightKey2 = new KeySensor({ 416, 541, 10, 10 }, -1, "KeySensor2", "PhysLayer", _app);
+	exitPhysLayerR = new Sensor({ 454, 655, 5, 5 }, -1, "ChangeLayerSensorSecondLevel", "UpLayerFalse", _app);
+
+	rightKey1 = new KeySensor({ 399, 514, 5, 5 }, -1, "KeySensor1", "PhysLayer", _app);
+	rightKey2 = new KeySensor({ 416, 541, 5, 5 }, -1, "KeySensor2", "PhysLayer", _app);
 
 	coinsManager = new CoinsManager(_app);
 
@@ -144,12 +146,15 @@ bool SceneGame::Start()
 	gameObjects.add(Cannon3);
 	gameObjects.add(sTeleportIn);
 	gameObjects.add(physLayer->boing);
+	gameObjects.add(physLayer2->boing2);
+	gameObjects.add(physLayer2->boing3);
 	gameObjects.add(physLayer);
 	gameObjects.add(physLayer2);
 	gameObjects.add(enterPhysLayerL);
 	gameObjects.add(exitPhysLayerUpL);
 	gameObjects.add(exitPhysLayerL);
 	gameObjects.add(enterPhysLayerR);
+	gameObjects.add(exitPhysLayerUpR);
 	gameObjects.add(exitPhysLayerR);
 	gameObjects.add(rightKey1);
 	gameObjects.add(rightKey2);
@@ -316,10 +321,10 @@ bool SceneGame::Update()
 	SecondLayer();
 
 	//Manages Right Upper Layer Texture Swutch
-	if (rightKey1->unlocked && rightKey2->unlocked && enterPhysLayerR->name == "ChangeLayerSensorLockedDoor")
+	if (rightKey1->unlocked && rightKey2->unlocked && !doorRight->body->GetFixtureList()->IsSensor())
 	{
 		physLayer2->swapLowerTexture();
-		enterPhysLayerR->name = "ChangeLayerSensorUnlockedDoor";
+		doorRight->body->GetFixtureList()->SetSensor(true);
 	}
 
 	// Player in Cannon
@@ -457,6 +462,7 @@ void SceneGame::SecondLayer()
 {
 	if (player && player->topLayer)
 	{
+		player->layer = 2;
 		//FIRST LAYER OFF
 		bg1->body->GetFixtureList()->SetSensor(true);
 		bg2->body->GetFixtureList()->SetSensor(true);
@@ -477,6 +483,7 @@ void SceneGame::SecondLayer()
 	}
 	else
 	{
+		player->layer = 1;
 		//FIRST LAYER ON
 		bg1->body->GetFixtureList()->SetSensor(false);
 		bg2->body->GetFixtureList()->SetSensor(false);
@@ -709,27 +716,36 @@ void SceneGame::CreateMap()
 		88, 387,
 		77, 386
 	};
-	int FLWALLRIGHT[22] = {
-		502, 445,
-		478, 448,
-		458, 458,
-		401, 510,
-		421, 541,
-		452, 515,
-		471, 500,
-		482, 493,
-		495, 500,
-		499, 510,
-		503, 520
+	int FLWALLRIGHT[20] = {
+		99, 508,
+		166, 454,
+		179, 449,
+		203, 446,
+		202, 523,
+		199, 513,
+		193, 503,
+		179, 497,
+		169, 503,
+		125, 540
 	};
-	int FLWALLLEFT[14] = {
-		80, 485,
-		91, 488,
-		100, 495,
-		111, 505,
-		120, 516,
-		131, 528,
-		139, 540
+	int FLWALLLEFT[22] = 
+	{
+		81, 484,
+	95, 491,
+	106, 499,
+	119, 512,
+	127, 523,
+	134, 533,
+	123, 527,
+	108, 520,
+	94, 520,
+	86, 523,
+	78, 533
+	};
+	int DOORRIGHT[4] =
+	{
+		400, 508,
+		422, 540
 	};
 	int TREEWALL[8] = {
 		159, 119,
@@ -762,14 +778,16 @@ void SceneGame::CreateMap()
 	pm = _app->physics->CreateChainObj(0, 0, PM, 46, false);
 	pm->body->SetType(b2BodyType::b2_staticBody);
 
-	flWallRight = _app->physics->CreateChainObj(0, 0, FLWALLRIGHT, 22, false);
+	flWallRight = _app->physics->CreateChainObj(300, 0, FLWALLRIGHT, 20, false);
 	flWallRight->body->SetType(b2BodyType::b2_staticBody);
 
-	flWallLeft = _app->physics->CreateChainObj(0, 0, FLWALLLEFT, 14, false);
+	flWallLeft = _app->physics->CreateChainObj(0, 0, FLWALLLEFT, 22, false);
 	flWallLeft->body->SetType(b2BodyType::b2_staticBody);
 
 	treeWall = _app->physics->CreateChainObj(0, 0, TREEWALL, 8, false);
 	treeWall->body->SetType(b2BodyType::b2_staticBody);
+	doorRight = _app->physics->CreateChainObj(0, 0, DOORRIGHT, 4, false);
+	doorRight->body->SetType(b2BodyType::b2_staticBody);
 
 	// Boing
 
@@ -906,4 +924,6 @@ void SceneGame::DeleteMap()
 	flWallLeft = nullptr;
 	delete treeWall;
 	treeWall = nullptr;
+	delete doorRight;
+	doorRight = nullptr;
 }

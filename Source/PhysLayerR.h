@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Coins.h"
+#include "Boing.h"
 
 #define COINNUM 15
 #define COIN_ROW 5
@@ -21,6 +22,9 @@ public:
 	void swapLowerTexture();
 
 	Coins* coinPool[COINNUM];
+
+	Boing* boing2;
+	Boing* boing3;
 
 };
 

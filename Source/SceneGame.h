@@ -87,6 +87,7 @@ public:
     Sensor* enterPhysLayerL;
     Sensor* exitPhysLayerUpL;
     Sensor* exitPhysLayerL;
+    Sensor* exitPhysLayerUpR;
     Sensor* enterPhysLayerR;
     Sensor* exitPhysLayerR;
     KeySensor* rightKey1;
@@ -118,6 +119,7 @@ public:
     PhysBody* flipper2;
     PhysBody* flWallRight;
     PhysBody* flWallLeft;
+    PhysBody* doorRight;
 
     PhysBody* smDivider1M;
     PhysBody* smDivider2M;

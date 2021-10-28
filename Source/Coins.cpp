@@ -21,6 +21,9 @@ Coins::Coins(std::string name, std::string tag, Application* _app, iPoint pos) :
 	// PhysBody
 	pBody = _app->physics->CreateCircle(pos.x, pos.y, 8, this, true);
 	pBody->body->SetType(b2_kinematicBody);
+
+	scoreInstance = ScoreSystem::Instance(_app);
+
 }
 
 void Coins::PostUpdate()
@@ -37,6 +40,7 @@ void Coins::OnCollision(PhysBody* col)
 	if (!colSwitch) return;
 	if (col->gameObject->CompareTag("Player"))
 	{
+		scoreInstance->AddCombo(1);
 		_app->audio->PlayFx(3);
 		pendingToDelete = true;
 	}

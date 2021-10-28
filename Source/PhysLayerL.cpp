@@ -58,7 +58,8 @@ PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :Ga
 	pBody->body->GetFixtureList()->SetSensor(true);
 
 	//BOING inside
-	boing = new Boing("Boing", "Boing", _app, 49, 648);
+	boing = new Boing("Boing", "Boing", _app, 44, 640, 25);
+	boing->layer = 2;
 }
 
 void PhysLayerL::Update()
@@ -94,12 +95,22 @@ void PhysLayerL::setSensor(bool value)
 
 	if (!value)
 	{
-		renderObjects[1].layer = 2;
-		boing->setLayer(2);
+		if (!showBG)
+		{
+			showBG = true;
+			timeCount = 255;
+			//renderObjects[1].layer = 2;
+			boing->setLayer(2);
+		}
 	}
 	else 
 	{
-		renderObjects[1].layer = 1;
-		boing->setLayer(1);
+		if (showBG)
+		{
+			showBG = false;
+			timeCount = 255;
+			//renderObjects[1].layer = 1;
+			boing->setLayer(1);
+		}
 	}
 }

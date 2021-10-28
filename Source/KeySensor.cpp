@@ -8,12 +8,14 @@ KeySensor::KeySensor(SDL_Rect rect, int layer, std::string name, std::string tag
 	renderObjects[0].orderInLayer = 0.9f;
 	renderObjects[0].rotationEnabled = false;
 	renderObjects[0].section = new SDL_Rect{ 0, 0, 10, 10 };
+	renderObjects[0].scale = 0.5f;
 
 	renderObjects[1].texture = _app->textures->Load("Assets/Images/Game/KeyUnlocked.png");
 	renderObjects[1].layer = 1;
 	renderObjects[1].orderInLayer = 0.8f;
 	renderObjects[1].rotationEnabled = false;
 	renderObjects[1].section = new SDL_Rect{ 0, 0, 10, 10 };
+	renderObjects[1].scale = 0.5f;
 	
 	pBody = _app->physics->CreateRectangleSensor(iPoint(rect.x, rect.y), rect.w, rect.h);
 	pBody->gameObject = this;

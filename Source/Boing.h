@@ -12,10 +12,11 @@ private:
 	Point<int> pos;
 	SDL_Texture* texture = nullptr;
 	int counter = 0; 
+	bool isActive = true;
 
 public:
 
-	Boing(std::string name, std::string tag, Application* _app, int x, int y);
+	Boing(std::string name, std::string tag, Application* _app, int x, int y, int radius = 18);
 
 	~Boing();
 

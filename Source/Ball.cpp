@@ -88,6 +88,7 @@ void Ball::Update()
             else if(saveSpring)
             {
                 saveSpring = false;
+                impulseForce = impulseForce > 1000 ? 1000 : impulseForce;
             }
             printf("%d\n", impulseForce);
             pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);        
@@ -159,12 +160,7 @@ void Ball::OnCollision(PhysBody* col)
         isDeath = true;
     }
 
-    if (col->gameObject->tag == "Coin")
-    {
-        scoreInstance->AddCombo(1);
-    }
-
-    if (col->gameObject->CompareTag("UpLayerTrue"))
+    if (col->gameObject->CompareTag("UpLayerTrue") || col->gameObject->name == "ChangeLayerSensorUnlockedDoor")
     {
         topLayer = true;
     }

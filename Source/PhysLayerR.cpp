@@ -81,7 +81,11 @@ PhysLayerR::PhysLayerR(std::string name, std::string tag, Application* _app) :Ga
 		}
 		y += 25;
 	}
-
+	
+	boing2 = new Boing("Boing", "BoingRight", _app, 462, 525, 9);
+	boing2->layer = 2;
+	boing3 = new Boing("Boing", "BoingRight", _app, 555, 606, 9);
+	boing3->layer = 2;
 }
 
 void PhysLayerR::Update()
@@ -102,10 +106,12 @@ void PhysLayerR::Update()
 		if (showBG)
 		{
 			SDL_SetTextureAlphaMod(renderObjects[0].texture, timeCount);
+			SDL_SetTextureAlphaMod(renderObjects[1].texture, timeCount);
 		}
 		else
 		{
 			SDL_SetTextureAlphaMod(renderObjects[0].texture, 255 - timeCount);
+			SDL_SetTextureAlphaMod(renderObjects[1].texture, 255 - timeCount);
 		}
 	}
 }
@@ -114,6 +120,9 @@ void PhysLayerR::setSensor(bool value)
 {
 	pBody->body->GetFixtureList()->SetSensor(value);
 
+	boing2->pBody->body->GetFixtureList()->SetSensor(value);
+	boing3->pBody->body->GetFixtureList()->SetSensor(value);
+
 	for (int k = 0; k < COINNUM; k++)
 	{
 		//coinPool[k]->pBody->body->GetFixtureList()->SetSensor(value);
@@ -121,20 +130,36 @@ void PhysLayerR::setSensor(bool value)
 
 	if (!value)
 	{
-		renderObjects[2].layer = 2;
+
 		for (int i = 0; i < COINNUM; i++)
 		{
 			coinPool[i]->renderObjects[0].layer = 2;
 			coinPool[i]->colSwitch = true;
 		}
+		if (!showBG)
+		{
+			showBG = true;
+			timeCount = 255;
+
+			boing2->setLayer(2);
+			boing3->setLayer(2);
+		}
 	}
 	else
 	{
-		renderObjects[2].layer = 1;
+	
 		for (int i = 0; i < COINNUM; i++)
 		{
 			coinPool[i]->renderObjects[0].layer = 1;
 			coinPool[i]->colSwitch = false;
+		}
+		if (showBG)
+		{
+			showBG = false;
+			timeCount = 255;
+		
+			boing2->setLayer(1);
+			boing3->setLayer(1);
 		}
 	}
 }
