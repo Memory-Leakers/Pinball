@@ -126,6 +126,33 @@ PhysBody* ModulePhysics::CreateRectangleSensor(iPoint pos, int width, int height
 	return pbody;
 }
 
+PhysBody* ModulePhysics::CreateCircleSensor(iPoint pos, int radius)
+{
+	b2BodyDef body;
+	body.type = b2_kinematicBody;
+	body.position.Set(PIXELS_TO_METER(pos.x), PIXELS_TO_METER(pos.y));
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXELS_TO_METER(radius);
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.isSensor = true;
+	
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	pbody->width = pbody->height = radius;
+
+	pbody->body->SetUserData(pbody);
+
+	return pbody;
+
+}
+
 PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop)
 {
 	PhysBody* pbody = new PhysBody();

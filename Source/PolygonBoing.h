@@ -13,6 +13,7 @@ private:
 	int Offsety;
 	float AngularOffset;
 	int count = 0;
+	bool norestitution = false;
 
 public:
 
