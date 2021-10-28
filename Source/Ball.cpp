@@ -151,7 +151,7 @@ void Ball::OnCollision(PhysBody* col)
 
     if (col->gameObject->tag == "Boing" || col->gameObject->tag == "PolygonBoing" || col->gameObject->tag == "TriangularBoing")
     {
-        scoreInstance->AddScore(100);
+        scoreInstance->AddScore(100, GetDrawPos());
     }
 
     if (col->gameObject->name == "DeathSensor")

@@ -36,7 +36,7 @@ public:
 	
 	void Update();
 
-	void AddScore(int score);
+	void AddScore(int score, iPoint pos = {-100, -100});
 	void AddCombo(int combo);
 	void ResetScore();
 	void ResetCombo();

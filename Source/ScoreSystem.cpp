@@ -89,11 +89,16 @@ void ScoreSystem::Update()
 	}
 }
 
-void ScoreSystem::AddScore(int score)
+void ScoreSystem::AddScore(int score, iPoint pos)
 {
+	// Add score and change Total Score UI
 	currentScore += currentCombo * score;
 
 	_app->ui->uiArray[UIcurrentScore]->ChangeUI(currentScore);
+
+	// Create dynamic UI to show points added
+	
+	_app->ui->CreateUI(currentCombo * score, pos.x, pos.y, 0.3f, 3, true, 30, { 0,-1 });
 }
 
 void ScoreSystem::AddCombo(int combo)

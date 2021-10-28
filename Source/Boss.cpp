@@ -166,6 +166,8 @@ void Boss::OnCollision(PhysBody* col)
 	if (col->gameObject->tag == "Player")
 	{
 
+		_app->ui->CreateUI(scoreInstance->GetScore(), GetDrawPos().x, GetDrawPos().y + 38, 0.6f, 3, true, 120, { 0,-1 });
+
 		health -= scoreInstance->GetScore();
 
 		scoreInstance->ResetCombo();

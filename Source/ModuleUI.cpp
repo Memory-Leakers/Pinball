@@ -23,6 +23,25 @@ bool ModuleUI::Start()
 
 UpdateStatus ModuleUI::Update()
 {
+	for (int i = 0; i < MAX_UI_ITEMS; i++)
+	{
+		if (uiArray[i] == nullptr) continue;
+
+		if (uiArray[i]->isDynamic)
+		{
+			if (uiArray[i]->lifeFrames > 0)
+			{
+				uiArray[i]->lifeFrames--;
+				uiArray[i]->x += uiArray[i]->speed.x;
+				uiArray[i]->y += uiArray[i]->speed.y;
+			}
+			else 
+			{
+				DestroyUI(i);
+			}
+		}
+	}
+
     return UpdateStatus::UPDATE_CONTINUE;
 }
 
@@ -58,7 +77,7 @@ UpdateStatus ModuleUI::PostUpdate()
 /// <param name="x"></param>
 /// <param name="y"></param>
 /// <returns></returns>
-uint ModuleUI::CreateUI(int num, int x, int y, float scale, int layer)
+uint ModuleUI::CreateUI(int num, int x, int y, float scale, int layer, bool isDynamic, int lifeFrames, iPoint speed)
 {
 	//  Get position of the UI
 	itemUI* item = new itemUI();
@@ -66,6 +85,9 @@ uint ModuleUI::CreateUI(int num, int x, int y, float scale, int layer)
 	item->y = y;
 	item->digitScale = scale;
 	item->layer = layer;
+	item->isDynamic = isDynamic;
+	item->lifeFrames = lifeFrames;
+	item->speed = speed;
 
 	//Make the number into an array of digits
 	//	Declare Variables
