@@ -11,7 +11,22 @@ RectObstacle::RectObstacle(std::string name, std::string tag, Application* _app,
 	renderObjects[0].rotationEnabled = true;
 
 	// Create PhysBody
+	defaultAngle = DEGTORAD * rotation;
 	pBody = _app->physics->CreateRectangle(x, y, 32, 8);
 	pBody->body->SetType(b2BodyType::b2_kinematicBody);
-	pBody->body->SetTransform(pBody->body->GetPosition(), DEGTORAD * rotation);
+	defaultPos = pBody->body->GetPosition();
+	OpenSavePoint();
+	//CloseSavePoint();
+}
+
+void RectObstacle::OpenSavePoint()
+{
+	pBody->body->GetFixtureList()->SetSensor(true);
+	pBody->body->SetTransform(b2Vec2(-100, -100), defaultAngle);
+}
+
+void RectObstacle::CloseSavePoint()
+{
+	pBody->body->GetFixtureList()->SetSensor(false);
+	pBody->body->SetTransform(b2Vec2(defaultPos.x, defaultPos.y), defaultAngle);
 }

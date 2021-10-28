@@ -9,7 +9,7 @@ CannonSensor::CannonSensor(SDL_Rect rect, int layer, std::string name, std::stri
 	renderObjects[0].layer = 1;
 	renderObjects[0].scale = 0.2f;
 
-	pBody = _app->physics->CreateRectangleSensor(iPoint(rect.x, rect.y), rect.w, rect.h);
+	pBody = _app->physics->CreateCircleSensor(iPoint(rect.x, rect.y), rect.w + offsetx_collider_sensor);
 	pBody->gameObject = this;
 }
 
@@ -52,8 +52,8 @@ void CannonSensor::PostUpdate()
 		{
 			if (pBody != nullptr && renderObjects[i].followPhysBody)
 			{
-				renderObjects[i].renderRect.x = GetDrawPos().x + offsetx;
-				renderObjects[i].renderRect.y = GetDrawPos().y + offsety;
+				renderObjects[i].renderRect.x = GetDrawPos().x;
+				renderObjects[i].renderRect.y = GetDrawPos().y;
 
 				if (renderObjects[i].rotationEnabled)
 				{

@@ -32,6 +32,8 @@ public:
 	bool isDeath = false; //Activated when collisioning with a death sensor
 
 	bool topLayer = false; //False =  Player is on lower map | True = Player is on the second layer platforms
+
+	bool saveSpring = true;
 	/*b2Vec2 velocity;
 
 	b2Vec2 velocityInvertido;

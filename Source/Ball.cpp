@@ -68,20 +68,30 @@ void Ball::PreUpdate()
 
 void Ball::Update()
 {
+    if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+    {
+        if (initialSpring) impulseForce = 200;
+        else if (saveSpring)   impulseForce = 400;
+    }
     if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
     {
         impulseForce+= impulseForce >= 1200 ? 0 : 20;   
     }
     else if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
     {
-        if (initialSpring && abs(pBody->body->GetLinearVelocity().y) <= 0.2f)
+        if ((initialSpring || saveSpring) && abs(pBody->body->GetLinearVelocity().y) <= 0.2f)
         {
+            if(initialSpring)
+            {
+                initialSpring = false;
+            }
+            else if(saveSpring)
+            {
+                saveSpring = false;
+            }
             printf("%d\n", impulseForce);
-            pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);
-            //pBody->body->SetLinearVelocity(b2Vec2(0, impulseForce));
-            initialSpring = false;
+            pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);        
         }
-        impulseForce = 200;
     }
 
     if (_app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
@@ -127,6 +137,11 @@ void Ball::OnCollision(PhysBody* col)
     if (col->gameObject->CompareTag("SpringSensor"))
     {
         initialSpring = true;
+    }
+
+    if (col->gameObject->CompareTag("SpringSensorSave"))
+    {
+        saveSpring = true;
     }
 
     if (col->gameObject->name == "SensorT")

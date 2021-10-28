@@ -17,7 +17,7 @@ class CannonSensor;
 class RectObstacle;
 
 #define BOINGCOUNT 5
-#define TRIBOINGCOUNT 2
+#define TRIBOINGCOUNT 4
 #define BOSSBOINGCOUNT 5
 
 class SceneGame : public Scene
@@ -99,7 +99,6 @@ public:
     SDL_Texture* gameover;
     SDL_Texture* lifes;
     
-
     RenderObject* lifeIcons[3];
 
     iPoint teleportPosition;    //Determines where the player teleports when it hits the teleportIn Sensor
@@ -122,7 +121,6 @@ public:
     PhysBody* pm;
 
     //Cannon
-
     bool gamefinished = false;
     bool IsCannonShown = false;
 };

@@ -18,7 +18,6 @@ public:
 
 	void PostUpdate() override;
 
-	int offsetx = -9;
-	int offsety = -4;	
+	int offsetx_collider_sensor = 2;
 };
 
