@@ -221,7 +221,8 @@ bool SceneGame::PreUpdate()
 		IsCannonShown = true;
 		rectSaveLifeR->OpenSavePoint();
 		rectSaveLifeL->OpenSavePoint();
-		player->saveSpring = true;
+		if (player != nullptr) player->saveSpring = true;
+		scoreSystem->AddScore(1000);
 	}
 
 	if (player != nullptr && !player->saveSpring)
@@ -455,6 +456,7 @@ void SceneGame::SecondLayer()
 		physLayer2->setSensor(true);
 	}
 }
+
 void SceneGame::GameOver()
 {
 	if (!gamefinished)
@@ -466,6 +468,7 @@ void SceneGame::GameOver()
 		gamefinished = false;
 	}
 }
+
 void SceneGame::CreateMap()
 {
 	//Map

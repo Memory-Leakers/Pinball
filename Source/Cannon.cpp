@@ -39,6 +39,7 @@ void Cannon::Update()
 	case 2:
 		// Cannon add scale
 		renderObjects[0].scale += 0.002f;
+		renderObjects[0].rotation += 2.88 * 4;
 		if (renderObjects[0].scale >= cannonSize)
 		{
 			renderState++;
