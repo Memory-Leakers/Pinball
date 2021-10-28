@@ -21,7 +21,15 @@
 bool SceneGame::Start()
 {
 	_app->gameOver = false;
-
+	
+	// Set audio
+	_app->audio->PlayMusic("Assets/Audio/BGMusic.mp3", 0);
+	
+	_app->audio->LoadFx("Assets/Audio/Boing.wav");
+	_app->audio->LoadFx("Assets/Audio/TriangleBoing.wav");
+	_app->audio->LoadFx("Assets/Audio/PickCoin.wav");
+	
+	
 	// Create Map
 	CreateMap();
 
@@ -415,6 +423,8 @@ bool SceneGame::CleanUp()
 	DeleteMap();
 
 	scoreSystem->Release();
+
+	_app->audio->UnLoadFxs();
 
 	if(coinsManager != nullptr)
 	{

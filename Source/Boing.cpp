@@ -57,6 +57,8 @@ void Boing::OnCollision(PhysBody* col)
 			renderObjects[0].section->x = 120;
 		}
 
+		_app->audio->PlayFx(1);
+
 	}
 }
 

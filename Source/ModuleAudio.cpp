@@ -163,3 +163,15 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void ModuleAudio::UnLoadFxs()
+{
+	p2List_item<Mix_Chunk*>* item;
+
+	for (item = fx.getFirst(); item != NULL; item = item->next)
+	{
+		Mix_FreeChunk(item->data);
+	}
+
+	fx.clear();
+}

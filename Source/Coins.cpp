@@ -37,6 +37,7 @@ void Coins::OnCollision(PhysBody* col)
 	if (!colSwitch) return;
 	if (col->gameObject->CompareTag("Player"))
 	{
+		_app->audio->PlayFx(3);
 		pendingToDelete = true;
 	}
 }

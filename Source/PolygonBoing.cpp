@@ -131,15 +131,19 @@ void PolygonBoing::OnCollision(PhysBody* col)
 	{
 		count = 0.1f * FPS;
 
+		
+
 		if (renderObjects[0].section != nullptr)
 		{
 			if(pBody->gameObject->CompareTag("TriangularBoing"))
 			{
 				renderObjects[0].section->y = 462;
+				_app->audio->PlayFx(2);
 			}
 			else
 			{
 				renderObjects[0].section->x = 180;
+				_app->audio->PlayFx(1);
 			}
 		}
 	}
