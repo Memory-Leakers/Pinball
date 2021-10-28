@@ -123,6 +123,7 @@ public:
     PhysBody* smDivider2M;
 
     PhysBody* pm;
+    PhysBody* treeWall;
 
     //Cannon
     bool gamefinished = false;

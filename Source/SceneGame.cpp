@@ -731,6 +731,12 @@ void SceneGame::CreateMap()
 		131, 528,
 		139, 540
 	};
+	int TREEWALL[8] = {
+		159, 119,
+		159, 83,
+		193, 83,
+		195, 119
+	};
 
 	bg1 = _app->physics->CreateChainObj(0, 0, BG, 110, true);
 	bg1->body->SetType(b2BodyType::b2_staticBody);
@@ -761,6 +767,9 @@ void SceneGame::CreateMap()
 
 	flWallLeft = _app->physics->CreateChainObj(0, 0, FLWALLLEFT, 14, false);
 	flWallLeft->body->SetType(b2BodyType::b2_staticBody);
+
+	treeWall = _app->physics->CreateChainObj(0, 0, TREEWALL, 8, false);
+	treeWall->body->SetType(b2BodyType::b2_staticBody);
 
 	// Boing
 
@@ -895,4 +904,6 @@ void SceneGame::DeleteMap()
 	flWallRight = nullptr;
 	delete flWallLeft;
 	flWallLeft = nullptr;
+	delete treeWall;
+	treeWall = nullptr;
 }
