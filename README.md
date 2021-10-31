@@ -12,7 +12,7 @@ Z/Left arrow: Left Flipper
 
 X/Right arrow: Right Flipper
 
-Hold and Release SpaceBar: Throw Ball.
+Hold and Release SpaceBar: Shoot ball. Use it in the Cannon too.
 
 D: Toggle Debug mode
 
