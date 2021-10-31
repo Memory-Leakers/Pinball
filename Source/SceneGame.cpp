@@ -30,6 +30,18 @@ bool SceneGame::Start()
 	_app->audio->LoadFx("Assets/Audio/Boing.wav");
 	_app->audio->LoadFx("Assets/Audio/TriangleBoing.wav");
 	_app->audio->LoadFx("Assets/Audio/PickCoin.wav");
+	cannonInSfx = _app->audio->LoadFx("Assets/Audio/CannonIn.wav");
+	cannonShootSfx = _app->audio->LoadFx("Assets/Audio/CannonShoot.wav");
+	teleportSfx = _app->audio->LoadFx("Assets/Audio/Teleport.wav");
+
+	_app->audio->LoadFx("Assets/Audio/SensorCannon1.wav");
+	_app->audio->LoadFx("Assets/Audio/SensorCannon2.wav");
+	_app->audio->LoadFx("Assets/Audio/SensorCannon3.wav");
+
+	_app->audio->LoadFx("Assets/Audio/BossHit1.wav");
+	_app->audio->LoadFx("Assets/Audio/BossHit2.wav");
+
+	_app->audio->LoadFx("Assets/Audio/Spring.wav");
 	
 	Mix_Volume(-1, 40);
 	
@@ -204,6 +216,10 @@ bool SceneGame::PreUpdate()
 			tpX = 535;
 			tpY = 780;
 		}
+		else 
+		{
+			_app->audio->PlayFx(teleportSfx);
+		}
 
 		player->isTeleporting = false;
 		player->isDeath = false;
@@ -242,8 +258,10 @@ bool SceneGame::PreUpdate()
 	{
 		lifeIcons[i]->section->x = 128;
 	}
-	if (Cannon1->CannonSensor1 && Cannon2->CannonSensor2 && Cannon3->CannonSensor3 && !IsCannonShown )
+	if (Cannon1->isSensorOn1 && Cannon2->isSensorOn2 && Cannon3->isSensorOn3 && !IsCannonShown )
 	{
+		_app->audio->PauseMusic(180);
+		_app->audio->PlayFx(cannonInSfx);
 		cannon->ShowCannon();
 		IsCannonShown = true;
 		rectSaveLifeR->OpenSavePoint();
@@ -338,6 +356,8 @@ bool SceneGame::Update()
 		if (_app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			printf("%f",cannon->renderObjects[0].rotation);
+
+			_app->audio->PlayFx(cannonShootSfx);
 
 			// angle
 			int angle = (int)cannon->renderObjects[0].rotation % 360;
@@ -506,6 +526,8 @@ void SceneGame::SecondLayer()
 void SceneGame::GameOver()
 {
 	gamefinished = true;
+
+	_app->audio->PlayMusic("Assets/Audio/GameOver.mp3", 0);
 
 	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
 	boss->healthBar->healthRect.x = 116;

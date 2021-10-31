@@ -19,17 +19,26 @@ void CannonSensor::OnCollision(PhysBody* col)
 	if (pBody->gameObject->CompareTag("SensorC1"))
 	{
 		renderObjects[0].section->x = 128;
-		CannonSensor1 = true;
+
+		if (!isSensorOn1) _app->audio->PlayFx(7);
+
+		isSensorOn1 = true;
 	}
 	if (pBody->gameObject->CompareTag("SensorC2"))
 	{
 		renderObjects[0].section->x = 128;
-		CannonSensor2 = true;
+
+		if (!isSensorOn2) _app->audio->PlayFx(8);
+
+		isSensorOn2 = true;
 	}
 	if(pBody->gameObject->CompareTag("SensorC3"))
 	{
 		renderObjects[0].section->x = 128;
-		CannonSensor3 = true;
+
+		if (!isSensorOn3) _app->audio->PlayFx(9);
+
+		isSensorOn3 = true;
 	}
 }
 
@@ -38,9 +47,9 @@ void CannonSensor::Reset()
 	
 	renderObjects[0].section->x = 0;
 	
-	CannonSensor1 = false;
-	CannonSensor2 = false;
-	CannonSensor3 = false;
+	isSensorOn1 = false;
+	isSensorOn2 = false;
+	isSensorOn3 = false;
 	
 }
 

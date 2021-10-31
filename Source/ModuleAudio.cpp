@@ -44,6 +44,19 @@ bool ModuleAudio::Init()
 	return ret;
 }
 
+UpdateStatus ModuleAudio::PreUpdate()
+{
+	if (isMusicHalt)
+	{
+		if (--counter <= 0)
+		{
+			Mix_ResumeMusic();
+		}
+	}
+
+	return UpdateStatus::UPDATE_CONTINUE;
+}
+
 // Called before quitting
 bool ModuleAudio::CleanUp()
 {
@@ -174,4 +187,11 @@ void ModuleAudio::UnLoadFxs()
 	}
 
 	fx.clear();
+}
+
+void ModuleAudio::PauseMusic(int frames)
+{
+	Mix_PauseMusic();
+	isMusicHalt = true;
+	counter = frames;
 }

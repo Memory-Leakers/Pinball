@@ -127,6 +127,11 @@ public:
     PhysBody* pm;
     PhysBody* treeWall;
 
+    uint teleportSfx;
+    uint cannonInSfx;
+    uint cannonShootSfx;
+
+
     //Cannon
     bool gamefinished = false;
     bool IsCannonShown = false;

@@ -95,6 +95,9 @@ void Ball::Update()
                 saveSpring = false;
                 impulseForce = impulseForce > 1000 ? 1000 : impulseForce;
             }
+
+            _app->audio->PlayFx(12);
+
             printf("%d\n", impulseForce);
             pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);        
         }
