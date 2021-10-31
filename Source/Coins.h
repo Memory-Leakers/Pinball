@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "ScoreSystem.h"
 
+
 class Coins : public GameObject
 {
 private:

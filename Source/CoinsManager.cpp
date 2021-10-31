@@ -24,13 +24,13 @@ void CoinsManager::PreUpdate()
 		if (coins[i]->pendingToDelete)
 		{
 			coins[i]->pBody->body->SetTransform(b2Vec2(-100, -100), 0);
+
 		}
-		else 
+		else
 		{
 			coins[i]->PreUpdate();
 		}
 	}
-
 	// Coins 2 layer Left
 	for (int i = 0; i < 6; i++)
 	{
@@ -47,7 +47,21 @@ void CoinsManager::PreUpdate()
 			coinsLayer2L[i]->PreUpdate();
 		}
 	}
+	for (int i = 0; i < COINNUM; i++)
+	{
+		if (coinPool[i]->pendingToDelete)
+		{
+			coinPool[i]->pBody->body->SetTransform(b2Vec2(-100, -100), 0);
+		}
+		else
+		{
+			coinPool[i]->PreUpdate();
+
+		}
+	}
+
 }
+
 
 void CoinsManager::Update()
 {
@@ -90,6 +104,45 @@ void CoinsManager::Update()
 			coins[randNum]->pendingToDelete = false;
 		}
 	}
+
+	int currentActiveCoins2 = 0;
+
+	for (int i = 0; i < COINNUM; i++)
+	{
+		if (!coinPool[i]->pendingToDelete)
+		{
+			currentActiveCoins2++;
+		}
+
+		coinPool[i]->Update();
+	}
+
+	if (currentActiveCoins2 < 5)
+	{
+		if (--count <= 0)
+		{
+			int randNum = rand() % 15;
+
+			while (!coinPool[randNum]->pendingToDelete)
+			{
+				randNum = rand() % 15;
+			}
+			int x = 457;
+			int y = 550;
+
+			x += (randNum % COIN_ROW)*25;
+			y += (randNum / COIN_COLUMN) * 25;
+		
+			b2Vec2 pos;
+			pos.x = PIXELS_TO_METER(x);
+			pos.y = PIXELS_TO_METER(y);
+			coinPool[randNum]->pBody->body->SetTransform(pos, 0);
+
+			count = 5 * FPS;
+
+			coinPool[randNum]->pendingToDelete = false;
+		}
+	}
 }
 
 void CoinsManager::PostUpdate()
@@ -98,11 +151,14 @@ void CoinsManager::PostUpdate()
 	{
 		coins[i]->PostUpdate();
 	}
-
 	// Coins 2 layer Left
 	for (int i = 0; i < 6; i++)
 	{
 		coinsLayer2L[i]->PostUpdate();
+	}
+	for (int i = 0; i < COINNUM; i++)
+	{
+		coinPool[i]->PostUpdate();
 	}
 }
 
@@ -115,7 +171,7 @@ void CoinsManager::SpawnLayer2L()
 	for (int i = 0; i < 6; i++)
 	{
 		coinsLayer2L[i]->pendingToDelete = false;
-	}	
+	}
 }
 
 void CoinsManager::DeleteLayer2L()
@@ -123,6 +179,13 @@ void CoinsManager::DeleteLayer2L()
 	for (int i = 0; i < 6; i++)
 	{
 		coinsLayer2L[i]->pendingToDelete = true;
+	}
+}
+void CoinsManager::AddCoins(Coins* coin[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		coinPool[i] = coin[i];
 	}
 }
 
@@ -137,7 +200,9 @@ CoinsManager::~CoinsManager()
 	{
 		RELEASE(coinsLayer2L[i]);
 	}
+
+	for (int i = 0; i < COINNUM; i++)
+	{
+			RELEASE(coinPool[i]);
+	}
 }
-
-
-

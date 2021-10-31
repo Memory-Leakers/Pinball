@@ -172,11 +172,8 @@ bool SceneGame::Start()
 	gameObjects.add(rightKey1);
 	gameObjects.add(rightKey2);
 	gameObjects.add(cannon);
-
-	for (int i = 0; i < COINNUM; i++) //COINS IN SECOND LEVEL
-	{
-		gameObjects.add(physLayer2->coinPool[i]);
-	}
+	
+	coinsManager->AddCoins(physLayer2->coinPool, COINNUM);
 
 	#pragma endregion
 

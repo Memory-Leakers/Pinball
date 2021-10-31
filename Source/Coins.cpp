@@ -1,4 +1,5 @@
 #include "Coins.h"
+#include "PhysLayerR.h"
 
 Coins::Coins(std::string name, std::string tag, Application* _app, iPoint pos) :GameObject(name, tag, _app)
 {
@@ -24,7 +25,6 @@ Coins::Coins(std::string name, std::string tag, Application* _app, iPoint pos) :
 	pBody->body->SetType(b2_kinematicBody);
 
 	scoreInstance = ScoreSystem::Instance(_app);
-
 }
 
 void Coins::PostUpdate()
