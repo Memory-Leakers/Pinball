@@ -10,7 +10,7 @@ Defeat the boss using your ball. Get as many points as you can!
 ## Controls:
 Z/Left arrow: Left Flipper
 
-x/Right arrow: Right Flipper
+X/Right arrow: Right Flipper
 
 D: Toggle Debug mode
 
