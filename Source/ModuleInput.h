@@ -23,7 +23,8 @@ public:
 	~ModuleInput();
 
 	bool Init();
-	UpdateStatus PreUpdate();
+	UpdateStatus PreUpdate() override;
+	UpdateStatus Update() override;
 	bool CleanUp();
 
 	KEY_STATE GetKey(uint id) const
