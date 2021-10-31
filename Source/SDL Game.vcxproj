@@ -37,6 +37,7 @@
     <ClInclude Include="PhysLayerL.h" />
     <ClInclude Include="PhysLayerR.h" />
     <ClInclude Include="RectObsatcle.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneDebug1.h" />
     <ClInclude Include="SceneDebug2.h" />
     <ClInclude Include="SceneDebug3.h" />
@@ -93,6 +94,12 @@
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="PolygonBoing.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pinball.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\Assets\Images\ico\icon.ico" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
@@ -124,6 +131,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\Build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\Build\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Build\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -159,7 +170,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\SDL_mixer\libx86;$(SolutionDir)Source\SDL_image\libx86;$(SolutionDir)Source\SDL\libx86;$(SolutionDir)Source\Box2D\libx86\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

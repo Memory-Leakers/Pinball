@@ -8,10 +8,11 @@ public:
 	b2RevoluteJoint* joint2 = nullptr;
 	int isRight = 1;
 	uint key;
+	uint key2;
 		
 	void Update() override;
 
-	Flipper(std::string name, std::string tag, Application* _app, PhysBody* base, bool isRight, uint key);
+	Flipper(std::string name, std::string tag, Application* _app, PhysBody* base, bool isRight, uint key, uint key2);
 
 	void OnCollision(PhysBody* col) override;
 };

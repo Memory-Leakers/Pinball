@@ -1,9 +1,11 @@
 #include "Flipper.h"
 #include "SceneMain.h"
 
-Flipper::Flipper(std::string name, std::string tag, Application* _app,PhysBody* base, bool isRight,uint key) : GameObject(name, tag, _app)
+Flipper::Flipper(std::string name, std::string tag, Application* _app,PhysBody* base, bool isRight,uint key, uint key2) : GameObject(name, tag, _app)
 {
 	this->key = key;
+	this->key2 = key2;
+
 	SDL_RendererFlip flip;
 	SDL_Rect rect;
 	iPoint anchorA, anchorB, angle;
@@ -58,11 +60,11 @@ Flipper::Flipper(std::string name, std::string tag, Application* _app,PhysBody* 
 
 void Flipper::Update()
 {
-	if (_app->input->GetKey(key) == KEY_REPEAT)
+	if (_app->input->GetKey(key) == KEY_REPEAT || _app->input->GetKey(key2) == KEY_REPEAT)
 	{
 		pBody->body->SetAngularVelocity(1000 * DEGTORAD * isRight);
 	}
-	if (_app->input->GetKey(key) == KEY_UP)
+	if (_app->input->GetKey(key) == KEY_UP || _app->input->GetKey(key2) == KEY_UP)
 	{
 		pBody->body->SetAngularVelocity(-1000 * DEGTORAD* isRight);
 	}

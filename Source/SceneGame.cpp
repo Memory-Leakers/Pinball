@@ -103,9 +103,9 @@ bool SceneGame::Start()
 	boing[5] = new Boing("Boing", "Boing", _app, 247, 338);
 
 	// Flipper
-	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X);
+	flipper_right = new Flipper("Flipper_right", "Flipper", _app, flipper1, true, SDL_SCANCODE_X, SDL_SCANCODE_RIGHT);
 
-	flipper_left = new Flipper("Flipper_left", "Flipper", _app, flipper2, false, SDL_SCANCODE_Z);
+	flipper_left = new Flipper("Flipper_left", "Flipper", _app, flipper2, false, SDL_SCANCODE_Z, SDL_SCANCODE_LEFT);
 
 	// Boss
 	boss = new Boss(100000, "Boss", "Boss", _app);

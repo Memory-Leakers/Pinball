@@ -240,6 +240,9 @@
     <ClInclude Include="RectObsatcle.h">
       <Filter>HeaderFiles\Game\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>SourceFiles\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceFiles">
@@ -299,5 +302,18 @@
     <Filter Include="HeaderFiles\Game\Scenes">
       <UniqueIdentifier>{72fecaea-118d-4695-9a53-e756d79529ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SourceFiles\Resource">
+      <UniqueIdentifier>{fc308a13-a364-4d62-bec3-acac845037df}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\Assets\Images\ico\icon.ico">
+      <Filter>SourceFiles\Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pinball.rc">
+      <Filter>SourceFiles\Resource</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
