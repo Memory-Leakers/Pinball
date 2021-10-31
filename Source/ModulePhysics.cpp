@@ -140,7 +140,6 @@ PhysBody* ModulePhysics::CreateCircleSensor(iPoint pos, int radius)
 	fixture.shape = &shape;
 	fixture.isSensor = true;
 	
-
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
@@ -150,7 +149,6 @@ PhysBody* ModulePhysics::CreateCircleSensor(iPoint pos, int radius)
 	pbody->body->SetUserData(pbody);
 
 	return pbody;
-
 }
 
 PhysBody* ModulePhysics::CreateChainObj(int x, int y, int* points, int size, bool loop)

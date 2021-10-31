@@ -32,7 +32,7 @@ public:
 
 	Timer globalTime;
 
-	bool isDebug = true;
+	bool isDebug = false;
 
 	bool gameOver = false;
 

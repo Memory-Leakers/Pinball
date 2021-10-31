@@ -41,6 +41,7 @@ bool SceneGame::Start()
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
 
+	// Lifes
 	for (int i = 0; i < 3; i++)
 	{
 		lifeIcons[i] = new RenderObject();
@@ -74,7 +75,7 @@ bool SceneGame::Start()
 	coinsManager = new CoinsManager(_app);
 
 	// Ball
-	player = new Ball("Ball", "Player", _app);
+	player = new Ball("Ball", "Player", _app, { 535, 780 }, coinsManager);
 	playerLifes = 3;
 
 	// Cannon
@@ -210,7 +211,7 @@ bool SceneGame::PreUpdate()
 		if (playerLifes)
 		{
 			// Teleport Player
-			Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false);
+			Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false, coinsManager);
 			if (player->pBody->body->GetJointList() != nullptr)
 			{
 				_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
@@ -269,7 +270,7 @@ bool SceneGame::Update()
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
-		Ball* temp = new Ball(*player, b2Vec2(550, 150), true);
+		Ball* temp = new Ball(*player, b2Vec2(550, 150), true, coinsManager);
 		DestroyGameObject(player);
 		player = temp;
 		gameObjects.add(player);
@@ -356,7 +357,7 @@ bool SceneGame::Update()
 			centerCannon.x += offset.x;
 			centerCannon.y += offset.y;
 
-			Ball* temp = new Ball("Ball", "Player", _app, centerCannon);
+			Ball* temp = new Ball("Ball", "Player", _app, centerCannon, coinsManager);
 			player = temp;
 			player->pBody->body->ApplyForceToCenter(b2Vec2(x * cannon->cannonForce, y * cannon->cannonForce), true);
 			gameObjects.add(player);
@@ -381,7 +382,6 @@ bool SceneGame::Update()
 		boss->targetPos.y = player->GetDrawPos().y - boss->GetDrawPos().y;
 		boss->targetPos.Normalize();
 	}
-
 
 	return true;
 }

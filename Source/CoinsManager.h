@@ -14,9 +14,11 @@ private:
 											{144, 511}, {110, 443},			//	Camino al Tocón
 												{277, 454} };				// Debajo de Pared Azul
 
+	iPoint coinSpawnPos2L[6] = { {92,640}, {80,600}, {90,500},{100,530}, {120,550}, {50,530} };
 
 	bool isPosAvailable[MAX_COINS] = { false };
 	Coins* coins[MAX_COINS];
+	Coins* coinsLayer2L[6];
 	Application* app;
 
 	int count = 5 * FPS; // = 15 segundos
@@ -33,6 +35,10 @@ public:
 	void PostUpdate();
 
 	void CleanUp();
+
+	void SpawnLayer2L();
+
+	void DeleteLayer2L();
 
 };
 
