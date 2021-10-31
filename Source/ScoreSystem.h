@@ -2,7 +2,6 @@
 
 #include "Application.h"
 
-
 class ScoreSystem
 {
 private:
@@ -29,14 +28,11 @@ private:
 	bool resettingCombo = false;
 	int nextCombo;
 
-
-
 public:
 
 	static ScoreSystem* Instance(Application* _app);
 	static void Release();
 
-	
 	void Update();
 
 	void AddScore(int score, iPoint pos = {-100, -100});

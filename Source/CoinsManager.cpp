@@ -9,6 +9,12 @@ CoinsManager::CoinsManager(Application* _app)
 		coins[i] = new Coins("Coin", "Coin", app, coinSpawnPos[i]);
 		isPosAvailable[i] = false;
 	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		coinsLayer2L[i] = new Coins("Coin", "Coin", app, iPoint(-100, -100));
+		coinsLayer2L[i]->pendingToDelete = true;
+	}
 }
 
 void CoinsManager::PreUpdate()
@@ -22,6 +28,23 @@ void CoinsManager::PreUpdate()
 		else 
 		{
 			coins[i]->PreUpdate();
+		}
+	}
+
+	// Coins 2 layer Left
+	for (int i = 0; i < 6; i++)
+	{
+		if (coinsLayer2L[i]->pendingToDelete)
+		{
+			coinsLayer2L[i]->pBody->body->SetTransform(b2Vec2(PIXELS_TO_METER(-100), PIXELS_TO_METER(-100)), 0);
+		}
+		else
+		{
+			b2Vec2 pos;
+			pos.x = PIXELS_TO_METER(coinSpawnPos2L[i].x);
+			pos.y = PIXELS_TO_METER(coinSpawnPos2L[i].y);
+			coinsLayer2L[i]->pBody->body->SetTransform(pos, 0);
+			coinsLayer2L[i]->PreUpdate();
 		}
 	}
 }
@@ -38,6 +61,12 @@ void CoinsManager::Update()
 		}
 
 		coins[i]->Update();
+	}
+
+	// Coins 2 layer Left
+	for (int i = 0; i < 6; i++)
+	{
+		coinsLayer2L[i]->Update();
 	}
 
 	if (currentActiveCoins < 5)
@@ -59,10 +88,7 @@ void CoinsManager::Update()
 			count = 5 * FPS;
 
 			coins[randNum]->pendingToDelete = false;
-
 		}
-
-
 	}
 }
 
@@ -72,21 +98,44 @@ void CoinsManager::PostUpdate()
 	{
 		coins[i]->PostUpdate();
 	}
+
+	// Coins 2 layer Left
+	for (int i = 0; i < 6; i++)
+	{
+		coinsLayer2L[i]->PostUpdate();
+	}
 }
 
 void CoinsManager::CleanUp()
 {
 }
 
+void CoinsManager::SpawnLayer2L()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		coinsLayer2L[i]->pendingToDelete = false;
+	}	
+}
+
+void CoinsManager::DeleteLayer2L()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		coinsLayer2L[i]->pendingToDelete = true;
+	}
+}
+
 CoinsManager::~CoinsManager()
 {
 	for (int i = 0; i < MAX_COINS; i++)
 	{
-		if (coins[i] != nullptr)
-		{
-			delete coins[i];
-			coins[i] = nullptr;
-		}
+		RELEASE(coins[i]);
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		RELEASE(coinsLayer2L[i]);
 	}
 }
 

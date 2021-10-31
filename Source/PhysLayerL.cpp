@@ -1,5 +1,6 @@
 #include "PhysLayerL.h"
 #include "Boing.h"
+#include "Coins.h"
 
 PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :GameObject(name, tag, _app)
 {
@@ -51,7 +52,6 @@ PhysLayerL::PhysLayerL(std::string name, std::string tag, Application* _app) :Ga
 	renderObjects[1].orderInLayer = 0.5f;
 	renderObjects[1].rotationEnabled = false;
 	renderObjects[1].section = new SDL_Rect{ 0, 0, 152, 236 };
-
 	
 	pBody = _app->physics->CreateChainObj(12, 438, POINTS, 66, false);
 	pBody->body->SetType(b2BodyType::b2_staticBody);

@@ -12,9 +12,9 @@ public:
 
 	void Reset();
 
-	bool CannonSensor1 = false;
-	bool CannonSensor2 = false;
-	bool CannonSensor3 = false;
+	bool isSensorOn1 = false;
+	bool isSensorOn2 = false;
+	bool isSensorOn3 = false;
 
 	void PostUpdate() override;
 

@@ -31,7 +31,7 @@ GameObject::~GameObject()
 		}
 	}
 
-	if(pBody!=nullptr)
+	if (pBody != nullptr)
 	{
 		delete pBody;
 		pBody = nullptr;

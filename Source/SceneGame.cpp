@@ -30,6 +30,18 @@ bool SceneGame::Start()
 	_app->audio->LoadFx("Assets/Audio/Boing.wav");
 	_app->audio->LoadFx("Assets/Audio/TriangleBoing.wav");
 	_app->audio->LoadFx("Assets/Audio/PickCoin.wav");
+	cannonInSfx = _app->audio->LoadFx("Assets/Audio/CannonIn.wav");
+	cannonShootSfx = _app->audio->LoadFx("Assets/Audio/CannonShoot.wav");
+	teleportSfx = _app->audio->LoadFx("Assets/Audio/Teleport.wav");
+
+	_app->audio->LoadFx("Assets/Audio/SensorCannon1.wav");
+	_app->audio->LoadFx("Assets/Audio/SensorCannon2.wav");
+	_app->audio->LoadFx("Assets/Audio/SensorCannon3.wav");
+
+	_app->audio->LoadFx("Assets/Audio/BossHit1.wav");
+	_app->audio->LoadFx("Assets/Audio/BossHit2.wav");
+
+	_app->audio->LoadFx("Assets/Audio/Spring.wav");
 	
 	Mix_Volume(-1, 40);
 	
@@ -41,6 +53,7 @@ bool SceneGame::Start()
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
 
+	// Lifes
 	for (int i = 0; i < 3; i++)
 	{
 		lifeIcons[i] = new RenderObject();
@@ -74,7 +87,7 @@ bool SceneGame::Start()
 	coinsManager = new CoinsManager(_app);
 
 	// Ball
-	player = new Ball("Ball", "Player", _app);
+	player = new Ball("Ball", "Player", _app, { 535, 780 }, coinsManager);
 	playerLifes = 3;
 
 	// Cannon
@@ -203,6 +216,10 @@ bool SceneGame::PreUpdate()
 			tpX = 535;
 			tpY = 780;
 		}
+		else 
+		{
+			_app->audio->PlayFx(teleportSfx);
+		}
 
 		player->isTeleporting = false;
 		player->isDeath = false;
@@ -210,7 +227,7 @@ bool SceneGame::PreUpdate()
 		if (playerLifes)
 		{
 			// Teleport Player
-			Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false);
+			Ball* temp = new Ball(*player, b2Vec2(tpX, tpY), false, coinsManager);
 			if (player->pBody->body->GetJointList() != nullptr)
 			{
 				_app->physics->world->DestroyJoint(player->pBody->body->GetJointList()->joint);
@@ -241,8 +258,10 @@ bool SceneGame::PreUpdate()
 	{
 		lifeIcons[i]->section->x = 128;
 	}
-	if (Cannon1->CannonSensor1 && Cannon2->CannonSensor2 && Cannon3->CannonSensor3 && !IsCannonShown )
+	if (Cannon1->isSensorOn1 && Cannon2->isSensorOn2 && Cannon3->isSensorOn3 && !IsCannonShown )
 	{
+		_app->audio->PauseMusic(180);
+		_app->audio->PlayFx(cannonInSfx);
 		cannon->ShowCannon();
 		IsCannonShown = true;
 		rectSaveLifeR->OpenSavePoint();
@@ -269,7 +288,7 @@ bool SceneGame::Update()
 	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
 		// Teleport Player
-		Ball* temp = new Ball(*player, b2Vec2(550, 150), true);
+		Ball* temp = new Ball(*player, b2Vec2(550, 150), true, coinsManager);
 		DestroyGameObject(player);
 		player = temp;
 		gameObjects.add(player);
@@ -338,6 +357,8 @@ bool SceneGame::Update()
 		{
 			printf("%f",cannon->renderObjects[0].rotation);
 
+			_app->audio->PlayFx(cannonShootSfx);
+
 			// angle
 			int angle = (int)cannon->renderObjects[0].rotation % 360;
 
@@ -356,7 +377,7 @@ bool SceneGame::Update()
 			centerCannon.x += offset.x;
 			centerCannon.y += offset.y;
 
-			Ball* temp = new Ball("Ball", "Player", _app, centerCannon);
+			Ball* temp = new Ball("Ball", "Player", _app, centerCannon, coinsManager);
 			player = temp;
 			player->pBody->body->ApplyForceToCenter(b2Vec2(x * cannon->cannonForce, y * cannon->cannonForce), true);
 			gameObjects.add(player);
@@ -381,7 +402,6 @@ bool SceneGame::Update()
 		boss->targetPos.y = player->GetDrawPos().y - boss->GetDrawPos().y;
 		boss->targetPos.Normalize();
 	}
-
 
 	return true;
 }
@@ -506,6 +526,8 @@ void SceneGame::SecondLayer()
 void SceneGame::GameOver()
 {
 	gamefinished = true;
+
+	_app->audio->PlayMusic("Assets/Audio/GameOver.mp3", 0);
 
 	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
 	boss->healthBar->healthRect.x = 116;

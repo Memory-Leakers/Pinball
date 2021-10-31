@@ -34,6 +34,7 @@ bool Scene::CleanUp()
 	// Clean gameObjects
 	for (int i = 0; i < gameObjects.count(); i++)
 	{
+		if (gameObjects[i] != nullptr)
 		gameObjects[i]->CleanUp();
 	}
 
@@ -59,7 +60,7 @@ void Scene::DestroyGameObject(GameObject* gameObject)
 {
 	if (gameObject == nullptr) return;
 
-	if (gameObject->pBody->body->GetJointList() != nullptr)
+	if (gameObject->pBody != nullptr && gameObject->pBody->body->GetJointList() != nullptr)
 	{
 		_app->physics->world->DestroyJoint(gameObject->pBody->body->GetJointList()->joint);
 	}

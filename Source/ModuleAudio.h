@@ -14,6 +14,7 @@ public:
 	~ModuleAudio();
 
 	bool Init();
+	UpdateStatus PreUpdate() override;
 	bool CleanUp();
 
 	// Play a music file
@@ -27,8 +28,12 @@ public:
 
 	void UnLoadFxs();
 
+	void PauseMusic(int frames);
 
 private:
+
+	bool isMusicHalt;
+	int counter;
 
 	Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;

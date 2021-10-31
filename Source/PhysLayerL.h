@@ -1,6 +1,10 @@
 #pragma once
 #include "GameObject.h"
+#define COINNUM 15
+
 class Boing;
+class Coins;
+
 class PhysLayerL : public GameObject
 {
 public:

@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "ScoreSystem.h"
 
+class CoinsManager;
+
 class Ball :  public GameObject
 {
 private:
@@ -11,11 +13,13 @@ private:
 
 	ScoreSystem* scoreInstance;
 
+	CoinsManager* coinsManager;
+
 public:
 
-	Ball(Ball &ball, b2Vec2 pos, bool getVelocity);
+	Ball(Ball &ball, b2Vec2 pos, bool getVelocity, CoinsManager* coinsManager);
 
-	Ball(std::string name, std::string tag, Application* _app, iPoint initPos = { 535, 780 });
+	Ball(std::string name, std::string tag, Application* _app, iPoint initPos = { 535, 780 }, CoinsManager* coinsManager = nullptr);
 
 	void OnCollision(PhysBody* col) override;
 

@@ -165,7 +165,6 @@ void Boss::OnCollision(PhysBody* col)
 {
 	if (col->gameObject->tag == "Player")
 	{
-
 		_app->ui->CreateUI(scoreInstance->GetScore(), GetDrawPos().x, GetDrawPos().y + 38, 0.6f, 3, 1.1f, true, 120, { 0,-1 });
 
 		health -= scoreInstance->GetScore();
@@ -177,6 +176,10 @@ void Boss::OnCollision(PhysBody* col)
 		{
 			isBeingHit = true;
 		}
+
+		// Audio
+		int i = rand() % 2;
+		_app->audio->PlayFx(10 + i);
 	}
 }
 

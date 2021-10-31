@@ -17,6 +17,7 @@ Coins::Coins(std::string name, std::string tag, Application* _app, iPoint pos) :
 	renderObjects[0].section = new SDL_Rect{ 0, 0, 128, 128 };
 	renderObjects[0].scale = 0.125f;
 	renderObjects[0].layer = 1;
+	renderObjects[0].orderInLayer = 1;
 
 	// PhysBody
 	pBody = _app->physics->CreateCircle(pos.x, pos.y, 8, this, true);

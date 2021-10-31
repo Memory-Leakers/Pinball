@@ -1,6 +1,7 @@
 #include "Ball.h"
+#include "CoinsManager.h"
 
-Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, ball.tag, ball._app)
+Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity, CoinsManager* coinsManager) : GameObject(ball.name, ball.tag, ball._app)
 {
     //Crate Ball RenderObject
     renderObjects[0].texture = _app->textures->Load("Assets/Images/Game/Ball120.png");
@@ -25,13 +26,15 @@ Ball::Ball(Ball& ball, b2Vec2 pos, bool getVelocity) : GameObject(ball.name, bal
     //  Create instance of the Score System
     scoreInstance = ScoreSystem::Instance(_app);
 
+    this->coinsManager = coinsManager;
+
     if (!getVelocity) return;
 
     pBody->body->SetLinearVelocity(ball.pBody->body->GetLinearVelocity());
     pBody->body->SetAngularVelocity(ball.pBody->body->GetAngularVelocity());
 }
 
-Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
+Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos, CoinsManager* coinsManager)
     :GameObject(name,tag,_app)
 {
     //Crate Ball RenderObject
@@ -56,6 +59,8 @@ Ball::Ball(std::string name, std::string tag,Application* _app, iPoint initPos)
 
     //  Create instance of the Score System
     scoreInstance = ScoreSystem::Instance(_app);
+
+    this->coinsManager = coinsManager;
 }
 
 void Ball::Start()
@@ -90,6 +95,9 @@ void Ball::Update()
                 saveSpring = false;
                 impulseForce = impulseForce > 1000 ? 1000 : impulseForce;
             }
+
+            _app->audio->PlayFx(12);
+
             printf("%d\n", impulseForce);
             pBody->body->ApplyForceToCenter(b2Vec2(0, impulseForce), true);        
         }
@@ -163,10 +171,14 @@ void Ball::OnCollision(PhysBody* col)
     if (col->gameObject->CompareTag("UpLayerTrue") || col->gameObject->name == "ChangeLayerSensorUnlockedDoor")
     {
         topLayer = true;
+
+        coinsManager->SpawnLayer2L();
     }
     if (col->gameObject->CompareTag("UpLayerFalse"))
     {
         topLayer = false;
+
+        coinsManager->DeleteLayer2L();
     }
 
     /*//SECOND LAYERS
