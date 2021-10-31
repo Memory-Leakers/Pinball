@@ -12,6 +12,8 @@ Z/Left arrow: Left Flipper
 
 X/Right arrow: Right Flipper
 
+Hold and Release SpaceBar: Throw Ball.
+
 D: Toggle Debug mode
 
 ### On Debug mode
