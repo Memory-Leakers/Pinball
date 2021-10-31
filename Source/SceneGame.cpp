@@ -282,43 +282,24 @@ bool SceneGame::Update()
 	scoreSystem->Update();
 
 	#pragma region Debug Key
-	if (_app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-	{
-		// Teleport Player
-		Ball* temp = new Ball(*player, b2Vec2(550, 150), true, coinsManager);
-		DestroyGameObject(player);
-		player = temp;
-		gameObjects.add(player);
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && DEBUG_VERSION)
-	{
-		bg1->body->GetFixtureList()->SetSensor(!bg1->body->GetFixtureList()->IsSensor());
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT && DEBUG_VERSION)
-	{
-		boss->health -= 1000;
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && DEBUG_VERSION)
-	{
-		boss->health += 1000;
-	}
-	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT && DEBUG_VERSION)
+	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT && _app->isDebug)
 	{
 		scoreSystem->AddCombo(1);
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN && DEBUG_VERSION)
+	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN && _app->isDebug)
 	{
 		scoreSystem->ResetCombo();
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && DEBUG_VERSION)
+	if (_app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && _app->isDebug)
 	{
 		GameOver();
 	}
+	#pragma endregion
+
 	if (_app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && gamefinished)
 	{
-		_app->scene->ChangeCurrentScene(4, 0);
+		_app->scene->ChangeCurrentScene(0, 0);
 	}
-	#pragma endregion
 
 	for (int i = 0; i < gameObjects.count(); i++)
 	{

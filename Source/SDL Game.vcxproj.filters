@@ -73,22 +73,7 @@
     <ClCompile Include="ScoreSystem.cpp">
       <Filter>SourceFiles\Game\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="SceneDebug1.cpp">
-      <Filter>SourceFiles\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDebug2.cpp">
-      <Filter>SourceFiles\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDebug3.cpp">
-      <Filter>SourceFiles\Game\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="SceneGame.cpp">
-      <Filter>SourceFiles\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneIntro.cpp">
-      <Filter>SourceFiles\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMain.cpp">
       <Filter>SourceFiles\Game\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="CoinsManager.cpp">

@@ -1,10 +1,5 @@
 #include "ModuleScene.h"
 #include <time.h>
-#include "SceneIntro.h"
-#include "SceneMain.h"
-#include "SceneDebug1.h"
-#include "SceneDebug2.h"
-#include "SceneDebug3.h"
 #include "SceneGame.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -17,11 +12,7 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Start()
 {
-	scenes[0] = new SceneDebug1(App);
-	scenes[1] = new SceneDebug2(App);
-	scenes[2] = new SceneDebug3(App);
-	scenes[3] = new SceneMain(App);
-	scenes[4] = new SceneGame(App);
+	scenes[0] = new SceneGame(App);
 
 	currentScene = scenes[index];
 
@@ -51,27 +42,11 @@ UpdateStatus ModuleScene::PreUpdate()
 
 UpdateStatus ModuleScene::Update()
 {
-	if (DEBUG_VERSION)
+	if (App->isDebug)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		{
-			ChangeCurrentScene(0, 0);
-		}
-		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		{
-			ChangeCurrentScene(1, 0);
-		}
-		if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		{
-			ChangeCurrentScene(2, 0);
-		}
-		if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-		{
-			ChangeCurrentScene(3, 0);
-		}
 		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		{
-			ChangeCurrentScene(4, 0);
+			ChangeCurrentScene(0, 0);
 		}
 	}
 

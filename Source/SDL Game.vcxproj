@@ -80,15 +80,10 @@
     <ClCompile Include="PhysLayerL.cpp" />
     <ClCompile Include="PhysLayerR.cpp" />
     <ClCompile Include="RectObsatcle.cpp" />
-    <ClCompile Include="SceneDebug1.cpp" />
-    <ClCompile Include="SceneDebug2.cpp" />
-    <ClCompile Include="SceneDebug3.cpp" />
     <ClCompile Include="SceneGame.cpp" />
-    <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="ScoreSystem.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="Spring.cpp" />
