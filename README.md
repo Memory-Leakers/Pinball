@@ -9,15 +9,20 @@ Defeat the boss using your ball. Get as many points as you can!
 
 ## Controls:
 z/Left arrow: Left Flipper
+
 x/Right arrow: Right Flipper
 
 D: Toggle Debug mode
 
 ### On Debug mode
 I:Activate Bomb
+
 C:Add Combo
+
 V:Reset Combo
+
 L:Instant loss
+
 F5: Re-Charge Scene
 
 ## Developers:
