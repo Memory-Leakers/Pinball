@@ -117,7 +117,7 @@ void CoinsManager::Update()
 		coinPool[i]->Update();
 	}
 
-	if (currentActiveCoins2 < 5)
+	if (currentActiveCoins2 < 10)
 	{
 		if (--count <= 0)
 		{
@@ -130,15 +130,15 @@ void CoinsManager::Update()
 			int x = 457;
 			int y = 550;
 
-			x += (randNum % COIN_ROW)*25;
-			y += (randNum / COIN_COLUMN) * 25;
+			x += (randNum % COIN_COLUMN)*25;
+			y += (randNum / COIN_ROW) * 25;
 		
 			b2Vec2 pos;
 			pos.x = PIXELS_TO_METER(x);
 			pos.y = PIXELS_TO_METER(y);
 			coinPool[randNum]->pBody->body->SetTransform(pos, 0);
 
-			count = 5 * FPS;
+			count = 3 * FPS;
 
 			coinPool[randNum]->pendingToDelete = false;
 		}
@@ -203,6 +203,6 @@ CoinsManager::~CoinsManager()
 
 	for (int i = 0; i < COINNUM; i++)
 	{
-			RELEASE(coinPool[i]);
+		RELEASE(coinPool[i]);
 	}
 }

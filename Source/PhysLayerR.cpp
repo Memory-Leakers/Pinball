@@ -86,7 +86,7 @@ PhysLayerR::PhysLayerR(std::string name, std::string tag, Application* _app) :Ga
 	boing2->layer = 2;
 	boing3 = new Boing("Boing", "BoingRight", _app, 555, 606, 9);
 	boing3->layer = 2;
-	coinmanagement = new CoinsManager(_app);
+	
 	
 }
 

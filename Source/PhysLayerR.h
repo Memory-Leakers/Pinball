@@ -24,8 +24,6 @@ public:
 
 	Coins* coinPool[COINNUM];
 
-	CoinsManager* coinmanagement = nullptr;
-
 	Boing* boing2;
 	Boing* boing3;
 
