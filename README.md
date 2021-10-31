@@ -8,7 +8,7 @@ Small Pinball game made by students. Made using Visual Studio 2019, SDL library 
 Defeat the boss using your ball. Get as many points as you can!
 
 ## Controls:
-z/Left arrow: Left Flipper
+Z/Left arrow: Left Flipper
 
 x/Right arrow: Right Flipper
 
