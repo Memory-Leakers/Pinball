@@ -90,7 +90,7 @@ PhysLayerR::PhysLayerR(std::string name, std::string tag, Application* _app) :Ga
 
 void PhysLayerR::Update()
 {
-	if (_app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	if (_app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN && DEBUG_VERSION)
 	{
 		showBG = !showBG;
 		if (timeCount == 0)

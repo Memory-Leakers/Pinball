@@ -22,7 +22,7 @@ void Cannon::Update()
 {
 	//renderObjects[0].rotation += 2;
 
-	if (_app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)renderState = 1;
+	if (_app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && DEBUG_VERSION)renderState = 1;
 	
 	switch (renderState)
 	{

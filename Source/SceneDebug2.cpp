@@ -15,7 +15,7 @@ bool SceneDebug2::Start()
 
 bool SceneDebug2::Update()
 {
-	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && DEBUG_VERSION)
 	{
 		currentScore++;
 		_app->ui->uiArray[uis[0]]->ChangeUI(currentScore);

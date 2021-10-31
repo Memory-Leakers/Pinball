@@ -274,27 +274,27 @@ bool SceneGame::Update()
 		player = temp;
 		gameObjects.add(player);
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (_app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && DEBUG_VERSION)
 	{
 		bg1->body->GetFixtureList()->SetSensor(!bg1->body->GetFixtureList()->IsSensor());
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
+	if (_app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT && DEBUG_VERSION)
 	{
 		boss->health -= 1000;
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	if (_app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && DEBUG_VERSION)
 	{
 		boss->health += 1000;
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+	if (_app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT && DEBUG_VERSION)
 	{
 		scoreSystem->AddCombo(1);
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	if (_app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN && DEBUG_VERSION)
 	{
 		scoreSystem->ResetCombo();
 	}
-	if (_app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (_app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && DEBUG_VERSION)
 	{
 		GameOver();
 	}
