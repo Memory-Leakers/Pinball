@@ -79,35 +79,41 @@ UpdateStatus Application::Update()
 	globalTime.Update();
 	p2List_item<Module*>* item = list_modules.getFirst();
 
-	if (globalTime.getDeltaTime() >= 1.0f / FPS)
+
+	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
-		while (item != NULL && ret == UPDATE_CONTINUE)
-		{
-			if (item->data->IsEnabled())
-				ret = item->data->PreUpdate();
-			item = item->next;
-		}
-
-		item = list_modules.getFirst();
-
-		while (item != NULL && ret == UPDATE_CONTINUE)
-		{
-			if (item->data->IsEnabled())
-				ret = item->data->Update();
-			item = item->next;
-		}
-
-		item = list_modules.getFirst();
-
-		while (item != NULL && ret == UPDATE_CONTINUE)
-		{
-			if (item->data->IsEnabled())
-				ret = item->data->PostUpdate();
-			item = item->next;
-		}
-
-		globalTime.Reset();
+		if (item->data->IsEnabled())
+			ret = item->data->PreUpdate();
+		item = item->next;
 	}
+
+	item = list_modules.getFirst();
+
+	while (item != NULL && ret == UPDATE_CONTINUE)
+	{
+		if (item->data->IsEnabled())
+			ret = item->data->Update();
+		item = item->next;
+	}
+
+	item = list_modules.getFirst();
+
+	while (item != NULL && ret == UPDATE_CONTINUE)
+	{
+		if (item->data->IsEnabled())
+			ret = item->data->PostUpdate();
+		item = item->next;
+	}
+
+	deltaTime = globalTime.getDeltaTime();
+
+	if (deltaTime <= FRAME_TIME)
+	{
+		sleepTime = (FRAME_TIME - deltaTime)* 1000;
+		Sleep(sleepTime);
+	}
+
+	globalTime.Reset();
 
 	return ret;
 }

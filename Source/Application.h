@@ -16,6 +16,7 @@
 #include "Timer.h"
 
 #define FPS 75
+#define FRAME_TIME (1.0/FPS)
 
 class Application
 {
@@ -35,6 +36,7 @@ public:
 	bool isDebug = DEBUG_VERSION;
 
 	bool gameOver = false;
+	bool win = false;
 
 private:
 
@@ -54,4 +56,6 @@ public:
 private:
 
 	void AddModule(Module* mod);
+
+	float deltaTime, sleepTime;
 };

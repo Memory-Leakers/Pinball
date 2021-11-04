@@ -46,6 +46,8 @@ public:
 
     void GameOver();
 
+    void WinGame();
+
 public:
 
     uint uis[3];
@@ -103,6 +105,7 @@ public:
 
     SDL_Texture* gameover;
     SDL_Texture* lifes;
+    SDL_Texture* win;
     
     RenderObject* lifeIcons[3];
 
@@ -131,8 +134,9 @@ public:
     uint cannonInSfx;
     uint cannonShootSfx;
 
-
-    //Cannon
-    bool gamefinished = false;
+    bool isGameOver = false;
+    bool isWin = false;
     bool IsCannonShown = false;
+
+    int winImageY = 900;
 };

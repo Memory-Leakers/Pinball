@@ -122,7 +122,7 @@ UpdateStatus ModuleRender::PostUpdate()
 	}
 
 	// Draw edges
-	if (!App->gameOver)
+	if (!App->gameOver && !App->win)
 	{
 		App->physics->ShapesRender();
 	}

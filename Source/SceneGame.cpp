@@ -21,7 +21,15 @@
 bool SceneGame::Start()
 {
 	_app->gameOver = false;
-	
+	IsCannonShown = false;
+	_app->win = false;
+	winImageY = 900;
+
+	if (_app->physics->GetPause())
+	{
+		_app->physics->Pause();
+	}
+
 	// Set audio
 	_app->audio->PlayMusic("Assets/Audio/BGMusic.mp3", 0);
 
@@ -52,6 +60,7 @@ bool SceneGame::Start()
 	fg = _app->textures->Load("Assets/Images/Game/FG.png");
 	gameover = _app->textures->Load("Assets/Images/Game/GameOver.png");
 	lifes = _app->textures->Load("Assets/Images/Game/Life_icon.png");
+	win = _app->textures->Load("Assets/Images/Game/Win.png");
 
 	// Lifes
 	for (int i = 0; i < 3; i++)
@@ -180,7 +189,7 @@ bool SceneGame::Start()
 	// UI
 	scoreSystem = ScoreSystem::Instance(_app);
 
-	gamefinished = false;
+	isGameOver = false;
 
 	return true;
 }
@@ -250,7 +259,7 @@ bool SceneGame::PreUpdate()
 
 	// Life icons logic
 	
-	if (gamefinished) return true;
+	if (isGameOver) return true;
 	for (int i = 2; i >= playerLifes; i--)
 	{
 		lifeIcons[i]->section->x = 128;
@@ -271,6 +280,11 @@ bool SceneGame::PreUpdate()
 	{
 		rectSaveLifeR->CloseSavePoint();
 		rectSaveLifeL->CloseSavePoint();
+	}
+
+	if (boss->health <= 0 && !_app->win)
+	{
+		WinGame();
 	}
 
 	return true;
@@ -296,7 +310,7 @@ bool SceneGame::Update()
 	}
 	#pragma endregion
 
-	if (_app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && gamefinished)
+	if (_app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && (isGameOver || _app->win))
 	{
 		_app->scene->ChangeCurrentScene(0, 0);
 	}
@@ -346,12 +360,12 @@ bool SceneGame::Update()
 
 			// center cannon
 			iPoint centerCannon;
-			centerCannon.x = cannon->GetDrawPos().x;
-			centerCannon.y = cannon->GetDrawPos().y;
-			centerCannon.x = centerCannon.x + 128 * cannon->cannonSize - (128 * cannon->renderObjects[0].scale);
-			centerCannon.y = centerCannon.y + 128 * cannon->cannonSize - (128 * cannon->renderObjects[0].scale);
+			centerCannon.x = METERS_TO_PIXELS(cannon->pBody->body->GetPosition().x);
+			centerCannon.y = METERS_TO_PIXELS(cannon->pBody->body->GetPosition().y);
+		/*	centerCannon.x = centerCannon.x + 128 * cannon->cannonSize - (128 * cannon->renderObjects[0].scale);
+			centerCannon.y = centerCannon.y + 128 * cannon->cannonSize - (128 * cannon->renderObjects[0].scale);*/
 
-			fPoint offset = { 16 * x, 16 * y };
+			fPoint offset = {x*64, y*64 };
 			centerCannon.x += offset.x;
 			centerCannon.y += offset.y;
 
@@ -386,7 +400,7 @@ bool SceneGame::Update()
 
 bool SceneGame::PostUpdate()
 {
-	if(!gamefinished)
+	if(!isGameOver)
 	{
 		// BackGround
 		_app->renderer->AddTextureRenderQueue(bg, { 0,0 }, nullptr, 1.0f, 0, 1.0f);
@@ -411,12 +425,22 @@ bool SceneGame::PostUpdate()
 
 		// Coins Manager
 		coinsManager->PostUpdate();
+
+
+		if (_app->win)
+		{
+			winImageY -= winImageY > 0 ? 5 : 0;
+
+			_app->renderer->AddTextureRenderQueue(win, iPoint(0, winImageY), NULL, 1.0f, 3);
+		}
+
 	}
 	else
 	{
 		_app->gameOver = true;
 		_app->renderer->AddTextureRenderQueue(gameover, { 0,0 }, nullptr, 1.0f, 3, 1.0f);
 		boss->PostUpdate();
+		
 	}
 
 	return true;
@@ -501,9 +525,19 @@ void SceneGame::SecondLayer()
 	}
 }
 
+void SceneGame::WinGame()
+{
+	_app->win = true;
+
+	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
+
+	_app->physics->Pause();
+
+}
+
 void SceneGame::GameOver()
 {
-	gamefinished = true;
+	isGameOver = true;
 
 	_app->audio->PlayMusic("Assets/Audio/GameOver.mp3", 0);
 
