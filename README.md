@@ -1,6 +1,7 @@
 # PinBoss
  
  Link to the release: https://github.com/Memory-Leakers/Pinball/releases/tag/v1.0
+ Link to itch.io: https://memory-leakers.itch.io/pinboss
  
 ## Description:
 Small Pinball game made by students. Made using Visual Studio 2019, SDL library and Box2D library.
