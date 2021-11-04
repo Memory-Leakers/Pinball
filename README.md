@@ -17,6 +17,8 @@ X/Right arrow: Right Flipper
 
 Hold and Release SpaceBar: Shoot ball. Use it in the Cannon too.
 
+F: Shakey-shakey ball (in case you get stuck)
+
 D: Toggle Debug mode
 
 ### On Debug mode
@@ -37,7 +39,7 @@ F5: Re-Charge Scene
 * [AdriaSeSa](https://github.com/AdriaSeSa) 
 
 ## Assets:
-Hand-Made
+Sprites: Hand-Made
 
 ## License:
 This project is licensed under an unmodifield MIT licence, which is an OSI-certifield license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
