@@ -139,4 +139,6 @@ public:
     bool IsCannonShown = false;
 
     int winImageY = 900;
+    int winScoreY = 1300;
+    uint winScore;
 };

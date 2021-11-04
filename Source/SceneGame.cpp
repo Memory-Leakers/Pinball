@@ -24,6 +24,7 @@ bool SceneGame::Start()
 	IsCannonShown = false;
 	_app->win = false;
 	winImageY = 900;
+	winScoreY = 1300;
 
 	if (_app->physics->GetPause())
 	{
@@ -33,7 +34,7 @@ bool SceneGame::Start()
 	// Set audio
 	_app->audio->PlayMusic("Assets/Audio/BGMusic.mp3", 0);
 
-	Mix_VolumeMusic(10);
+	Mix_VolumeMusic(50);
 	
 	_app->audio->LoadFx("Assets/Audio/Boing.wav");
 	_app->audio->LoadFx("Assets/Audio/TriangleBoing.wav");
@@ -50,6 +51,8 @@ bool SceneGame::Start()
 	_app->audio->LoadFx("Assets/Audio/BossHit2.wav");
 
 	_app->audio->LoadFx("Assets/Audio/Spring.wav");
+
+	_app->audio->LoadFx("Assets/Audio/Cheers.wav");
 	
 	Mix_Volume(-1, 40);
 	
@@ -431,6 +434,10 @@ bool SceneGame::PostUpdate()
 		{
 			winImageY -= winImageY > 0 ? 5 : 0;
 
+			winScoreY -= winScoreY > 400 ? 5 : 0;
+
+
+			_app->ui->uiArray[winScore]->y = winScoreY;
 			_app->renderer->AddTextureRenderQueue(win, iPoint(0, winImageY), NULL, 1.0f, 3);
 		}
 
@@ -529,7 +536,9 @@ void SceneGame::WinGame()
 {
 	_app->win = true;
 
-	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
+	_app->audio->PlayMusic("Assets/Audio/WinMusic.mp3", 0);
+	_app->audio->PlayFx(13);
+	winScore = _app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
 
 	_app->physics->Pause();
 
@@ -541,7 +550,7 @@ void SceneGame::GameOver()
 
 	_app->audio->PlayMusic("Assets/Audio/GameOver.mp3", 0);
 
-	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
+	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, winScoreY, 1.0f, 3, 1.1f);
 	boss->healthBar->healthRect.x = 116;
 	boss->healthBar->healthRect.y = 608;
 	boss->healthBar->totalHealthW = 367;
