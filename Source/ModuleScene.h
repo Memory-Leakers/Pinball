@@ -44,7 +44,9 @@ public:
 
 public:
 
-	int index = 0;
+	int index = 1;
+
+	int currentDifficulty = 1;
 
 	Scene* currentScene = nullptr;
 

@@ -120,7 +120,7 @@ bool SceneGame::Start()
 	flipper_left = new Flipper("Flipper_left", "Flipper", _app, flipper2, false, SDL_SCANCODE_Z, SDL_SCANCODE_LEFT);
 
 	// Boss
-	boss = new Boss(100000, "Boss", "Boss", _app);
+	boss = new Boss(50000 * _app->scene->currentDifficulty, "Boss", "Boss", _app);
 
 	// Rect save life
 	rectSaveLifeR = new RectObstacle("RectSaveLifeR", "RectSaveLife", _app, 488, 800, -30);
@@ -315,7 +315,9 @@ bool SceneGame::Update()
 
 	if (_app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && (isGameOver || _app->win))
 	{
-		_app->scene->ChangeCurrentScene(0, 0);
+		Mix_HaltMusic();
+		_app->scene->ChangeCurrentScene(1, 0);
+		return true;
 	}
 
 	for (int i = 0; i < gameObjects.count(); i++)
@@ -538,7 +540,7 @@ void SceneGame::WinGame()
 
 	_app->audio->PlayMusic("Assets/Audio/WinMusic.mp3", 0);
 	_app->audio->PlayFx(13);
-	winScore = _app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 1.1f);
+	winScore = _app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, winScoreY, 1.0f, 3, 1.1f);
 
 	_app->physics->Pause();
 
@@ -550,7 +552,7 @@ void SceneGame::GameOver()
 
 	_app->audio->PlayMusic("Assets/Audio/GameOver.mp3", 0);
 
-	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, winScoreY, 1.0f, 3, 1.1f);
+	_app->ui->CreateUI(scoreSystem->GetTotalScore(), 220, 400, 1.0f, 3, 100.1f);
 	boss->healthBar->healthRect.x = 116;
 	boss->healthBar->healthRect.y = 608;
 	boss->healthBar->totalHealthW = 367;

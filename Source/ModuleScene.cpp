@@ -1,6 +1,7 @@
 #include "ModuleScene.h"
 #include <time.h>
 #include "SceneGame.h"
+#include "SceneMainMenu.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -13,6 +14,7 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Start()
 {
 	scenes[0] = new SceneGame(App);
+	scenes[1] = new SceneMainMenu(App);
 
 	currentScene = scenes[index];
 

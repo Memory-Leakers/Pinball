@@ -69,7 +69,7 @@ void CoinsManager::Update()
 
 	for (int i = 0; i < MAX_COINS; i++)
 	{
-		if (!coins[i]->pendingToDelete)
+		if ( coins[i] != nullptr && !coins[i]->pendingToDelete)
 		{
 			currentActiveCoins++;
 		}
