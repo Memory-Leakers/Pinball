@@ -146,8 +146,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\SDL_mixer\libx86;$(SolutionDir)Source\SDL_image\libx86;$(SolutionDir)Source\SDL\libx86;$(SolutionDir)Source\Box2D\libx86\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;Box2D.lib;OptickCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\SDL_mixer\libx86;$(SolutionDir)Source\SDL_image\libx86;$(SolutionDir)Source\SDL\libx86;$(SolutionDir)Source\Box2D\libx86\Debug;$(SolutionDir)Source\Optick\lib\debug</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

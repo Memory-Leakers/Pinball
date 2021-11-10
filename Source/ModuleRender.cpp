@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "Optick/include/optick.h"
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -70,6 +71,7 @@ UpdateStatus ModuleRender::Update()
 // PostUpdate present buffer to screen
 UpdateStatus ModuleRender::PostUpdate()
 {
+	OPTICK_EVENT();
 	// Sorting layers
 	for (int i = 0; i < layers.size(); i++)
 	{

@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Optick/include/optick.h"
 
 Application::Application()
 {
@@ -75,6 +76,7 @@ bool Application::Init()
 // Call PreUpdate, Update and PostUpdate on all modules
 UpdateStatus Application::Update()
 {
+	OPTICK_EVENT();
 	UpdateStatus ret = UPDATE_CONTINUE;
 	globalTime.Update();
 	p2List_item<Module*>* item = list_modules.getFirst();

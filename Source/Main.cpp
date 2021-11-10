@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "MemLeaks.h"
+#include "Optick/include/optick.h"
 
 #include "SDL/include/SDL.h"
 //#pragma comment( lib, "SDL/libx86/SDL2.lib" )
@@ -55,6 +56,7 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
+			OPTICK_FRAME("Pinball");
 			int update_return = App->Update();
 
 			if (update_return == UPDATE_ERROR)

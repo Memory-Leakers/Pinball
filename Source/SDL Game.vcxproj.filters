@@ -10,9 +10,6 @@
     <ClCompile Include="Log.cpp">
       <Filter>HeaderFiles\Engine\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>HeaderFiles\Engine\Application</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>SourceFiles\Engine\Modules</Filter>
     </ClCompile>
@@ -96,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="SceneMainMenu.cpp">
       <Filter>SourceFiles\Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>SourceFiles\Engine\Application</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
