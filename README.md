@@ -34,10 +34,10 @@ L:Instant loss
 F5: Re-Charge Scene
 
 ## Developers:
-* [Xidashuaige](https://github.com/Xidashuaige) 
-* [MrIllas](https://github.com/MrIllas) 
-* [Loproxi](https://github.com/Loproxi) 
-* [AdriaSeSa](https://github.com/AdriaSeSa) 
+* [Xidashuaige](https://github.com/Xidashuaige) - Zhida Chen
+* [MrIllas](https://github.com/MrIllas) - Robert Recordà
+* [Loproxi](https://github.com/Loproxi) - Pol Rius
+* [AdriaSeSa](https://github.com/AdriaSeSa) -Adrià Sellarés
 
 ## Assets:
 Sprites: Hand-Made
